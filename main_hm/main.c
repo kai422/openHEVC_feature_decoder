@@ -324,8 +324,8 @@ static void video_decode_example(const char *filename)
                     sprintf(filename_x, "/home/kai422/Desktop/hevc_mv/mv_x/%c_%d.pgm", frame_type, file_i);
                     sprintf(filename_y, "/home/kai422/Desktop/hevc_mv/mv_y/%c_%d.pgm", frame_type, file_i);
 
-                    //sprintf(filename_x, "/home/kai422/Desktop/x.pgm", file_i);
-                    //sprintf(filename_y, "/home/kai422/Desktop/y.pgm", file_i);
+                    sprintf(filename_x, "/home/kai422/Desktop/x.pgm", file_i);
+                    sprintf(filename_y, "/home/kai422/Desktop/y.pgm", file_i);
                     SaveAsPGM(filename_x, openHevcFrameCpy.pvMVX,openHevcFrameCpy.frameInfo.nYPitch, openHevcFrameCpy.frameInfo.nHeight);
                     SaveAsPGM(filename_y, openHevcFrameCpy.pvMVY,openHevcFrameCpy.frameInfo.nYPitch, openHevcFrameCpy.frameInfo.nHeight);
                     file_i ++;
