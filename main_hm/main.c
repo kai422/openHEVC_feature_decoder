@@ -81,17 +81,6 @@ typedef struct OpenHevcWrapperContexts {
 } OpenHevcWrapperContexts;
 
 
-void SaveAsPGM(char* strPath, unsigned char * data, int width, int height)
-{
-
-    FILE * fp;
-    fp = fopen(strPath, "wb");
-
-    fprintf(fp,"P5\n%d %d\n255\n",width,height);
-    fwrite(data, width*height * sizeof(unsigned char), 1, fp);
-    fclose(fp);
-
-}
 
 int find_start_code (unsigned char *Buf, int zeros_in_startcode)
 {
@@ -311,24 +300,15 @@ static void video_decode_example(const char *filename)
                 if (fout) {
                     int format = openHevcFrameCpy.frameInfo.chromat_format == YUV420 ? 1 : 0;
                     libOpenHevcGetOutputCpy(openHevcHandle, 1, &openHevcFrameCpy);
+                    fwrite( openHevcFrameCpy.pvMeta , sizeof(uint8_t) , 8192, fout);
+
                     fwrite( openHevcFrameCpy.pvY , sizeof(uint8_t) , openHevcFrameCpy.frameInfo.nYPitch * openHevcFrameCpy.frameInfo.nHeight, fout);
                     fwrite( openHevcFrameCpy.pvU , sizeof(uint8_t) , openHevcFrameCpy.frameInfo.nUPitch * openHevcFrameCpy.frameInfo.nHeight >> format, fout);
                     fwrite( openHevcFrameCpy.pvV , sizeof(uint8_t) , openHevcFrameCpy.frameInfo.nVPitch * openHevcFrameCpy.frameInfo.nHeight >> format, fout);
 
-                    //MvDecoder
-                    char filename_x[40];
-                    char filename_y[40];
-                    char frame_type_list[3] = {'I','P','B'};
-                    uint8_t *frame_type_index = (uint8_t*)openHevcFrameCpy.pvMeta;
-                    char frame_type = frame_type_list[*frame_type_index];
-                    sprintf(filename_x, "/home/kai422/Desktop/hevc_mv/mv_x/%c_%d.pgm", frame_type, file_i);
-                    sprintf(filename_y, "/home/kai422/Desktop/hevc_mv/mv_y/%c_%d.pgm", frame_type, file_i);
+                    fwrite( openHevcFrameCpy.pvMVX , sizeof(uint8_t) , openHevcFrameCpy.frameInfo.nYPitch * openHevcFrameCpy.frameInfo.nHeight, fout);
+                    fwrite( openHevcFrameCpy.pvMVY , sizeof(uint8_t) , openHevcFrameCpy.frameInfo.nYPitch * openHevcFrameCpy.frameInfo.nHeight, fout);
 
-                    sprintf(filename_x, "/home/kai422/Desktop/x.pgm", file_i);
-                    sprintf(filename_y, "/home/kai422/Desktop/y.pgm", file_i);
-                    SaveAsPGM(filename_x, openHevcFrameCpy.pvMVX,openHevcFrameCpy.frameInfo.nYPitch, openHevcFrameCpy.frameInfo.nHeight);
-                    SaveAsPGM(filename_y, openHevcFrameCpy.pvMVY,openHevcFrameCpy.frameInfo.nYPitch, openHevcFrameCpy.frameInfo.nHeight);
-                    file_i ++;
                 }
                 // save as yuv a single frame.
                 nbFrame++;
