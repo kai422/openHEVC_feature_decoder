@@ -196,16 +196,7 @@ static void video_decode_example(const char *filename)
     openHevcFrameCpy.pvMVX = NULL;
     openHevcFrameCpy.pvMVX = NULL;
     openHevcFrameCpy.pvMeta = NULL;
-#if USE_SDL
-    Init_Time();
-    if (frame_rate > 0) {
-        initFramerate_SDL();
-        setFramerate_SDL(frame_rate);
-    }
-#endif
-#ifdef TIME2
-    time_us = GetTimeMs64();
-#endif
+
    
     libOpenHevcSetTemporalLayer_id(openHevcHandle, temporal_layer_id);
     libOpenHevcSetActiveDecoders(openHevcHandle, quality_layer_id);
@@ -219,8 +210,6 @@ static void video_decode_example(const char *filename)
 #endif
     int file_i = 1;
     while(!stop) {
-        if (IsCloseWindowEvent())
-            break;
         if (stop_dec == 0 && av_read_frame(pFormatCtx, &packet)<0) stop_dec = 1;
 #if FRAME_CONCEALMENT
         // Get the corresponding frame in the trace
@@ -258,11 +247,7 @@ static void video_decode_example(const char *filename)
                         sprintf(output_file2, "%s_%dx%d.yuv", output_file, width, height);
                         fout = fopen(output_file2, "wb");
                     }
-#if USE_SDL
-                    if (display_flags == ENABLE) {
-                        Init_SDL((openHevcFrame.frameInfo.nYPitch - openHevcFrame.frameInfo.nWidth)/2, openHevcFrame.frameInfo.nWidth, openHevcFrame.frameInfo.nHeight);
-                    }
-#endif
+
                     if (fout) {
                         int format = openHevcFrameCpy.frameInfo.chromat_format == YUV420 ? 1 : 0;
                         libOpenHevcGetPictureInfo(openHevcHandle, &openHevcFrameCpy.frameInfo);
@@ -284,19 +269,7 @@ static void video_decode_example(const char *filename)
                         openHevcFrameCpy.pvMeta = calloc (8192, sizeof(unsigned char));
                     }
                 }
-#if USE_SDL
-                if (frame_rate > 0) {
-                    framerateDelay_SDL();
-                }                
-                if (display_flags == ENABLE) {
-                    //get decoded frame output from openHevcHandle
-                    libOpenHevcGetOutput(openHevcHandle, 1, &openHevcFrame);
-                    libOpenHevcGetPictureInfo(openHevcHandle, &openHevcFrame.frameInfo);
-                    SDL_Display((openHevcFrame.frameInfo.nYPitch - openHevcFrame.frameInfo.nWidth)/2, openHevcFrame.frameInfo.nWidth, openHevcFrame.frameInfo.nHeight,
-                            openHevcFrame.pvY, openHevcFrame.pvU, openHevcFrame.pvV);
-                }
-                //间距（pitch）
-#endif
+
                 if (fout) {
                     int format = openHevcFrameCpy.frameInfo.chromat_format == YUV420 ? 1 : 0;
                     libOpenHevcGetOutputCpy(openHevcHandle, 1, &openHevcFrameCpy);
@@ -321,13 +294,7 @@ static void video_decode_example(const char *filename)
         }
         av_free_packet(&packet);
     }
-#if USE_SDL
-    time = SDL_GetTime()/1000.0;
-#ifdef TIME2
-    time_us = GetTimeMs64() - time_us;
-#endif
-    CloseSDLDisplay();
-#endif
+
     if (fout) {
         fclose(fout);
         if(openHevcFrameCpy.pvY) {
@@ -338,13 +305,9 @@ static void video_decode_example(const char *filename)
     }
     avformat_close_input(&pFormatCtx);
     libOpenHevcClose(openHevcHandle);
-#if USE_SDL
-#ifdef TIME2
-    printf("frame= %d fps= %.0f time= %ld video_size= %dx%d\n", nbFrame, nbFrame/time, time_us, openHevcFrame.frameInfo.nWidth, openHevcFrame.frameInfo.nHeight);
-#else
+
     printf("frame= %d fps= %.0f time= %.2f video_size= %dx%d\n", nbFrame, nbFrame/time, time, openHevcFrame.frameInfo.nWidth, openHevcFrame.frameInfo.nHeight);
-#endif
-#endif
+
 }
 
 int main(int argc, char *argv[]) {

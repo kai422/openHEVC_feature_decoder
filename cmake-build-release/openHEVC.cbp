@@ -57,6 +57,16 @@
 					<DistClean command="/usr/bin/make -j12 -f &quot;/home/kai422/CLionProjects/openHEVC_MvDecoder/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
+			<Target title="uninstall">
+				<Option working_dir="/home/kai422/CLionProjects/openHEVC_MvDecoder/cmake-build-release"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/kai422/CLionProjects/openHEVC_MvDecoder/cmake-build-release/Makefile&quot;  VERBOSE=1 uninstall"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/kai422/CLionProjects/openHEVC_MvDecoder/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/kai422/CLionProjects/openHEVC_MvDecoder/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/kai422/CLionProjects/openHEVC_MvDecoder/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
 			<Target title="rebuild_cache">
 				<Option working_dir="/home/kai422/CLionProjects/openHEVC_MvDecoder/cmake-build-release"/>
 				<Option type="4"/>
@@ -123,18 +133,8 @@
 					<DistClean command="/usr/bin/make -j12 -f &quot;/home/kai422/CLionProjects/openHEVC_MvDecoder/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="uninstall">
-				<Option working_dir="/home/kai422/CLionProjects/openHEVC_MvDecoder/cmake-build-release"/>
-				<Option type="4"/>
-				<MakeCommands>
-					<Build command="/usr/bin/make -j12 -f &quot;/home/kai422/CLionProjects/openHEVC_MvDecoder/cmake-build-release/Makefile&quot;  VERBOSE=1 uninstall"/>
-					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/kai422/CLionProjects/openHEVC_MvDecoder/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j12 -f &quot;/home/kai422/CLionProjects/openHEVC_MvDecoder/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j12 -f &quot;/home/kai422/CLionProjects/openHEVC_MvDecoder/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
-				</MakeCommands>
-			</Target>
-			<Target title="hevc_sdl2">
-				<Option output="/home/kai422/CLionProjects/openHEVC_MvDecoder/cmake-build-release/hevc_sdl2" prefix_auto="0" extension_auto="0"/>
+			<Target title="hevc_mv_decoder">
+				<Option output="/home/kai422/CLionProjects/openHEVC_MvDecoder/cmake-build-release/hevc_mv_decoder" prefix_auto="0" extension_auto="0"/>
 				<Option working_dir="/home/kai422/CLionProjects/openHEVC_MvDecoder/cmake-build-release"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
@@ -155,14 +155,14 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j12 -f &quot;/home/kai422/CLionProjects/openHEVC_MvDecoder/cmake-build-release/Makefile&quot;  VERBOSE=1 hevc_sdl2"/>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/kai422/CLionProjects/openHEVC_MvDecoder/cmake-build-release/Makefile&quot;  VERBOSE=1 hevc_mv_decoder"/>
 					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/kai422/CLionProjects/openHEVC_MvDecoder/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
 					<Clean command="/usr/bin/make -j12 -f &quot;/home/kai422/CLionProjects/openHEVC_MvDecoder/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
 					<DistClean command="/usr/bin/make -j12 -f &quot;/home/kai422/CLionProjects/openHEVC_MvDecoder/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="hevc_sdl2/fast">
-				<Option output="/home/kai422/CLionProjects/openHEVC_MvDecoder/cmake-build-release/hevc_sdl2" prefix_auto="0" extension_auto="0"/>
+			<Target title="hevc_mv_decoder/fast">
+				<Option output="/home/kai422/CLionProjects/openHEVC_MvDecoder/cmake-build-release/hevc_mv_decoder" prefix_auto="0" extension_auto="0"/>
 				<Option working_dir="/home/kai422/CLionProjects/openHEVC_MvDecoder/cmake-build-release"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
@@ -183,7 +183,7 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j12 -f &quot;/home/kai422/CLionProjects/openHEVC_MvDecoder/cmake-build-release/Makefile&quot;  VERBOSE=1 hevc_sdl2/fast"/>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/kai422/CLionProjects/openHEVC_MvDecoder/cmake-build-release/Makefile&quot;  VERBOSE=1 hevc_mv_decoder/fast"/>
 					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/kai422/CLionProjects/openHEVC_MvDecoder/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
 					<Clean command="/usr/bin/make -j12 -f &quot;/home/kai422/CLionProjects/openHEVC_MvDecoder/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
 					<DistClean command="/usr/bin/make -j12 -f &quot;/home/kai422/CLionProjects/openHEVC_MvDecoder/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
@@ -956,23 +956,14 @@
 		<Unit filename="/home/kai422/CLionProjects/openHEVC_MvDecoder/libavutil/x86/cpu.h">
 			<Option target="LibOpenHevcWrapper"/>
 		</Unit>
-		<Unit filename="/home/kai422/CLionProjects/openHEVC_MvDecoder/main_hm/SDL_framerate.c">
-			<Option target="hevc_sdl2"/>
-		</Unit>
-		<Unit filename="/home/kai422/CLionProjects/openHEVC_MvDecoder/main_hm/SDL_framerate.h">
-			<Option target="hevc_sdl2"/>
-		</Unit>
 		<Unit filename="/home/kai422/CLionProjects/openHEVC_MvDecoder/main_hm/getopt.c">
-			<Option target="hevc_sdl2"/>
+			<Option target="hevc_mv_decoder"/>
 		</Unit>
 		<Unit filename="/home/kai422/CLionProjects/openHEVC_MvDecoder/main_hm/getopt.h">
-			<Option target="hevc_sdl2"/>
+			<Option target="hevc_mv_decoder"/>
 		</Unit>
 		<Unit filename="/home/kai422/CLionProjects/openHEVC_MvDecoder/main_hm/main.c">
-			<Option target="hevc_sdl2"/>
-		</Unit>
-		<Unit filename="/home/kai422/CLionProjects/openHEVC_MvDecoder/main_hm/sdl2.c">
-			<Option target="hevc_sdl2"/>
+			<Option target="hevc_mv_decoder"/>
 		</Unit>
 		<Unit filename="/home/kai422/CLionProjects/openHEVC_MvDecoder/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
