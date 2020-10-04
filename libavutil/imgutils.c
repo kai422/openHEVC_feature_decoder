@@ -85,14 +85,15 @@ int av_image_get_linesize(enum AVPixelFormat pix_fmt, int width, int plane)
     return image_get_linesize(width, plane, max_step[plane], max_step_comp[plane], desc);
 }
 
-int av_image_fill_linesizes(int linesizes[4], enum AVPixelFormat pix_fmt, int width)
+
+int av_image_fill_linesizes(int linesizes[8], enum AVPixelFormat pix_fmt, int width)
 {
     int i, ret;
     const AVPixFmtDescriptor *desc = av_pix_fmt_desc_get(pix_fmt);
     int max_step     [4];       /* max pixel step for each plane */
     int max_step_comp[4];       /* the component for each plane which has the max pixel step */
 
-    memset(linesizes, 0, 4*sizeof(linesizes[0]));
+    memset(linesizes, 0, 8*sizeof(linesizes[0]));
 
     if (!desc || desc->flags & AV_PIX_FMT_FLAG_HWACCEL)
         return AVERROR(EINVAL);
@@ -103,17 +104,20 @@ int av_image_fill_linesizes(int linesizes[4], enum AVPixelFormat pix_fmt, int wi
             return ret;
         linesizes[i] = ret;
     }
+    //MvDecoder linesizes
+    linesizes[3]=linesizes[0];
+    linesizes[4]=linesizes[0];
 
     return 0;
 }
 
-int av_image_fill_pointers(uint8_t *data[4], enum AVPixelFormat pix_fmt, int height,
-                           uint8_t *ptr, const int linesizes[4])
+int av_image_fill_pointers(uint8_t *data[8], enum AVPixelFormat pix_fmt, int height,
+                           uint8_t *ptr, const int linesizes[8])
 {
-    int i, total_size, size[4] = { 0 }, has_plane[4] = { 0 };
+    int i, total_size, size[8] = { 0 }, has_plane[8] = { 0 };
 
     const AVPixFmtDescriptor *desc = av_pix_fmt_desc_get(pix_fmt);
-    memset(data     , 0, sizeof(data[0])*4);
+    memset(data     , 0, sizeof(data[0])*8);
 
     if (!desc || desc->flags & AV_PIX_FMT_FLAG_HWACCEL)
         return AVERROR(EINVAL);
@@ -130,10 +134,10 @@ int av_image_fill_pointers(uint8_t *data[4], enum AVPixelFormat pix_fmt, int hei
         return size[0] + 256 * 4;
     }
 
+
     for (i = 0; i < 4; i++)
         has_plane[desc->comp[i].plane] = 1;
 
-    total_size = size[0];
     for (i = 1; i < 4 && has_plane[i]; i++) {
         int h, s = (i == 1 || i == 2) ? desc->log2_chroma_h : 0;
         data[i] = data[i-1] + size[i-1];
@@ -145,6 +149,10 @@ int av_image_fill_pointers(uint8_t *data[4], enum AVPixelFormat pix_fmt, int hei
             return AVERROR(EINVAL);
         total_size += size[i];
     }
+    //MvDecoder:
+    data[3] = data[2] + size[0];
+    data[4] = data[3] + size[0];
+    data[5] = data[4] + 8192;
 
     return total_size;
 }
