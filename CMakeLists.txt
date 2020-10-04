@@ -160,8 +160,6 @@ AddCompilerFlag("-fno-tree-vectorize" C_FLAGS Vc_ARCHITECTURE_FLAGS)
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${Vc_ARCHITECTURE_FLAGS}")
 #find_package(CRYPTOPP_FOUND)
-find_package(SDL)
-find_package(SDL2)
 
 set(libfilenames
     libavutil/avstring.c
@@ -358,13 +356,13 @@ if(WIN32 OR ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "armv7l"))
 else()
     option (BUILD_SHARED_LIBS "enabled static library instead of shared" OFF)
 endif()
-add_library (LibOpenHevcWrapper ${libfilenames} ${YASM_OBJECTS})
+add_library (OpenHevcMvDecoder ${libfilenames} ${YASM_OBJECTS})
 
 
 if(CRYPTOPP_FOUND)
-target_link_libraries(LibOpenHevcWrapper cryptopp)
+target_link_libraries(OpenHevcMvDecoder cryptopp)
 else()
-target_link_libraries(LibOpenHevcWrapper m)
+target_link_libraries(OpenHevcMvDecoder m)
 endif()
 
 include_directories(. gpac/modules/openhevc_dec/ platform/x86/)
@@ -373,7 +371,7 @@ option(ENABLE_EXECUTABLE "Generate the test application" ON)
 
 if(ENABLE_EXECUTABLE)
 
-    set(LINK_LIBRARIES_LIST LibOpenHevcWrapper)
+    set(LINK_LIBRARIES_LIST OpenHevcMvDecoder)
     set(HEVC_SOURCES_FILES
         main_hm/getopt.c
         main_hm/main.c
@@ -401,7 +399,7 @@ install(FILES
 )
 
 install(
-    TARGETS LibOpenHevcWrapper
+    TARGETS OpenHevcMvDecoder hevc_mv_decoder
     RUNTIME DESTINATION bin
     LIBRARY DESTINATION lib
     ARCHIVE DESTINATION lib
