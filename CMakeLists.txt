@@ -383,9 +383,9 @@ if(ENABLE_EXECUTABLE)
 
 
     # Build executable
-    add_executable(hevc_mv_decoder ${HEVC_SOURCES_FILES})
+    add_executable(hevc ${HEVC_SOURCES_FILES})
     # Link executable
-    target_link_libraries(hevc_mv_decoder ${LINK_LIBRARIES_LIST} pthread)
+    target_link_libraries(hevc ${LINK_LIBRARIES_LIST} pthread)
     # Set include directory specific for this file. Avoid conflicts when including SDL.h
 
 
@@ -399,7 +399,7 @@ install(FILES
 )
 
 install(
-    TARGETS OpenHevcMvDecoder hevc_mv_decoder
+    TARGETS OpenHevcMvDecoder hevc
     RUNTIME DESTINATION bin
     LIBRARY DESTINATION lib
     ARCHIVE DESTINATION lib

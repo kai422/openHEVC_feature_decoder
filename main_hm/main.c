@@ -241,12 +241,8 @@ static void video_decode_example(const char *filename)
                 if ((width != openHevcFrame.frameInfo.nWidth) || (height != openHevcFrame.frameInfo.nHeight)) {
                     width  = openHevcFrame.frameInfo.nWidth;
                     height = openHevcFrame.frameInfo.nHeight;
-                    if (fout)
-                       fclose(fout);
-                    if (output_file) {
-                        sprintf(output_file2, "%s_%dx%d.yuv", output_file, width, height);
-                        fout = fopen(output_file2, "wb");
-                    }
+
+                    fout = stdout;
 
                     if (fout) {
                         int format = openHevcFrameCpy.frameInfo.chromat_format == YUV420 ? 1 : 0;
@@ -295,13 +291,11 @@ static void video_decode_example(const char *filename)
         av_free_packet(&packet);
     }
 
-    if (fout) {
-        fclose(fout);
-        if(openHevcFrameCpy.pvY) {
-            free(openHevcFrameCpy.pvY);
-            free(openHevcFrameCpy.pvU);
-            free(openHevcFrameCpy.pvV);
-        }
+
+    if(openHevcFrameCpy.pvY) {
+        free(openHevcFrameCpy.pvY);
+        free(openHevcFrameCpy.pvU);
+        free(openHevcFrameCpy.pvV);
     }
     avformat_close_input(&pFormatCtx);
     libOpenHevcClose(openHevcHandle);

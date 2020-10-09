@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="fc849e6f-b7a7-457c-87d2-b50b73e2e081" name="app" url="http://appenzeller.d2.comp.nus.edu.sg">
+        <fileTransfer rootFolder="/home/kai422/" accessType="SFTP" host="appenzeller.d2.comp.nus.edu.sg" port="22" sshConfigId="7e83834b-4c94-4dc0-b3c0-972cfd06bb17" sshConfig="kai422@appenzeller.d2.comp.nus.edu.sg:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
