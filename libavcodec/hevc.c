@@ -3905,16 +3905,20 @@ static int hevc_frame_start(HEVCContext *s)
     cur_frame = s->sps->sao_enabled ? s->sao_frame : s->frame;
     cur_frame->pict_type = 3 - s->sh.slice_type;
 
-    //MvDecoder: save frame type to buffer
     uint8_t *MvDecoder_metaBuffer = s->frame->data[5];
+    //MvDecoder: Add magic number at the front of the buffer
+    MvDecoder_metaBuffer[0] = 4;
+    MvDecoder_metaBuffer[1] = 2;
+    //MvDecoder: save frame type to buffer
+
     if(cur_frame->pict_type==AV_PICTURE_TYPE_I) {
-        MvDecoder_metaBuffer[0] = 0;
+        MvDecoder_metaBuffer[2] = 0;
     }
     else if(cur_frame->pict_type==AV_PICTURE_TYPE_P) {
-        MvDecoder_metaBuffer[0] = 1;
+        MvDecoder_metaBuffer[2] = 1;
     }
     else if(cur_frame->pict_type==AV_PICTURE_TYPE_B) {
-        MvDecoder_metaBuffer[0] = 2;
+        MvDecoder_metaBuffer[2] = 2;
     }
 
     if (!IS_IRAP(s))
