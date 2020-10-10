@@ -4823,10 +4823,12 @@ static int hevc_decode_frame(AVCodecContext *avctx, void *data, int *got_output,
             }
             s->is_md5 = 0;
         }
+/*
 #ifdef POC_DISPLAY_MD5
         printf_ref_pic_list(s);
         display_md5(s->poc, md5);
 #endif
+*/
     }
     s->is_md5 = 0;
 

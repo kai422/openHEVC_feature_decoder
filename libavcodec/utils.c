@@ -561,7 +561,6 @@ static int update_frame_pool(AVCodecContext *avctx, AVFrame *frame)
             size[5] = 8192;
 
             for (i = 0; i < 6; i++) {
-                printf("Address: %p\n", &pool->pools[i]);
                 av_buffer_pool_uninit(&pool->pools[i]);
                 pool->linesize[i] = picture.linesize[i];
                 if (size[i]) {
