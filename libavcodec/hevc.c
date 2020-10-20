@@ -2721,11 +2721,6 @@ static int hls_coding_unit(HEVCContext *s, int x0, int y0, int log2_cb_size, u_i
                  * log2_cb_size : CB大小取log2()的值
                  * partIdx : PU的索引号-分成4个块的时候取0-3，分成两个块的时候取0和1
                  */
-                //MvDecoder set split bit of the tree
-                MvDecoder_ctu_quadtree[(MvDecoder_quadtree_grid_idx+1) / 8] |= (1 << ((MvDecoder_quadtree_grid_idx+1) % 8));
-                MvDecoder_ctu_quadtree[(MvDecoder_quadtree_grid_idx+2) / 8] |= (1 << ((MvDecoder_quadtree_grid_idx+2) % 8));
-                MvDecoder_ctu_quadtree[(MvDecoder_quadtree_grid_idx+3) / 8] |= (1 << ((MvDecoder_quadtree_grid_idx+3) % 8));
-                MvDecoder_ctu_quadtree[(MvDecoder_quadtree_grid_idx+4) / 8] |= (1 << ((MvDecoder_quadtree_grid_idx+4) % 8));
 
                 //上
                 hls_prediction_unit(s, x0, y0,               cb_size, cb_size / 2, log2_cb_size, 0, idx);
@@ -2746,11 +2741,6 @@ static int hls_coding_unit(HEVCContext *s, int x0, int y0, int log2_cb_size, u_i
     			 * +--------+--------+
     			 *
                  */
-                //MvDecoder set split bit of the tree
-                MvDecoder_ctu_quadtree[(MvDecoder_quadtree_grid_idx+1) / 8] |= (1 << ((MvDecoder_quadtree_grid_idx+1) % 8));
-                MvDecoder_ctu_quadtree[(MvDecoder_quadtree_grid_idx+2) / 8] |= (1 << ((MvDecoder_quadtree_grid_idx+2) % 8));
-                MvDecoder_ctu_quadtree[(MvDecoder_quadtree_grid_idx+3) / 8] |= (1 << ((MvDecoder_quadtree_grid_idx+3) % 8));
-                MvDecoder_ctu_quadtree[(MvDecoder_quadtree_grid_idx+4) / 8] |= (1 << ((MvDecoder_quadtree_grid_idx+4) % 8));
                 //左
                 hls_prediction_unit(s, x0,               y0, cb_size / 2, cb_size, log2_cb_size, 0, idx - 1);
                 //右
@@ -2771,11 +2761,7 @@ static int hls_coding_unit(HEVCContext *s, int x0, int y0, int log2_cb_size, u_i
     			 * +--------+--------+
     			 *
                  */
-                //MvDecoder set split bit of the tree
-                MvDecoder_ctu_quadtree[(MvDecoder_quadtree_grid_idx+1) / 8] |= (1 << ((MvDecoder_quadtree_grid_idx+1) % 8));
-                MvDecoder_ctu_quadtree[(MvDecoder_quadtree_grid_idx+2) / 8] |= (1 << ((MvDecoder_quadtree_grid_idx+2) % 8));
-                MvDecoder_ctu_quadtree[(MvDecoder_quadtree_grid_idx+3) / 8] |= (1 << ((MvDecoder_quadtree_grid_idx+3) % 8));
-                MvDecoder_ctu_quadtree[(MvDecoder_quadtree_grid_idx+4) / 8] |= (1 << ((MvDecoder_quadtree_grid_idx+4) % 8));
+
                 //上
                 hls_prediction_unit(s, x0, y0,               cb_size, cb_size     / 4, log2_cb_size, 0, idx);
                 //下
@@ -2795,11 +2781,7 @@ static int hls_coding_unit(HEVCContext *s, int x0, int y0, int log2_cb_size, u_i
     			 * +--------+--------+
     			 *
                  */
-                //MvDecoder set split bit of the tree
-                MvDecoder_ctu_quadtree[(MvDecoder_quadtree_grid_idx+1) / 8] |= (1 << ((MvDecoder_quadtree_grid_idx+1) % 8));
-                MvDecoder_ctu_quadtree[(MvDecoder_quadtree_grid_idx+2) / 8] |= (1 << ((MvDecoder_quadtree_grid_idx+2) % 8));
-                MvDecoder_ctu_quadtree[(MvDecoder_quadtree_grid_idx+3) / 8] |= (1 << ((MvDecoder_quadtree_grid_idx+3) % 8));
-                MvDecoder_ctu_quadtree[(MvDecoder_quadtree_grid_idx+4) / 8] |= (1 << ((MvDecoder_quadtree_grid_idx+4) % 8));
+
                 //上
                 hls_prediction_unit(s, x0, y0,                   cb_size, cb_size * 3 / 4, log2_cb_size, 0, idx);
                 //下
@@ -2819,11 +2801,7 @@ static int hls_coding_unit(HEVCContext *s, int x0, int y0, int log2_cb_size, u_i
                  * +----+---+--------+
                  *
                  */
-                //MvDecoder set split bit of the tree
-                MvDecoder_ctu_quadtree[(MvDecoder_quadtree_grid_idx+1) / 8] |= (1 << ((MvDecoder_quadtree_grid_idx+1) % 8));
-                MvDecoder_ctu_quadtree[(MvDecoder_quadtree_grid_idx+2) / 8] |= (1 << ((MvDecoder_quadtree_grid_idx+2) % 8));
-                MvDecoder_ctu_quadtree[(MvDecoder_quadtree_grid_idx+3) / 8] |= (1 << ((MvDecoder_quadtree_grid_idx+3) % 8));
-                MvDecoder_ctu_quadtree[(MvDecoder_quadtree_grid_idx+4) / 8] |= (1 << ((MvDecoder_quadtree_grid_idx+4) % 8));
+
                 //左
                 //右
                 hls_prediction_unit(s, x0,               y0, cb_size     / 4, cb_size, log2_cb_size, 0, idx - 2);
@@ -2844,11 +2822,7 @@ static int hls_coding_unit(HEVCContext *s, int x0, int y0, int log2_cb_size, u_i
     			 * +--------+---+----+
     			 *
                  */
-                //MvDecoder set split bit of the tree
-                MvDecoder_ctu_quadtree[(MvDecoder_quadtree_grid_idx+1) / 8] |= (1 << ((MvDecoder_quadtree_grid_idx+1) % 8));
-                MvDecoder_ctu_quadtree[(MvDecoder_quadtree_grid_idx+2) / 8] |= (1 << ((MvDecoder_quadtree_grid_idx+2) % 8));
-                MvDecoder_ctu_quadtree[(MvDecoder_quadtree_grid_idx+3) / 8] |= (1 << ((MvDecoder_quadtree_grid_idx+3) % 8));
-                MvDecoder_ctu_quadtree[(MvDecoder_quadtree_grid_idx+4) / 8] |= (1 << ((MvDecoder_quadtree_grid_idx+4) % 8));
+
                 //左
                 hls_prediction_unit(s, x0,                   y0, cb_size * 3 / 4, cb_size, log2_cb_size, 0, idx - 2);
                 //右
@@ -2870,10 +2844,7 @@ static int hls_coding_unit(HEVCContext *s, int x0, int y0, int log2_cb_size, u_i
     			 *
                  */
                 //MvDecoder set split bit of the tree
-                MvDecoder_ctu_quadtree[(MvDecoder_quadtree_grid_idx+1) / 8] |= (1 << ((MvDecoder_quadtree_grid_idx+1) % 8));
-                MvDecoder_ctu_quadtree[(MvDecoder_quadtree_grid_idx+2) / 8] |= (1 << ((MvDecoder_quadtree_grid_idx+2) % 8));
-                MvDecoder_ctu_quadtree[(MvDecoder_quadtree_grid_idx+3) / 8] |= (1 << ((MvDecoder_quadtree_grid_idx+3) % 8));
-                MvDecoder_ctu_quadtree[(MvDecoder_quadtree_grid_idx+4) / 8] |= (1 << ((MvDecoder_quadtree_grid_idx+4) % 8));
+
                 hls_prediction_unit(s, x0,               y0,               cb_size / 2, cb_size / 2, log2_cb_size, 0, idx - 1);
                 hls_prediction_unit(s, x0 + cb_size / 2, y0,               cb_size / 2, cb_size / 2, log2_cb_size, 1, idx - 1);
                 hls_prediction_unit(s, x0,               y0 + cb_size / 2, cb_size / 2, cb_size / 2, log2_cb_size, 2, idx - 1);
