@@ -2576,7 +2576,7 @@ static void intra_prediction_unit_default_value(HEVCContext *s,
 
 
 //处理CU单元-真正的解码
-static int hls_coding_unit(HEVCContext *s, int x0, int y0, int log2_cb_size, u_int8_t *MvDecoder_ctu_quadtree, int MvDecoder_quadtree_grid_idx)
+static int hls_coding_unit(HEVCContext *s, int x0, int y0, int log2_cb_size, u_int8_t *MvDecoder_ctu_quadtree, int MvDecoder_quadtree_bit_idx)
 {
     /* （1）调用hls_prediction_unit()处理PU。
      * （2）调用hls_transform_tree()处理TU树
@@ -2726,6 +2726,8 @@ static int hls_coding_unit(HEVCContext *s, int x0, int y0, int log2_cb_size, u_i
                 hls_prediction_unit(s, x0, y0,               cb_size, cb_size / 2, log2_cb_size, 0, idx);
                 //下
                 hls_prediction_unit(s, x0, y0 + cb_size / 2, cb_size, cb_size / 2, log2_cb_size, 1, idx);
+
+                MvDecoder_ctu_quadtree[MvDecoder_quadtree_bit_idx / 8] |= (1 << (MvDecoder_quadtree_bit_idx % 8));
                 break;
             case PART_Nx2N:
                 /*
@@ -2745,6 +2747,8 @@ static int hls_coding_unit(HEVCContext *s, int x0, int y0, int log2_cb_size, u_i
                 hls_prediction_unit(s, x0,               y0, cb_size / 2, cb_size, log2_cb_size, 0, idx - 1);
                 //右
                 hls_prediction_unit(s, x0 + cb_size / 2, y0, cb_size / 2, cb_size, log2_cb_size, 1, idx - 1);
+
+                MvDecoder_ctu_quadtree[MvDecoder_quadtree_bit_idx / 8] |= (1 << (MvDecoder_quadtree_bit_idx % 8));
                 break;
             case PART_2NxnU:
 
@@ -2766,6 +2770,9 @@ static int hls_coding_unit(HEVCContext *s, int x0, int y0, int log2_cb_size, u_i
                 hls_prediction_unit(s, x0, y0,               cb_size, cb_size     / 4, log2_cb_size, 0, idx);
                 //下
                 hls_prediction_unit(s, x0, y0 + cb_size / 4, cb_size, cb_size * 3 / 4, log2_cb_size, 1, idx);
+
+
+                MvDecoder_ctu_quadtree[MvDecoder_quadtree_bit_idx / 8] |= (1 << (MvDecoder_quadtree_bit_idx % 8));
                 break;
             case PART_2NxnD:
                 /*
@@ -2786,6 +2793,9 @@ static int hls_coding_unit(HEVCContext *s, int x0, int y0, int log2_cb_size, u_i
                 hls_prediction_unit(s, x0, y0,                   cb_size, cb_size * 3 / 4, log2_cb_size, 0, idx);
                 //下
                 hls_prediction_unit(s, x0, y0 + cb_size * 3 / 4, cb_size, cb_size     / 4, log2_cb_size, 1, idx);
+
+
+                MvDecoder_ctu_quadtree[MvDecoder_quadtree_bit_idx / 8] |= (1 << (MvDecoder_quadtree_bit_idx % 8));
                 break;
             case PART_nLx2N:
                 /*
@@ -2803,9 +2813,11 @@ static int hls_coding_unit(HEVCContext *s, int x0, int y0, int log2_cb_size, u_i
                  */
 
                 //左
-                //右
                 hls_prediction_unit(s, x0,               y0, cb_size     / 4, cb_size, log2_cb_size, 0, idx - 2);
+                //右
                 hls_prediction_unit(s, x0 + cb_size / 4, y0, cb_size * 3 / 4, cb_size, log2_cb_size, 1, idx - 2);
+
+                MvDecoder_ctu_quadtree[MvDecoder_quadtree_bit_idx / 8] |= (1 << (MvDecoder_quadtree_bit_idx % 8));
                 break;
             case PART_nRx2N:
 
@@ -2827,6 +2839,9 @@ static int hls_coding_unit(HEVCContext *s, int x0, int y0, int log2_cb_size, u_i
                 hls_prediction_unit(s, x0,                   y0, cb_size * 3 / 4, cb_size, log2_cb_size, 0, idx - 2);
                 //右
                 hls_prediction_unit(s, x0 + cb_size * 3 / 4, y0, cb_size     / 4, cb_size, log2_cb_size, 1, idx - 2);
+
+                MvDecoder_ctu_quadtree[MvDecoder_quadtree_bit_idx / 8] |= (1 << (MvDecoder_quadtree_bit_idx % 8));
+
                 break;
             case PART_NxN:
 
@@ -2849,6 +2864,8 @@ static int hls_coding_unit(HEVCContext *s, int x0, int y0, int log2_cb_size, u_i
                 hls_prediction_unit(s, x0 + cb_size / 2, y0,               cb_size / 2, cb_size / 2, log2_cb_size, 1, idx - 1);
                 hls_prediction_unit(s, x0,               y0 + cb_size / 2, cb_size / 2, cb_size / 2, log2_cb_size, 2, idx - 1);
                 hls_prediction_unit(s, x0 + cb_size / 2, y0 + cb_size / 2, cb_size / 2, cb_size / 2, log2_cb_size, 3, idx - 1);
+                MvDecoder_ctu_quadtree[MvDecoder_quadtree_bit_idx / 8] |= (1 << (MvDecoder_quadtree_bit_idx % 8));
+
                 break;
             }
         }
@@ -2909,7 +2926,9 @@ static int hls_coding_unit(HEVCContext *s, int x0, int y0, int log2_cb_size, u_i
  * cb_depth：深度
  */
 static int hls_coding_quadtree(HEVCContext *s, int x0, int y0,
-                               int log2_cb_size, int cb_depth, u_int8_t *MvDecoder_ctu_quadtree, int MvDecoder_quadtree_grid_idx)
+                               int log2_cb_size, int cb_depth,
+                               u_int8_t *MvDecoder_ctu_quadtree,
+                               int MvDecoder_quadtree_bit_idx)
 {
     /*
      * hls_coding_quadtree()完成了CTU解码工作
@@ -2953,7 +2972,7 @@ static int hls_coding_quadtree(HEVCContext *s, int x0, int y0,
 	}
     if (split_cu_flag) {
         //MvDecoder set split bit of the tree
-        MvDecoder_ctu_quadtree[MvDecoder_quadtree_grid_idx / 8] |= (1 << (MvDecoder_quadtree_grid_idx % 8));
+        MvDecoder_ctu_quadtree[MvDecoder_quadtree_bit_idx / 8] |= (1 << (MvDecoder_quadtree_bit_idx % 8));
 
         //如果CU还可以继续划分，则继续解析划分后的CU
         //注意这里是递归调用
@@ -2984,23 +3003,23 @@ static int hls_coding_quadtree(HEVCContext *s, int x0, int y0,
         //CU大小减半，log2_cb_size-1
         //深度d加1，cb_depth+1
         //MvDecoder: child bit idx = 4 * MvDecoder_quadtree_grid_idx + 1
-        more_data = hls_coding_quadtree(s, x0, y0, log2_cb_size - 1, cb_depth + 1, MvDecoder_ctu_quadtree, 4 * MvDecoder_quadtree_grid_idx + 1);
+        more_data = hls_coding_quadtree(s, x0, y0, log2_cb_size - 1, cb_depth + 1, MvDecoder_ctu_quadtree, 4 * MvDecoder_quadtree_bit_idx + 1);
         if (more_data < 0)
             return more_data;
 
         if (more_data && x1 < s->sps->width) {
-            more_data = hls_coding_quadtree(s, x1, y0, log2_cb_size - 1, cb_depth + 1, MvDecoder_ctu_quadtree, 4 * MvDecoder_quadtree_grid_idx + 2);
+            more_data = hls_coding_quadtree(s, x1, y0, log2_cb_size - 1, cb_depth + 1, MvDecoder_ctu_quadtree, 4 * MvDecoder_quadtree_bit_idx + 2);
             if (more_data < 0)
                 return more_data;
         }
         if (more_data && y1 < s->sps->height) {
-            more_data = hls_coding_quadtree(s, x0, y1, log2_cb_size - 1, cb_depth + 1, MvDecoder_ctu_quadtree, 4 * MvDecoder_quadtree_grid_idx + 3);
+            more_data = hls_coding_quadtree(s, x0, y1, log2_cb_size - 1, cb_depth + 1, MvDecoder_ctu_quadtree, 4 * MvDecoder_quadtree_bit_idx + 3);
             if (more_data < 0)
                 return more_data;
         }
         if (more_data && x1 < s->sps->width &&
             y1 < s->sps->height) {
-            more_data = hls_coding_quadtree(s, x1, y1, log2_cb_size - 1, cb_depth + 1, MvDecoder_ctu_quadtree, 4 * MvDecoder_quadtree_grid_idx + 4);
+            more_data = hls_coding_quadtree(s, x1, y1, log2_cb_size - 1, cb_depth + 1, MvDecoder_ctu_quadtree, 4 * MvDecoder_quadtree_bit_idx + 4);
             if (more_data < 0)
                 return more_data;
         }
@@ -3031,7 +3050,7 @@ static int hls_coding_quadtree(HEVCContext *s, int x0, int y0,
          */
         //注意处理的是不可划分的CU单元
         //处理CU单元-真正的解码
-        ret = hls_coding_unit(s, x0, y0, log2_cb_size, MvDecoder_ctu_quadtree, 4 * MvDecoder_quadtree_grid_idx);
+        ret = hls_coding_unit(s, x0, y0, log2_cb_size, MvDecoder_ctu_quadtree, MvDecoder_quadtree_bit_idx);
         if (ret < 0)
             return ret;
         if ((!((x0 + cb_size) &
