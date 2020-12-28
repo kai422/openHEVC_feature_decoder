@@ -5,7 +5,8 @@
 
 # Build directories
 /build*/
-
+cmake-build-debug/
+cmake-build-release/
 # Eclipse projects files
 .project
 .cproject
