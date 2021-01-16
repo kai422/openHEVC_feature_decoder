@@ -397,6 +397,7 @@ int libOpenHevcGetOutputCpy(OpenHevc_Handle openHevcHandle, int got_picture, Ope
         }
         //MvDecoder
         memcpy(Meta, openHevcContext->picture->data[5], 8192);
+        memset(openHevcContext->picture->data[5],0,8192); // clean the buffer
         y_offset = y_offset2 = 0;
 
         for (y = 0; y < height >> format; y++) {
