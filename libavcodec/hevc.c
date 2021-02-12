@@ -1979,11 +1979,12 @@ static void MvDecoder_write_size_buffer(HEVCContext *s, int x0, int y0,
     ptrdiff_t dststride = s->frame->linesize[0];
     int pb_size = (1 << log2_cb_size);
     int x, y;
+    int bit_density = cu_byte_size * 8 / (pb_size * pb_size);
     //处理x*y个像素
     for (y = 0; y < pb_size; y++) {
         for (x = 0; x < pb_size; x++) {
             //normalization term:
-            dst[x] = cu_byte_size;
+            dst[x] = bit_density;
         }
         dst += dststride;
     }
@@ -2635,6 +2636,8 @@ static int hls_coding_unit(HEVCContext *s, int x0, int y0, int log2_cb_size, u_i
     lc->cu.intra_split_flag = 0;
     lc->cu.pcm_flag         = 0;
 
+    //int bytestream_pu;
+    //int bytestream_tu;
     SAMPLE_CTB(s->skip_flag, x_cb, y_cb) = 0;
     for (x = 0; x < 4; x++)
         lc->pu.intra_pred_mode[x] = 1;
@@ -2711,6 +2714,7 @@ static int hls_coding_unit(HEVCContext *s, int x0, int y0, int log2_cb_size, u_i
             intra_prediction_unit_default_value(s, x0, y0, log2_cb_size);
 
             //帧间模式一共有8种划分模式
+            //uint8_t* bytestream_before_pu = lc->cc.bytestream;
             switch (lc->cu.part_mode) {
             case PART_2Nx2N:
                 /*
@@ -2899,6 +2903,7 @@ static int hls_coding_unit(HEVCContext *s, int x0, int y0, int log2_cb_size, u_i
 
                 break;
             }
+            //bytestream_pu = lc->cc.bytestream-bytestream_before_pu;
         }
 
         if (!lc->cu.pcm_flag) {
@@ -2912,9 +2917,11 @@ static int hls_coding_unit(HEVCContext *s, int x0, int y0, int log2_cb_size, u_i
                                          s->sps->max_transform_hierarchy_depth_intra + lc->cu.intra_split_flag :
                                          s->sps->max_transform_hierarchy_depth_inter;
                 //处理TU四叉树
+                //uint8_t* bytestream_before_tu = lc->cc.bytestream;
                 ret = hls_transform_tree(s, x0, y0, x0, y0, x0, y0,
                                          log2_cb_size,
                                          log2_cb_size, 0, 0, cbf, cbf);
+                //bytestream_tu = lc->cc.bytestream-bytestream_before_tu;
                 if (ret < 0)
                     return ret;
             } else {
@@ -2942,6 +2949,7 @@ static int hls_coding_unit(HEVCContext *s, int x0, int y0, int log2_cb_size, u_i
 
     // MvDevoder: bytestream checkpoint of the start of cu
     int bytes_size_cu = lc->cc.bytestream - bytestream_last;
+    //int bytes_pu_tu = bytestream_pu + bytestream_tu;
     // MvDeocder: fill totalByteSize of this CU.
     MvDecoder_write_size_buffer(s, x0, y0, log2_cb_size, bytes_size_cu);
 
