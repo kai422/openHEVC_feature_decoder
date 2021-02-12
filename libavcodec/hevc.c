@@ -1979,7 +1979,9 @@ static void MvDecoder_write_size_buffer(HEVCContext *s, int x0, int y0,
     ptrdiff_t dststride = s->frame->linesize[0];
     int pb_size = (1 << log2_cb_size);
     int x, y;
-    int bit_density = cu_byte_size * 8 / (pb_size * pb_size);
+    // relative size
+    int pb_relative_size = pb_size / 8;
+    int bit_density = cu_byte_size * 8 / (pb_relative_size * pb_relative_size);
     //处理x*y个像素
     for (y = 0; y < pb_size; y++) {
         for (x = 0; x < pb_size; x++) {
