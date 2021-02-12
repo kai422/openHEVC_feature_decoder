@@ -1963,6 +1963,33 @@ static void MvDecoder_write_mv_buffer_skip(HEVCContext *s, int x0, int y0,
 }
 
 /**
+ * MvDecoder_write_size_buffer
+ *
+ * @param s HEVC decoding context
+ * @param x_off horizontal position of block from origin (0, 0)
+ * @param y_off vertical position of block from origin (0, 0)
+ * @param log2_cb_size log2 of block size
+ * @param cu_byte_size number of bytes used in the bytestream of this CU block.
+ */
+static void MvDecoder_write_size_buffer(HEVCContext *s, int x0, int y0,
+                                           int log2_cb_size, int cu_byte_size)
+{
+    uint8_t *dst = &s->frame->data[6][((y0) >> s->sps->vshift[0]) * s->frame->linesize[0] + \
+                           (((x0) >> s->sps->hshift[0]) << s->sps->pixel_shift)];
+    ptrdiff_t dststride = s->frame->linesize[0];
+    int pb_size = (1 << log2_cb_size);
+    int x, y;
+    //处理x*y个像素
+    for (y = 0; y < pb_size; y++) {
+        for (x = 0; x < pb_size; x++) {
+            //normalization term:
+            dst[x] = cu_byte_size;
+        }
+        dst += dststride;
+    }
+}
+
+/**
  * 8.5.3.2.2.2 Chroma sample uniprediction interpolation process
  *
  * @param s HEVC decoding context
@@ -2584,6 +2611,10 @@ static int hls_coding_unit(HEVCContext *s, int x0, int y0, int log2_cb_size, u_i
      //CB大小
     int cb_size          = 1 << log2_cb_size;
     HEVCLocalContext *lc = s->HEVClc;
+
+    // MvDevoder: bytestream checkpoint of the start of cu
+    uint8_t* bytestream_last = lc->cc.bytestream;
+
     int log2_min_cb_size = s->sps->log2_min_cb_size;
     int length           = cb_size >> log2_min_cb_size;
     int min_cb_width     = s->sps->min_cb_width;
@@ -2908,6 +2939,11 @@ static int hls_coding_unit(HEVCContext *s, int x0, int y0, int log2_cb_size, u_i
     }
 
     set_ct_depth(s, x0, y0, log2_cb_size, lc->ct.depth);
+
+    // MvDevoder: bytestream checkpoint of the start of cu
+    int bytes_size_cu = lc->cc.bytestream - bytestream_last;
+    // MvDeocder: fill totalByteSize of this CU.
+    MvDecoder_write_size_buffer(s, x0, y0, log2_cb_size, bytes_size_cu);
 
     return 0;
 }

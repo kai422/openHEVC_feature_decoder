@@ -55,6 +55,7 @@ typedef struct FramePool {
     // pools[0-2]: Y U V
     // pools[3-4]: MVX, MVY
     // pools[5]: frame meta_information + partition quadtree structure.
+    // pools[6]: frame cu byte size
     AVBufferPool *pools[8];
 
     /*

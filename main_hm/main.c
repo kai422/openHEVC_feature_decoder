@@ -196,6 +196,7 @@ static void video_decode_example(const char *filename)
     openHevcFrameCpy.pvMVX = NULL;
     openHevcFrameCpy.pvMVX = NULL;
     openHevcFrameCpy.pvMeta = NULL;
+    openHevcFrameCpy.pvSize = NULL;
 
    
     libOpenHevcSetTemporalLayer_id(openHevcHandle, temporal_layer_id);
@@ -255,6 +256,7 @@ static void video_decode_example(const char *filename)
                             free(openHevcFrameCpy.pvMVX);
                             free(openHevcFrameCpy.pvMVY);
                             free(openHevcFrameCpy.pvMeta);
+                            free(openHevcFrameCpy.pvSize);
                         }
                         openHevcFrameCpy.pvY = calloc (openHevcFrameCpy.frameInfo.nYPitch * openHevcFrameCpy.frameInfo.nHeight, sizeof(unsigned char));
                         openHevcFrameCpy.pvU = calloc (openHevcFrameCpy.frameInfo.nUPitch * openHevcFrameCpy.frameInfo.nHeight >> format, sizeof(unsigned char));
@@ -263,6 +265,7 @@ static void video_decode_example(const char *filename)
                         openHevcFrameCpy.pvMVX = calloc (openHevcFrameCpy.frameInfo.nYPitch * openHevcFrameCpy.frameInfo.nHeight, sizeof(unsigned char));
                         openHevcFrameCpy.pvMVY = calloc (openHevcFrameCpy.frameInfo.nYPitch * openHevcFrameCpy.frameInfo.nHeight, sizeof(unsigned char));
                         openHevcFrameCpy.pvMeta = calloc (8192, sizeof(unsigned char));
+                        openHevcFrameCpy.pvSize = calloc (openHevcFrameCpy.frameInfo.nYPitch * openHevcFrameCpy.frameInfo.nHeight, sizeof(unsigned char));
                     }
                 }
 
@@ -277,6 +280,7 @@ static void video_decode_example(const char *filename)
 
                     fwrite( openHevcFrameCpy.pvMVX , sizeof(uint8_t) , openHevcFrameCpy.frameInfo.nYPitch * openHevcFrameCpy.frameInfo.nHeight, fout);
                     fwrite( openHevcFrameCpy.pvMVY , sizeof(uint8_t) , openHevcFrameCpy.frameInfo.nYPitch * openHevcFrameCpy.frameInfo.nHeight, fout);
+                    fwrite( openHevcFrameCpy.pvSize , sizeof(uint8_t) , openHevcFrameCpy.frameInfo.nYPitch * openHevcFrameCpy.frameInfo.nHeight, fout);
 
                 }
                 // save as yuv a single frame.

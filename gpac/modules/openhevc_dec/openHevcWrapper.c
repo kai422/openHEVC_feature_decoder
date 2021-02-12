@@ -367,6 +367,7 @@ int libOpenHevcGetOutputCpy(OpenHevc_Handle openHevcHandle, int got_picture, Ope
         unsigned char *MVX = (unsigned char *) openHevcFrame->pvMVX;
         unsigned char *MVY = (unsigned char *) openHevcFrame->pvMVY;
         unsigned char *Meta = (unsigned char *) openHevcFrame->pvMeta;
+        unsigned char *Size = (unsigned char *) openHevcFrame->pvSize;
 
         int height, format;
         int src_stride;
@@ -391,6 +392,8 @@ int libOpenHevcGetOutputCpy(OpenHevc_Handle openHevcHandle, int got_picture, Ope
             //MvDecoder
             memcpy(&MVX[y_offset2], &openHevcContext->picture->data[3][y_offset], dst_stride);
             memcpy(&MVY[y_offset2], &openHevcContext->picture->data[4][y_offset], dst_stride);
+            memcpy(&Size[y_offset2], &openHevcContext->picture->data[6][y_offset], dst_stride);
+
 
             y_offset  += src_stride;
             y_offset2 += dst_stride;

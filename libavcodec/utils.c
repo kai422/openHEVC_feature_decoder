@@ -515,7 +515,8 @@ static int update_frame_pool(AVCodecContext *avctx, AVFrame *frame)
     switch (avctx->codec_type) {
         case AVMEDIA_TYPE_VIDEO: {
             AVPicture picture;
-            int size[6] = { 0 };
+            //MvDecoder: buffer size array 0-2: YUV 3-4 MVX, MVY, 5: cu pu quadtree, 6: cu byte usage
+            int size[7] = { 0 };
             int w = frame->width;
             int h = frame->height;
             int tmpsize, unaligned;
@@ -559,8 +560,11 @@ static int update_frame_pool(AVCodecContext *avctx, AVFrame *frame)
             //1-1023: Other meta_information(e.g. size)
             //1024-8192: quadtree structure, for each CTU 21 bits/3bytes needed.
             size[5] = 8192;
+            //MvDecoder: mem pool size for cu byte size.
+            size[6] = size[0];
 
-            for (i = 0; i < 6; i++) {
+            //MvDecoder: change i < 3 to i < 6 to allocate buffer space for hevc structure feature.
+            for (i = 0; i < 7; i++) {
                 av_buffer_pool_uninit(&pool->pools[i]);
                 pool->linesize[i] = picture.linesize[i];
                 if (size[i]) {
@@ -682,8 +686,8 @@ static int video_get_buffer(AVCodecContext *s, AVFrame *pic)
 
     av_pix_fmt_get_chroma_sub_sample(s->pix_fmt, &h_chroma_shift, &v_chroma_shift);
 
-    // MvDecoder: change 3 to 6. Originally buffer has 3 channel. Now add two more channel for motion vector and meta information.
-    for (i = 0; i < 6 && pool->pools[i]; i++) {
+    // MvDecoder: change 3 to 7. Originally buffer has 3 channel. Now add two more channel for motion vector and meta informations.
+    for (i = 0; i < 7 && pool->pools[i]; i++) {
         const int h_shift = i == 0 ? 0 : h_chroma_shift;
         const int v_shift = i == 0 ? 0 : v_chroma_shift;
         int is_planar = pool->pools[2] || (i==0 && s->pix_fmt == AV_PIX_FMT_GRAY8);
@@ -704,6 +708,7 @@ static int video_get_buffer(AVCodecContext *s, AVFrame *pic)
                         (pixel_size * EDGE_WIDTH >> h_shift), pool->stride_align[i]);
         }
     }
+    // Now we have the buffer for mv to fill in at the later stage
     for (; i < AV_NUM_DATA_POINTERS; i++) {
         pic->data[i] = NULL;
         pic->linesize[i] = 0;

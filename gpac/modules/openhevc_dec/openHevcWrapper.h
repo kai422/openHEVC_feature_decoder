@@ -77,6 +77,7 @@ typedef struct OpenHevc_Frame_cpy
    void*        pvMVX;
    void*        pvMVY;
    void*        pvMeta;
+   void*        pvSize;
 
    OpenHevc_FrameInfo frameInfo;
 } OpenHevc_Frame_cpy;

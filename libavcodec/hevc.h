@@ -1022,6 +1022,7 @@ typedef struct CodingUnit {
     uint8_t intra_split_flag;   ///< IntraSplitFlag
     uint8_t max_trafo_depth;    ///< MaxTrafoDepth
     uint8_t cu_transquant_bypass_flag;
+
 } CodingUnit;
 
 typedef struct Mv {
