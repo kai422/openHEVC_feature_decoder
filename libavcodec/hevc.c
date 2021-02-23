@@ -1986,7 +1986,9 @@ static void MvDecoder_write_size_buffer(HEVCContext *s, int x0, int y0,
     for (y = 0; y < pb_size; y++) {
         for (x = 0; x < pb_size; x++) {
             //normalization term:
-            dst[x] = bit_density;
+            if (y == pb_size/2-1 & x == pb_size/2-1) {
+                dst[x] = bit_density;
+            }
         }
         dst += dststride;
     }
