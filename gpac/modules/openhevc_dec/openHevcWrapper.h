@@ -74,10 +74,15 @@ typedef struct OpenHevc_Frame_cpy
    void*        pvU;
    void*        pvV;
    //MvDecoder
-   void*        pvMVX;
-   void*        pvMVY;
-   void*        pvMeta;
+   void*        pvMVX_L0;
+   void*        pvMVY_L0;
+   void*        pvMVX_L1;
+   void*        pvMVY_L1;
+   void*        pvREF_OFF_L0;
+   void*        pvREF_OFF_L1;
    void*        pvSize;
+   void*        pvMeta;
+
 
    OpenHevc_FrameInfo frameInfo;
 } OpenHevc_Frame_cpy;

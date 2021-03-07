@@ -51,12 +51,15 @@ typedef struct FramePool {
      * so only pools[0] is used.
      */
     // MvDecoder: get buffer pool for MVX, MVY
-    // changed 4 to 8 for more space holding MVX and MVY.
+    // changed 4 to 11 for more space holding features.
     // pools[0-2]: Y U V
-    // pools[3-4]: MVX, MVY
-    // pools[5]: frame meta_information + partition quadtree structure.
-    // pools[6]: frame cu byte size
-    AVBufferPool *pools[8];
+    // pools[3-4]: raw MVX, MVY for L0
+    // pools[5-6]: raw MVX, MVY for L1
+    // pools[7]: MV reference frame offset
+    // pools[8]: MV reference frame offset
+    // pools[9]: frame cu byte size
+    // pools[10]: frame meta_information + partition quadtree structure.
+    AVBufferPool *pools[11];
 
     /*
      * Pool parameters
