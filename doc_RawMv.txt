@@ -37,6 +37,12 @@ libavcodec/internal.h:53
     // pools[10]: frame meta_information + partition quadtree structure.
     AVBufferPool *pools[11];
 
+
+libavcodec/internal.h:70
+    // MvDecoder
+    int linesize[12];
+
+
 libavcodec/utils.c:518
     //MvDecoder: buffer size array.
     int size[11] = { 0 };
@@ -66,7 +72,35 @@ libavcodec/utils.c:692
     // MvDecoder: change 3 to 11. Originally buffer has 3 channel. Now add two more channel for motion vector and other features.
     for (i = 0; i < 11 && pool->pools[i]; i++) {
 
+
+
+libavutil/imgutils.c:160
+    //MvDecoder:
+    data[3] = data[2] + size[0]*2;
+    data[4] = data[3] + size[0]*2;
+    data[5] = data[4] + size[0]*2;
+    data[6] = data[5] + size[0]*2;
+    data[7] = data[6] + size[0];
+    data[8] = data[7] + size[0];
+    data[9] = data[8] + size[0];
+    data[10] = data[9] + 8192;
+
+
+
+
+
+
+
+
     // Now we have the buffer for mv and other features to fill in for the decoding stage
+
+
+
+
+
+
+
+
 
 STEP2: save features to the buffers
 libavcodec/hevc.c:2207

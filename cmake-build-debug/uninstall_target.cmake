@@ -1,14 +1,14 @@
-if(NOT EXISTS "/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/install_manifest.txt")
-  message(FATAL_ERROR "Cannot find install manifest: /home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/install_manifest.txt")
-endif(NOT EXISTS "/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/install_manifest.txt")
+if(NOT EXISTS "C:/Users/kai/Oct_HEVC_MV_Decoder/openHEVC_feature_decoder/cmake-build-debug/install_manifest.txt")
+  message(FATAL_ERROR "Cannot find install manifest: C:/Users/kai/Oct_HEVC_MV_Decoder/openHEVC_feature_decoder/cmake-build-debug/install_manifest.txt")
+endif(NOT EXISTS "C:/Users/kai/Oct_HEVC_MV_Decoder/openHEVC_feature_decoder/cmake-build-debug/install_manifest.txt")
 
-file(READ "/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/install_manifest.txt" files)
+file(READ "C:/Users/kai/Oct_HEVC_MV_Decoder/openHEVC_feature_decoder/cmake-build-debug/install_manifest.txt" files)
 string(REGEX REPLACE "\n" ";" files "${files}")
 foreach(file ${files})
   message(STATUS "Uninstalling $ENV{DESTDIR}${file}")
   if(IS_SYMLINK "$ENV{DESTDIR}${file}" OR EXISTS "$ENV{DESTDIR}${file}")
     exec_program(
-      "/home/kai/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/203.7148.70/bin/cmake/linux/bin/cmake" ARGS "-E remove \"$ENV{DESTDIR}${file}\""
+      "C:/Program Files/JetBrains/CLion 2020.3.2/bin/cmake/win/bin/cmake.exe" ARGS "-E remove \"$ENV{DESTDIR}${file}\""
       OUTPUT_VARIABLE rm_out
       RETURN_VALUE rm_retval
       )
