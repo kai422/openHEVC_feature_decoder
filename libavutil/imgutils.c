@@ -105,8 +105,14 @@ int av_image_fill_linesizes(int linesizes[8], enum AVPixelFormat pix_fmt, int wi
         linesizes[i] = ret;
     }
     //MvDecoder linesizes
-    linesizes[3]=linesizes[0];
-    linesizes[4]=linesizes[0];
+    linesizes[3]=0;
+    linesizes[4]=0;
+    linesizes[5]=0;
+    linesizes[6]=0;
+    linesizes[7]=0;
+    linesizes[8]=0;
+    linesizes[9]=0;
+    linesizes[10]=0;
 
     return 0;
 }

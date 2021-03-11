@@ -155,7 +155,8 @@ typedef struct AVFrameSideData {
  * without breaking compatibility with each other.
  */
 typedef struct AVFrame {
-#define AV_NUM_DATA_POINTERS 8
+    //MvDecoder: change 8 to 12
+#define AV_NUM_DATA_POINTERS 12
     /**
      * pointer to the picture/channel planes.
      * This might be different from the first allocated byte

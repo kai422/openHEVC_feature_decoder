@@ -1,5 +1,30 @@
 STEP1: create memory buffer
 
+libavutil/frame.h:158
+    //MvDecoder: change 8 to 12 (must bigger than used size)
+#define AV_NUM_DATA_POINTERS 12
+
+libavutil/imgutils.c:107
+    //MvDecoder linesizes
+    linesizes[3]=0;
+    linesizes[4]=0;
+    linesizes[5]=0;
+    linesizes[6]=0;
+    linesizes[7]=0;
+    linesizes[8]=0;
+    linesizes[9]=0;
+    linesizes[10]=0;
+
+????
+libavcodec/hevc.c:377
+    for (i = 0; frame->data[i]; i++) {
+        int offset = frame->linesize[i] + (1 << sps->pixel_shift);
+        frame->data[i] += offset;
+    }
+    frame->width  = s->avctx->width;
+    frame->height = s->avctx->height;
+????
+
 libavcodec/internal.h:53
     // MvDecoder: get buffer pool for MVX, MVY
     // changed 4 to 11 for more space holding features.
