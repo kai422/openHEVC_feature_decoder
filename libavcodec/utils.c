@@ -553,15 +553,15 @@ static int update_frame_pool(AVCodecContext *avctx, AVFrame *frame)
                 size[i] = picture.data[i + 1] - picture.data[i];
             size[i] = tmpsize - (picture.data[i] - picture.data[0]);
             //MvDecoder: mem pool size for raw motion vector x and y int16_t
-            size[3] = size[0]*2; //mv_x for L0
-            size[4] = size[0]*2; //mv_y for L0
-            size[5] = size[0]*2; //mv_x for L1
-            size[6] = size[0]*2; //mv_y for L1
+            size[3] = size[0]>>3; //mv_x for L0 /16(pu size 4) *2(int16_t)
+            size[4] = size[0]>>3; //mv_y for L0
+            size[5] = size[0]>>3; //mv_x for L1
+            size[6] = size[0]>>3; //mv_y for L1
             //MvDecoder: mem pool size for mv reference frame offset. u_int8_t
-            size[7] = size[0]; //refer offset for L0
-            size[8] = size[0]; //refer offset for L0
+            size[7] = size[0]>>4; //refer offset for L0 /16(pu size 4)
+            size[8] = size[0]>>4; //refer offset for L0
             //MvDecoder: mem pool size for cu byte size density.
-            size[9] = size[0];
+            size[9] = size[0]>>6; // cu size 8
             //MvDecoder: mem pool size for frame meta_information
             //0: I_frame/P_frame/B_frame
             //1-1023: Other meta_information(e.g. size)

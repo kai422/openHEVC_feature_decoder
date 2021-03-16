@@ -393,22 +393,13 @@ int libOpenHevcGetOutputCpy(OpenHevc_Handle openHevcHandle, int got_picture, Ope
 
         for (y = 0; y < height; y++) {
             memcpy(&Y[y_offset2], &openHevcContext->picture->data[0][y_offset], dst_stride);
-            //MvDecoder
-            memcpy(&MVX_L0[y_offset2 * 2], &openHevcContext->picture->data[3][y_offset], dst_stride * 2);
-            memcpy(&MVY_L0[y_offset2 * 2], &openHevcContext->picture->data[4][y_offset], dst_stride * 2);
-            memcpy(&MVX_L1[y_offset2 * 2], &openHevcContext->picture->data[5][y_offset], dst_stride * 2);
-            memcpy(&MVY_L1[y_offset2 * 2], &openHevcContext->picture->data[6][y_offset], dst_stride * 2);
-            memcpy(&REF_OFF_L0[y_offset2], &openHevcContext->picture->data[7][y_offset], dst_stride);
-            memcpy(&REF_OFF_L1[y_offset2], &openHevcContext->picture->data[8][y_offset], dst_stride);
-            memcpy(&Size[y_offset2], &openHevcContext->picture->data[9][y_offset], dst_stride);
-
 
             y_offset  += src_stride;
             y_offset2 += dst_stride;
         }
         //MvDecoder
-        memcpy(Meta, openHevcContext->picture->data[10], 8192);
-        memset(openHevcContext->picture->data[10],0,8192); // clean the buffer
+        memcpy(Meta, openHevcContext->picture->data[10],65536);
+        memset(openHevcContext->picture->data[10],0,65536); // clean the buffer
 
         y_offset = y_offset2 = 0;
 
@@ -417,6 +408,34 @@ int libOpenHevcGetOutputCpy(OpenHevc_Handle openHevcHandle, int got_picture, Ope
             memcpy(&V[y_offset2], &openHevcContext->picture->data[2][y_offset], dst_stride_c);
             y_offset  += src_stride_c;
             y_offset2 += dst_stride_c;
+        }
+
+        //MvDecoder
+        y_offset = y_offset2 = 0;
+        int dst_stride_mv = dst_stride >> 2;
+        int src_stride_mv = src_stride >> 2;
+
+        for (y = 0; y < height >> 2; y++) {
+            memcpy(&MVX_L0[y_offset2 << 1], &openHevcContext->picture->data[3][y_offset << 1], dst_stride_mv << 1);
+            memcpy(&MVY_L0[y_offset2 << 1], &openHevcContext->picture->data[4][y_offset << 1], dst_stride_mv << 1);
+            memcpy(&MVX_L1[y_offset2 << 1], &openHevcContext->picture->data[5][y_offset << 1], dst_stride_mv << 1);
+            memcpy(&MVY_L1[y_offset2 << 1], &openHevcContext->picture->data[6][y_offset << 1], dst_stride_mv << 1);
+            memcpy(&REF_OFF_L0[y_offset2], &openHevcContext->picture->data[7][y_offset], dst_stride_mv);
+            memcpy(&REF_OFF_L1[y_offset2], &openHevcContext->picture->data[8][y_offset], dst_stride_mv);
+
+            y_offset  += src_stride_mv;
+            y_offset2 += dst_stride_mv;
+        }
+
+        y_offset = y_offset2 = 0;
+        int dst_stride_size = dst_stride >> 3;
+        int src_stride_size = src_stride >> 3;
+
+        for (y = 0; y < height >> 3; y++) {
+            memcpy(&Size[y_offset2], &openHevcContext->picture->data[9][y_offset], dst_stride_size);
+
+            y_offset  += src_stride_size;
+            y_offset2 += dst_stride_size;
         }
     }
     return 1;

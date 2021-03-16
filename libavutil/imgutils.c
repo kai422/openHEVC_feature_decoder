@@ -106,14 +106,15 @@ int av_image_fill_linesizes(int linesizes[12], enum AVPixelFormat pix_fmt, int w
         linesizes[i] = ret;
     }
     //MvDecoder linesizes
-    linesizes[3]=0;
-    linesizes[4]=0;
-    linesizes[5]=0;
-    linesizes[6]=0;
-    linesizes[7]=0;
-    linesizes[8]=0;
-    linesizes[9]=0;
-    linesizes[10]=0;
+    //[0][1][2]:YUV
+    linesizes[3]=linesizes[0]>>1; //l0_mx minimal cu_size = 8 minimal pu block=4(??) l0_mx_size=(video_width/4,video_height/4) if considering pu block
+    linesizes[4]=linesizes[0]>>1; //l0_my
+    linesizes[5]=linesizes[0]>>1; //l1_mx
+    linesizes[6]=linesizes[0]>>1; //l1_my
+    linesizes[7]=linesizes[0]>>2; //l0_offset
+    linesizes[8]=linesizes[0]>>2;; //l1_offset
+    linesizes[9]=linesizes[0]>>3; //byte_density
+    linesizes[10]=0; //quadtree_strus
 
     return 0;
 }
@@ -158,13 +159,13 @@ int av_image_fill_pointers(uint8_t *data[11], enum AVPixelFormat pix_fmt, int he
         total_size += size[i];
     }
     //MvDecoder:
-    data[3] = data[2] + size[0]*2;
-    data[4] = data[3] + size[0]*2;
-    data[5] = data[4] + size[0]*2;
-    data[6] = data[5] + size[0]*2;
-    data[7] = data[6] + size[0];
-    data[8] = data[7] + size[0];
-    data[9] = data[8] + size[0];
+    data[3] = data[2] + (size[0]>>3);
+    data[4] = data[3] + (size[0]>>3);
+    data[5] = data[4] + (size[0]>>3);
+    data[6] = data[5] + (size[0]>>3);
+    data[7] = data[6] + (size[0]>>4);
+    data[8] = data[7] + (size[0]>>4);
+    data[9] = data[8] + (size[0]>>6);
     data[10] = data[9] + 8192;
 
     return total_size;

@@ -1,3 +1,6 @@
+
+before downscaled to valid size. see git log change for downscaled version.
+
 STEP1: create memory buffer
 
 libavutil/frame.h:158
@@ -938,6 +941,24 @@ gpac/modules/openhevc_dec/openHevcWrapper.c:366
         unsigned char *Size = (unsigned char *) openHevcFrame->pvSize;
 
 
+        for (y = 0; y < height; y++) {
+            memcpy(&Y[y_offset2], &openHevcContext->picture->data[0][y_offset], dst_stride);
+            //MvDecoder
+            memcpy(&MVX_L0[y_offset2 * 2], &openHevcContext->picture->data[3][y_offset], dst_stride * 2);
+            memcpy(&MVY_L0[y_offset2 * 2], &openHevcContext->picture->data[4][y_offset], dst_stride * 2);
+            memcpy(&MVX_L1[y_offset2 * 2], &openHevcContext->picture->data[5][y_offset], dst_stride * 2);
+            memcpy(&MVY_L1[y_offset2 * 2], &openHevcContext->picture->data[6][y_offset], dst_stride * 2);
+            memcpy(&REF_OFF_L0[y_offset2], &openHevcContext->picture->data[7][y_offset], dst_stride);
+            memcpy(&REF_OFF_L1[y_offset2], &openHevcContext->picture->data[8][y_offset], dst_stride);
+            memcpy(&Size[y_offset2], &openHevcContext->picture->data[9][y_offset], dst_stride);
+
+
+            y_offset  += src_stride;
+            y_offset2 += dst_stride;
+        }
+        //MvDecoder
+        memcpy(Meta, openHevcContext->picture->data[10], 8192);
+        memset(openHevcContext->picture->data[10],0,8192); // clean the buffer
 
 gpac/modules/openhevc_dec/openHevcWrapper.c:406
         //MvDecoder

@@ -5,9 +5,10 @@
       <paths name="Remote Host (b52a23ec-8b07-4fef-8439-b7b50c67f444)">
         <serverdata>
           <mappings>
-            <mapping deploy="/tmp/tmp.MuBolQRLrE" local="$PROJECT_DIR$" />
+            <mapping deploy="/home/kai422/workspace/Oct_HEVC_MV_Decoder" local="$PROJECT_DIR$" web="/" />
           </mappings>
           <excludedPaths>
+            <excludedPath local="true" path="$PROJECT_DIR$/cmake-build-release-remote" />
             <excludedPath local="true" path="$PROJECT_DIR$/cmake-build-debug" />
             <excludedPath local="true" path="$PROJECT_DIR$/cmake-build-debug-remote" />
             <excludedPath local="true" path="$PROJECT_DIR$/cmake-build-release-remote" />
