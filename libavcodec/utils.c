@@ -515,8 +515,8 @@ static int update_frame_pool(AVCodecContext *avctx, AVFrame *frame)
     switch (avctx->codec_type) {
         case AVMEDIA_TYPE_VIDEO: {
             AVPicture picture;
-            //MvDecoder: buffer size array 0-2: YUV 3-4 MVX, MVY, 5: cu pu quadtree, 6: cu byte usage
-            int size[7] = { 0 };
+            //MvDecoder: buffer size array 0-2: YUV 3:features
+            int size[4] = { 0 };
             int w = frame->width;
             int h = frame->height;
             int tmpsize, unaligned;
@@ -552,19 +552,11 @@ static int update_frame_pool(AVCodecContext *avctx, AVFrame *frame)
             for (i = 0; i < 3 && picture.data[i + 1]; i++)
                 size[i] = picture.data[i + 1] - picture.data[i];
             size[i] = tmpsize - (picture.data[i] - picture.data[0]);
-            //MvDecoder: mem pool size for motion vector x and y
+            //MvDecoder: mem pool size
             size[3] = size[0];
-            size[4] = size[0];
-            //MvDecoder: mem pool size for frame meta_information
-            //0: I_frame/P_frame/B_frame
-            //1-1023: Other meta_information(e.g. size)
-            //1024-8192: quadtree structure, for each CTU 21 bits/3bytes needed.
-            size[5] = 8192;
-            //MvDecoder: mem pool size for cu byte size.
-            size[6] = size[0];
 
-            //MvDecoder: change i < 3 to i < 6 to allocate buffer space for hevc structure feature.
-            for (i = 0; i < 7; i++) {
+            //MvDecoder: change i < 3 to i < 4 to allocate buffer space for hevc structure feature.
+            for (i = 0; i < 4; i++) {
                 av_buffer_pool_uninit(&pool->pools[i]);
                 pool->linesize[i] = picture.linesize[i];
                 if (size[i]) {
@@ -686,8 +678,8 @@ static int video_get_buffer(AVCodecContext *s, AVFrame *pic)
 
     av_pix_fmt_get_chroma_sub_sample(s->pix_fmt, &h_chroma_shift, &v_chroma_shift);
 
-    // MvDecoder: change 3 to 7. Originally buffer has 3 channel. Now add two more channel for motion vector and meta informations.
-    for (i = 0; i < 7 && pool->pools[i]; i++) {
+    // MvDecoder: change 3 to 4. Originally buffer has 3 channel. Now add one more channel.
+    for (i = 0; i < 4 && pool->pools[i]; i++) {
         const int h_shift = i == 0 ? 0 : h_chroma_shift;
         const int v_shift = i == 0 ? 0 : v_chroma_shift;
         int is_planar = pool->pools[2] || (i==0 && s->pix_fmt == AV_PIX_FMT_GRAY8);

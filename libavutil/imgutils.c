@@ -106,7 +106,6 @@ int av_image_fill_linesizes(int linesizes[8], enum AVPixelFormat pix_fmt, int wi
     }
     //MvDecoder linesizes
     linesizes[3]=linesizes[0];
-    linesizes[4]=linesizes[0];
 
     return 0;
 }
@@ -151,8 +150,6 @@ int av_image_fill_pointers(uint8_t *data[8], enum AVPixelFormat pix_fmt, int hei
     }
     //MvDecoder:
     data[3] = data[2] + size[0];
-    data[4] = data[3] + size[0];
-    data[5] = data[4] + 8192;
 
     return total_size;
 }

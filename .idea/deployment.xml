@@ -2,14 +2,14 @@
 <project version="4">
   <component name="PublishConfigData" serverName="app" remoteFilesAllowedToDisappearOnAutoupload="false">
     <serverData>
-      <paths name="Remote Host (88ac9213-f8fb-40b0-b0fb-ed2854fedceb)">
+      <paths name="Remote Host (bdd4ea06-4d9d-4736-870a-584194c7b4ea)">
         <serverdata>
           <mappings>
-            <mapping deploy="/tmp/tmp.TxH2BCSAvZ" local="$PROJECT_DIR$" />
+            <mapping deploy="/home/kai422/workspace/Oct_HEVC_MV_Decoder" local="$PROJECT_DIR$" web="/" />
           </mappings>
           <excludedPaths>
-            <excludedPath local="true" path="$PROJECT_DIR$/cmake-build-release" />
-            <excludedPath local="true" path="$PROJECT_DIR$/cmake-build-debug" />
+            <excludedPath local="true" path="$PROJECT_DIR$/cmake-build-debug-remote-host" />
+            <excludedPath local="true" path="$PROJECT_DIR$/cmake-build-release-remote-host" />
           </excludedPaths>
         </serverdata>
       </paths>

@@ -4,998 +4,900 @@
 	<Project>
 		<Option title="openHEVC"/>
 		<Option makefile_is_custom="1"/>
-		<Option compiler="gcc"/>
+		<Option compiler="clang"/>
 		<Option virtualFolders="CMake Files\;CMake Files\MyCMakeScripts\;CMake Files\platform\;CMake Files\platform\x86\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug"/>
+				<Option working_dir="/Users/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-				</MakeCommands>
-			</Target>
-			<Target title="install/strip">
-				<Option working_dir="/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug"/>
-				<Option type="4"/>
-				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 install/strip"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="install/local">
-				<Option working_dir="/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug"/>
+				<Option working_dir="/Users/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 install/local"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-				</MakeCommands>
-			</Target>
-			<Target title="install">
-				<Option working_dir="/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug"/>
-				<Option type="4"/>
-				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 install"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 install/local"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="list_install_components">
-				<Option working_dir="/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug"/>
+				<Option working_dir="/Users/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 list_install_components"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 list_install_components"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug"/>
+				<Option working_dir="/Users/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug"/>
+				<Option working_dir="/Users/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="hevc">
-				<Option output="/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/hevc" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug"/>
-				<Option object_output="./"/>
-				<Option type="1"/>
-				<Option compiler="gcc"/>
-				<Compiler>
-					<Add option="-DPIC"/>
-					<Add option="-DUSE_SDL"/>
-					<Add directory="/home/kai/CLionProjects/openHEVC_feature_decoder/."/>
-					<Add directory="/home/kai/CLionProjects/openHEVC_feature_decoder/gpac/modules/openhevc_dec"/>
-					<Add directory="/home/kai/CLionProjects/openHEVC_feature_decoder/platform/x86"/>
-					<Add directory="/usr/include/c++/7"/>
-					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
-					<Add directory="/usr/include/c++/7/backward"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
-					<Add directory="/usr/local/include"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
-					<Add directory="/usr/include/x86_64-linux-gnu"/>
-					<Add directory="/usr/include"/>
-				</Compiler>
+			<Target title="install/strip">
+				<Option working_dir="/Users/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug"/>
+				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 hevc"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 install/strip"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="hevc/fast">
-				<Option output="/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/hevc" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug"/>
-				<Option object_output="./"/>
-				<Option type="1"/>
-				<Option compiler="gcc"/>
-				<Compiler>
-					<Add option="-DPIC"/>
-					<Add option="-DUSE_SDL"/>
-					<Add directory="/home/kai/CLionProjects/openHEVC_feature_decoder/."/>
-					<Add directory="/home/kai/CLionProjects/openHEVC_feature_decoder/gpac/modules/openhevc_dec"/>
-					<Add directory="/home/kai/CLionProjects/openHEVC_feature_decoder/platform/x86"/>
-					<Add directory="/usr/include/c++/7"/>
-					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
-					<Add directory="/usr/include/c++/7/backward"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
-					<Add directory="/usr/local/include"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
-					<Add directory="/usr/include/x86_64-linux-gnu"/>
-					<Add directory="/usr/include"/>
-				</Compiler>
+			<Target title="install">
+				<Option working_dir="/Users/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug"/>
+				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 hevc/fast"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 install"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="OpenHevcMvDecoder">
-				<Option output="/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/libOpenHevcMvDecoder.a" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug"/>
+				<Option output="/Users/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/libOpenHevcMvDecoder.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="2"/>
-				<Option compiler="gcc"/>
+				<Option compiler="clang"/>
 				<Compiler>
 					<Add option="-DPIC"/>
 					<Add option="-DUSE_SDL"/>
-					<Add directory="/home/kai/CLionProjects/openHEVC_feature_decoder/."/>
-					<Add directory="/home/kai/CLionProjects/openHEVC_feature_decoder/gpac/modules/openhevc_dec"/>
-					<Add directory="/home/kai/CLionProjects/openHEVC_feature_decoder/platform/x86"/>
-					<Add directory="/usr/include/c++/7"/>
-					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
-					<Add directory="/usr/include/c++/7/backward"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/Users/kai/CLionProjects/openHEVC_feature_decoder/."/>
+					<Add directory="/Users/kai/CLionProjects/openHEVC_feature_decoder/gpac/modules/openhevc_dec"/>
+					<Add directory="/Users/kai/CLionProjects/openHEVC_feature_decoder/platform/x86"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
 					<Add directory="/usr/local/include"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
-					<Add directory="/usr/include/x86_64-linux-gnu"/>
-					<Add directory="/usr/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 OpenHevcMvDecoder"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 OpenHevcMvDecoder"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="OpenHevcMvDecoder/fast">
-				<Option output="/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/libOpenHevcMvDecoder.a" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug"/>
+				<Option output="/Users/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/libOpenHevcMvDecoder.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="2"/>
-				<Option compiler="gcc"/>
+				<Option compiler="clang"/>
 				<Compiler>
 					<Add option="-DPIC"/>
 					<Add option="-DUSE_SDL"/>
-					<Add directory="/home/kai/CLionProjects/openHEVC_feature_decoder/."/>
-					<Add directory="/home/kai/CLionProjects/openHEVC_feature_decoder/gpac/modules/openhevc_dec"/>
-					<Add directory="/home/kai/CLionProjects/openHEVC_feature_decoder/platform/x86"/>
-					<Add directory="/usr/include/c++/7"/>
-					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
-					<Add directory="/usr/include/c++/7/backward"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/Users/kai/CLionProjects/openHEVC_feature_decoder/."/>
+					<Add directory="/Users/kai/CLionProjects/openHEVC_feature_decoder/gpac/modules/openhevc_dec"/>
+					<Add directory="/Users/kai/CLionProjects/openHEVC_feature_decoder/platform/x86"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
 					<Add directory="/usr/local/include"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
-					<Add directory="/usr/include/x86_64-linux-gnu"/>
-					<Add directory="/usr/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 OpenHevcMvDecoder/fast"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 OpenHevcMvDecoder/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="uninstall">
-				<Option working_dir="/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug"/>
+				<Option working_dir="/Users/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 uninstall"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 uninstall"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="hevc">
+				<Option output="/Users/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/hevc" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="clang"/>
+				<Compiler>
+					<Add option="-DPIC"/>
+					<Add option="-DUSE_SDL"/>
+					<Add directory="/Users/kai/CLionProjects/openHEVC_feature_decoder/."/>
+					<Add directory="/Users/kai/CLionProjects/openHEVC_feature_decoder/gpac/modules/openhevc_dec"/>
+					<Add directory="/Users/kai/CLionProjects/openHEVC_feature_decoder/platform/x86"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 hevc"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="hevc/fast">
+				<Option output="/Users/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/hevc" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="clang"/>
+				<Compiler>
+					<Add option="-DPIC"/>
+					<Add option="-DUSE_SDL"/>
+					<Add directory="/Users/kai/CLionProjects/openHEVC_feature_decoder/."/>
+					<Add directory="/Users/kai/CLionProjects/openHEVC_feature_decoder/gpac/modules/openhevc_dec"/>
+					<Add directory="/Users/kai/CLionProjects/openHEVC_feature_decoder/platform/x86"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 hevc/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/cpuid.o">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/gpac/modules/openhevc_dec/openHevcWrapper.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/cpuid.o.rule">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/gpac/modules/openhevc_dec/openHevcWrapper.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/dct32.o">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/ac3tab.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/dct32.o.rule">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/ac3tab.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/deinterlace.o">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/allcodecs.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/deinterlace.o.rule">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/avfft.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/emms.o">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/avfft.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/emms.o.rule">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/avpacket.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/fft.o">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/avpicture.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/fft.o.rule">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/bitstream.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/fpel.o">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/bitstream_filter.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/fpel.o.rule">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/bswapdsp.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/h264_qpel_10bit.o">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/bswapdsp.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/h264_qpel_10bit.o.rule">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/cabac.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/h264_qpel_8bit.o">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/cabac.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/h264_qpel_8bit.o.rule">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/codec_desc.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/hevc_deblock.o">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/dct.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/hevc_deblock.o.rule">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/dct.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/hevc_idct.o">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/dct32_float.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/hevc_idct.o.rule">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/dct32_template.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/hevc_mc.o">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/dirac.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/hevc_mc.o.rule">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/dirac.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/hpeldsp.o">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/faanidct.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/hpeldsp.o.rule">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/faanidct.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/qpel.o">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/fft_template.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/qpel.o.rule">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/flac.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/qpeldsp.o">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/flac.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/qpeldsp.o.rule">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/flacdata.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/videodsp.o">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/flacdata.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/cmake-build-debug/videodsp.o.rule">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/golomb.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/gpac/modules/openhevc_dec/openHevcWrapper.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/golomb.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/gpac/modules/openhevc_dec/openHevcWrapper.h">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/hevc.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/ac3tab.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/hevc.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/ac3tab.h">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/hevc_cabac.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/allcodecs.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/hevc_filter.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/avfft.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/hevc_mvs.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/avfft.h">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/hevc_parser.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/avpacket.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/hevc_ps.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/avpicture.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/hevc_refs.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/bitstream.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/hevc_sei.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/bitstream_filter.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/hevcdsp.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/bswapdsp.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/hevcdsp.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/bswapdsp.h">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/hevcpred.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/cabac.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/hevcpred.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/cabac.h">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/hpeldsp.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/codec_desc.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/hpeldsp.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/dct.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/imgconvert.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/dct.h">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/imgconvert.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/dct32_float.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/jrevdct.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/dct32_template.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/mathtables.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/dirac.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/mdct_template.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/dirac.h">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/me_cmp.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/faanidct.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/me_cmp.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/faanidct.h">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/mpeg12data.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/fft_template.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/mpeg12data.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/flac.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/mpeg4audio.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/flac.h">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/mpeg4audio.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/flacdata.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/mpegaudiodata.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/flacdata.h">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/mpegaudiodata.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/golomb.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/options.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/golomb.h">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/parser.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/hevc.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/parser.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/hevc.h">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/pthread.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/hevc_cabac.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/pthread_frame.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/hevc_filter.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/pthread_slice.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/hevc_mvs.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/qpeldsp.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/hevc_parser.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/qpeldsp.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/hevc_ps.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/raw.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/hevc_refs.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/raw.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/hevc_sei.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/rawdec.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/hevcdsp.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/rdft.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/hevcdsp.h">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/rdft.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/hevcpred.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/simple_idct.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/hevcpred.h">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/simple_idct.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/hpeldsp.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/utils.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/hpeldsp.h">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/videodsp.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/imgconvert.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/videodsp.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/imgconvert.h">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/vorbis_parser.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/jrevdct.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/vorbis_parser.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/mathtables.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/x86/constants.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/mdct_template.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/x86/constants.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/me_cmp.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/x86/dct_init.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/me_cmp.h">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/x86/fdct.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/mpeg12data.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/x86/fft_init.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/mpeg12data.h">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/x86/h264_qpel.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/mpeg4audio.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/x86/hevc_idct_sse.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/mpeg4audio.h">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/x86/hevc_il_pred_sse.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/mpegaudiodata.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/x86/hevc_intra_pred_sse.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/mpegaudiodata.h">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/x86/hevc_mc_sse.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/options.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/x86/hevc_sao_sse.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/parser.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/x86/hevcdsp_init.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/parser.h">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/x86/hevcpred_init.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/pthread.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/x86/hpeldsp_init.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/pthread_frame.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/x86/idct_mmx_xvid.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/pthread_slice.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/x86/idct_sse2_xvid.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/qpeldsp.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/x86/qpeldsp_init.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/qpeldsp.h">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/x86/simple_idct.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/raw.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/x86/simple_idct.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/raw.h">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/x86/videodsp_init.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/rawdec.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/xiph.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/rdft.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/xiph.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/rdft.h">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavformat/allformats.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/simple_idct.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavformat/avio.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/simple_idct.h">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavformat/avio.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/utils.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavformat/aviobuf.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/videodsp.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavformat/cutils.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/videodsp.h">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavformat/file.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/vorbis_parser.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavformat/flac_picture.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/vorbis_parser.h">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavformat/flac_picture.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/x86/constants.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavformat/format.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/x86/constants.h">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavformat/hevcdec.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/x86/dct_init.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavformat/id3v1.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/x86/fdct.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavformat/id3v1.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/x86/fft_init.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavformat/id3v2.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/x86/h264_qpel.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavformat/id3v2.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/x86/hevc_idct_sse.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavformat/isom.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/x86/hevc_il_pred_sse.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavformat/isom.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/x86/hevc_intra_pred_sse.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavformat/matroska.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/x86/hevc_mc_sse.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavformat/matroska.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/x86/hevc_sao_sse.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavformat/matroskadec.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/x86/hevcdsp_init.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavformat/metadata.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/x86/hevcpred_init.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavformat/metadata.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/x86/hpeldsp_init.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavformat/mov.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/x86/idct_mmx_xvid.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavformat/mov_chan.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/x86/idct_sse2_xvid.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavformat/mov_chan.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/x86/qpeldsp_init.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavformat/mpegts.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/x86/simple_idct.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavformat/mpegts.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/x86/simple_idct.h">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavformat/mux.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/x86/videodsp_init.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavformat/oggdec.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/xiph.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavformat/oggdec.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavcodec/xiph.h">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavformat/oggparsecelt.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavformat/allformats.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavformat/oggparsedirac.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavformat/avio.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavformat/oggparseflac.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavformat/avio.h">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavformat/oggparseogm.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavformat/aviobuf.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavformat/oggparseopus.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavformat/cutils.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavformat/oggparseskeleton.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavformat/file.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavformat/oggparsespeex.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavformat/flac_picture.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavformat/oggparsetheora.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavformat/flac_picture.h">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavformat/oggparsevorbis.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavformat/format.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavformat/oggparsevp8.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavformat/hevcdec.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavformat/options.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavformat/id3v1.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavformat/os_support.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavformat/id3v1.h">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavformat/os_support.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavformat/id3v2.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavformat/rawdec.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavformat/id3v2.h">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavformat/rawdec.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavformat/isom.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavformat/replaygain.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavformat/isom.h">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavformat/replaygain.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavformat/matroska.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavformat/riff.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavformat/matroska.h">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavformat/riff.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavformat/matroskadec.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavformat/riffdec.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavformat/metadata.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavformat/rmsipr.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavformat/metadata.h">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavformat/rmsipr.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavformat/mov.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavformat/utils.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavformat/mov_chan.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavformat/vorbiscomment.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavformat/mov_chan.h">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavformat/vorbiscomment.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavformat/mpegts.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/atomic.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavformat/mpegts.h">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/atomic.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavformat/mux.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/avstring.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavformat/oggdec.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/avstring.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavformat/oggdec.h">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/base64.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavformat/oggparsecelt.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/base64.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavformat/oggparsedirac.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/bprint.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavformat/oggparseflac.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/bprint.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavformat/oggparseogm.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/buffer.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavformat/oggparseopus.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/buffer.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavformat/oggparseskeleton.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/channel_layout.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavformat/oggparsespeex.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/channel_layout.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavformat/oggparsetheora.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/cpu.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavformat/oggparsevorbis.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/cpu.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavformat/oggparsevp8.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/crc.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavformat/options.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/crc.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavformat/os_support.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/des.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavformat/os_support.h">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/des.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavformat/rawdec.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/dict.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavformat/rawdec.h">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/dict.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavformat/replaygain.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/display.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavformat/replaygain.h">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/display.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavformat/riff.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/error.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavformat/riff.h">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/error.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavformat/riffdec.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/eval.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavformat/rmsipr.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/eval.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavformat/rmsipr.h">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/file_open.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavformat/utils.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/frame.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavformat/vorbiscomment.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/frame.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavformat/vorbiscomment.h">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/imgutils.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/atomic.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/imgutils.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/atomic.h">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/intmath.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/avstring.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/intmath.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/avstring.h">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/log.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/base64.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/log.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/base64.h">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/log2_tab.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/bprint.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/mathematics.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/bprint.h">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/mathematics.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/buffer.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/md5.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/buffer.h">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/md5.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/channel_layout.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/mem.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/channel_layout.h">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/mem.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/cpu.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/opt.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/cpu.h">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/opt.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/crc.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/parseutils.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/crc.h">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/parseutils.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/des.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/pixdesc.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/des.h">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/pixdesc.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/dict.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/random_seed.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/dict.h">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/random_seed.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/display.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/rational.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/display.h">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/rational.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/error.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/rc4.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/error.h">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/rc4.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/eval.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/samplefmt.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/eval.h">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/samplefmt.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/file_open.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/sha.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/frame.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/sha.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/frame.h">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/stereo3d.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/imgutils.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/stereo3d.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/imgutils.h">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/time.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/intmath.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/time.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/intmath.h">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/timecode.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/log.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/timecode.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/log.h">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/utils.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/log2_tab.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/x86/cpu.c">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/mathematics.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/libavutil/x86/cpu.h">
 			<Option target="OpenHevcMvDecoder"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/mathematics.h">
-			<Option target="OpenHevcMvDecoder"/>
-		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/md5.c">
-			<Option target="OpenHevcMvDecoder"/>
-		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/md5.h">
-			<Option target="OpenHevcMvDecoder"/>
-		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/mem.c">
-			<Option target="OpenHevcMvDecoder"/>
-		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/mem.h">
-			<Option target="OpenHevcMvDecoder"/>
-		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/opt.c">
-			<Option target="OpenHevcMvDecoder"/>
-		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/opt.h">
-			<Option target="OpenHevcMvDecoder"/>
-		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/parseutils.c">
-			<Option target="OpenHevcMvDecoder"/>
-		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/parseutils.h">
-			<Option target="OpenHevcMvDecoder"/>
-		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/pixdesc.c">
-			<Option target="OpenHevcMvDecoder"/>
-		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/pixdesc.h">
-			<Option target="OpenHevcMvDecoder"/>
-		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/random_seed.c">
-			<Option target="OpenHevcMvDecoder"/>
-		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/random_seed.h">
-			<Option target="OpenHevcMvDecoder"/>
-		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/rational.c">
-			<Option target="OpenHevcMvDecoder"/>
-		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/rational.h">
-			<Option target="OpenHevcMvDecoder"/>
-		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/rc4.c">
-			<Option target="OpenHevcMvDecoder"/>
-		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/rc4.h">
-			<Option target="OpenHevcMvDecoder"/>
-		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/samplefmt.c">
-			<Option target="OpenHevcMvDecoder"/>
-		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/samplefmt.h">
-			<Option target="OpenHevcMvDecoder"/>
-		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/sha.c">
-			<Option target="OpenHevcMvDecoder"/>
-		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/sha.h">
-			<Option target="OpenHevcMvDecoder"/>
-		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/stereo3d.c">
-			<Option target="OpenHevcMvDecoder"/>
-		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/stereo3d.h">
-			<Option target="OpenHevcMvDecoder"/>
-		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/time.c">
-			<Option target="OpenHevcMvDecoder"/>
-		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/time.h">
-			<Option target="OpenHevcMvDecoder"/>
-		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/timecode.c">
-			<Option target="OpenHevcMvDecoder"/>
-		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/timecode.h">
-			<Option target="OpenHevcMvDecoder"/>
-		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/utils.c">
-			<Option target="OpenHevcMvDecoder"/>
-		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/x86/cpu.c">
-			<Option target="OpenHevcMvDecoder"/>
-		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/libavutil/x86/cpu.h">
-			<Option target="OpenHevcMvDecoder"/>
-		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/main_hm/getopt.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/main_hm/getopt.c">
 			<Option target="hevc"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/main_hm/getopt.h">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/main_hm/getopt.h">
 			<Option target="hevc"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/main_hm/main.c">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/main_hm/main.c">
 			<Option target="hevc"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/CMakeLists.txt">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/uninstall_target.cmake.in">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/uninstall_target.cmake.in">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/MyCMakeScripts/AddCompilerFlag.cmake">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/MyCMakeScripts/AddCompilerFlag.cmake">
 			<Option virtualFolder="CMake Files\MyCMakeScripts\"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/MyCMakeScripts/CheckCCompilerFlag.cmake">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/MyCMakeScripts/CheckCCompilerFlag.cmake">
 			<Option virtualFolder="CMake Files\MyCMakeScripts\"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/MyCMakeScripts/CheckCXXCompilerFlag.cmake">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/MyCMakeScripts/CheckCXXCompilerFlag.cmake">
 			<Option virtualFolder="CMake Files\MyCMakeScripts\"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/MyCMakeScripts/CheckMicCCompilerFlag.cmake">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/MyCMakeScripts/CheckMicCCompilerFlag.cmake">
 			<Option virtualFolder="CMake Files\MyCMakeScripts\"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/MyCMakeScripts/CheckMicCXXCompilerFlag.cmake">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/MyCMakeScripts/CheckMicCXXCompilerFlag.cmake">
 			<Option virtualFolder="CMake Files\MyCMakeScripts\"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/MyCMakeScripts/FindYasm.cmake">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/MyCMakeScripts/FindYasm.cmake">
 			<Option virtualFolder="CMake Files\MyCMakeScripts\"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/MyCMakeScripts/OptimizeForArchitecture.cmake">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/MyCMakeScripts/OptimizeForArchitecture.cmake">
 			<Option virtualFolder="CMake Files\MyCMakeScripts\"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/platform/x86/config.asm.in">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/platform/x86/config.asm.in">
 			<Option virtualFolder="CMake Files\platform\x86\"/>
 		</Unit>
-		<Unit filename="/home/kai/CLionProjects/openHEVC_feature_decoder/platform/x86/config.h.in">
+		<Unit filename="/Users/kai/CLionProjects/openHEVC_feature_decoder/platform/x86/config.h.in">
 			<Option virtualFolder="CMake Files\platform\x86\"/>
 		</Unit>
 	</Project>

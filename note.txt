@@ -1,96 +1,37 @@
 STEP1: create memory buffer
 
-libavutil/frame.h:158
-    //MvDecoder: change 8 to 12 (must bigger than used size)
-#define AV_NUM_DATA_POINTERS 12
-
 libavutil/imgutils.c:107
     //MvDecoder linesizes
-    linesizes[3]=0;
-    linesizes[4]=0;
-    linesizes[5]=0;
-    linesizes[6]=0;
-    linesizes[7]=0;
-    linesizes[8]=0;
-    linesizes[9]=0;
-    linesizes[10]=0;
+    linesizes[3]=linesizes[0];
 
-????
-libavcodec/hevc.c:377
-    for (i = 0; frame->data[i]; i++) {
-        int offset = frame->linesize[i] + (1 << sps->pixel_shift);
-        frame->data[i] += offset;
-    }
-    frame->width  = s->avctx->width;
-    frame->height = s->avctx->height;
-????
 
 libavcodec/internal.h:53
-    // MvDecoder: get buffer pool for MVX, MVY
-    // changed 4 to 11 for more space holding features.
+    // MvDecoder: get buffer pool
     // pools[0-2]: Y U V
-    // pools[3-4]: raw MVX, MVY for L0
-    // pools[5-6]: raw MVX, MVY for L1
-    // pools[7]: MV reference frame offset L0
-    // pools[8]: MV reference frame offset L1
-    // pools[9]: frame cu byte size
-    // pools[10]: frame meta_information + partition quadtree structure.
-    AVBufferPool *pools[11];
-
-
-libavcodec/internal.h:70
-    // MvDecoder
-    int linesize[12];
+    // pools[3]: mv, byte_size features
 
 
 libavcodec/utils.c:518
-    //MvDecoder: buffer size array.
-    int size[11] = { 0 };
+            //MvDecoder: buffer size array 0-2: YUV 3:features
+            int size[4] = { 0 };
 
 libavcodec/utils.c:555
-    //MvDecoder: mem pool size for raw motion vector x and y int16_t
-    size[3] = size[0]*2; //mv_x for L0
-    size[4] = size[0]*2; //mv_y for L0
-    size[5] = size[0]*2; //mv_x for L1
-    size[6] = size[0]*2; //mv_y for L1
-    //MvDecoder: mem pool size for mv reference frame offset. u_int8_t
-    size[7] = size[0]; //refer offset for L0
-    size[8] = size[0]; //refer offset for L0
-    //MvDecoder: mem pool size for cu byte size density.
-    size[9] = size[0];
-    //MvDecoder: mem pool size for frame meta_information
-    //0: I_frame/P_frame/B_frame
-    //1-1023: Other meta_information(e.g. size)
-    //1024-65536: quadtree structure, for each CTU 21 bits/3bytes needed.
-    size[10] = 65536;
+            //MvDecoder: mem pool size
+            size[3] = size[0];
 
+            //MvDecoder: change i < 3 to i < 4 to allocate buffer space for hevc structure feature.
+            for (i = 0; i < 4; i++) {
 
-    //MvDecoder: change i < 3 to i < 11 to allocate buffer space for hevc structure feature.
-    for (i = 0; i < 11; i++) {
 
 libavcodec/utils.c:692
-    // MvDecoder: change 3 to 11. Originally buffer has 3 channel. Now add two more channel for motion vector and other features.
-    for (i = 0; i < 11 && pool->pools[i]; i++) {
+    // MvDecoder: change 3 to 4. Originally buffer has 3 channel. Now add one more channel.
+    for (i = 0; i < 4 && pool->pools[i]; i++) {
 
 
 
 libavutil/imgutils.c:160
     //MvDecoder:
-    data[3] = data[2] + size[0]*2;
-    data[4] = data[3] + size[0]*2;
-    data[5] = data[4] + size[0]*2;
-    data[6] = data[5] + size[0]*2;
-    data[7] = data[6] + size[0];
-    data[8] = data[7] + size[0];
-    data[9] = data[8] + size[0];
-    data[10] = data[9] + 8192;
-
-
-
-
-
-
-
+    data[3] = data[2] + size[0];
 
     // Now we have the buffer for mv and other features to fill in for the decoding stage
 
