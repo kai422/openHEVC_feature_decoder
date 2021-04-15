@@ -1339,6 +1339,7 @@ typedef struct HEVCContext {
 	int64_t last_frame_pts;
     uint8_t encrypt_params;
     uint32_t prev_pos;
+    int64_t dts;
 } HEVCContext;
 
 int ff_hevc_decode_short_term_rps(HEVCContext *s, ShortTermRPS *rps,

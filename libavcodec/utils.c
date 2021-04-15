@@ -515,7 +515,6 @@ static int update_frame_pool(AVCodecContext *avctx, AVFrame *frame)
     switch (avctx->codec_type) {
         case AVMEDIA_TYPE_VIDEO: {
             AVPicture picture;
-            //MvDecoder: buffer size array 0-2: YUV 3:features
             int size[4] = { 0 };
             int w = frame->width;
             int h = frame->height;
@@ -549,13 +548,11 @@ static int update_frame_pool(AVCodecContext *avctx, AVFrame *frame)
             if (tmpsize < 0)
                 return -1;
 
+            //MvDecoder: mem pool size
             for (i = 0; i < 3 && picture.data[i + 1]; i++)
                 size[i] = picture.data[i + 1] - picture.data[i];
             size[i] = tmpsize - (picture.data[i] - picture.data[0]);
-            //MvDecoder: mem pool size
-            size[3] = size[0];
 
-            //MvDecoder: change i < 3 to i < 4 to allocate buffer space for hevc structure feature.
             for (i = 0; i < 4; i++) {
                 av_buffer_pool_uninit(&pool->pools[i]);
                 pool->linesize[i] = picture.linesize[i];
@@ -678,7 +675,6 @@ static int video_get_buffer(AVCodecContext *s, AVFrame *pic)
 
     av_pix_fmt_get_chroma_sub_sample(s->pix_fmt, &h_chroma_shift, &v_chroma_shift);
 
-    // MvDecoder: change 3 to 4. Originally buffer has 3 channel. Now add one more channel.
     for (i = 0; i < 4 && pool->pools[i]; i++) {
         const int h_shift = i == 0 ? 0 : h_chroma_shift;
         const int v_shift = i == 0 ? 0 : v_chroma_shift;

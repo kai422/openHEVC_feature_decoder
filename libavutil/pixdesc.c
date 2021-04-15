@@ -130,16 +130,18 @@ void av_write_image_line(const uint16_t *src,
 #if !FF_API_PIX_FMT_DESC
 static
 #endif
+//MvDecoder: only support yuv420p
 const AVPixFmtDescriptor av_pix_fmt_descriptors[AV_PIX_FMT_NB] = {
     [AV_PIX_FMT_YUV420P] = {
         .name = "yuv420p",
-        .nb_components = 3,
+        .nb_components = 4,
         .log2_chroma_w = 1,
         .log2_chroma_h = 1,
         .comp = {
             { 0, 0, 1, 0, 7 },        /* Y */
             { 1, 0, 1, 0, 7 },        /* U */
             { 2, 0, 1, 0, 7 },        /* V */
+            { 3, 0, 1, 0, 7 },        /* MV */
         },
         .flags = AV_PIX_FMT_FLAG_PLANAR,
     },

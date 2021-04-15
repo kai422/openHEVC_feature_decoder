@@ -1851,116 +1851,78 @@ static void luma_mc_uni(HEVCContext *s, uint8_t *dst, ptrdiff_t dststride,
  * MvDecoder_write_mv_buffer
  *
  * @param s HEVC decoding context
- * @param dst_x target buffer for block data at block position
- * @param dst_y target buffer for block data at block position
- * @param dststride stride of the dst buffer
- * @param ref0 reference picture
- * @param ref1 reference picture
- * @param mv motion vector (relative to block position) to get pixel data from
  * @param block_w width of block
  * @param block_h height of block
  */
 
-static void MvDecoder_write_mv_buffer(HEVCContext *s, uint8_t *dst_x, uint8_t *dst_y, ptrdiff_t dststride,
-                        AVFrame *ref0, AVFrame *ref1, struct MvField *current_mv,
-                        int block_w, int block_h)
+static void MvDecoder_write_mv_buffer(HEVCContext *s, uint8_t *dst3_base, int x0, int y0,
+                        struct MvField *current_mv, int block_w, int block_h)
 {
-    ptrdiff_t srcstride;
+    int pic_width        = s->frame->linesize[0];
+    int pic_height       = s->frame->height;
 
-    if (current_mv->pred_flag == PF_L0) {
-        srcstride  = ref0->linesize[0];
-    }
-    else if(current_mv->pred_flag == PF_L1) {
-        srcstride  = ref1->linesize[0];
-    }
-    else if(current_mv->pred_flag == PF_BI) {
-        srcstride  = ref0->linesize[0];
-    }
-    int pic_width        = s->sps->width;
-    int pic_height       = s->sps->height;
+    int pu_resolution = (pic_height>>2)*(pic_width>>2);
+    int pu_linesize = s->frame->linesize[0]>>2;
+    int pu_y0 = y0 >> 2;
+    int pu_x0 = x0 >> 2;
+    int pu_block_w = block_w >> 2;
+    int pu_block_h = block_h >> 2;
+    int16_t *dst_l0_mx = (int16_t*)(dst3_base)+pu_y0 * pu_linesize + pu_x0;
+    int16_t *dst_l0_my = (int16_t*)(dst3_base + pu_resolution*2) + pu_y0 * pu_linesize + pu_x0;
+    int16_t *dst_l1_mx = (int16_t*)(dst3_base + pu_resolution*4) + pu_y0 * pu_linesize + pu_x0;
+    int16_t *dst_l1_my = (int16_t*)(dst3_base + pu_resolution*6) + pu_y0 * pu_linesize + pu_x0;
+    uint8_t *dst_l0_ref = dst3_base + pu_resolution*8 + pu_y0 * pu_linesize + pu_x0;
+    uint8_t *dst_l1_ref = dst3_base + pu_resolution*9 + pu_y0 * pu_linesize + pu_x0;
+
     //亚像素的运动矢量
-    //mv0,mv1单位是1/4像素
+    //mv0,mv1单位是1/4像素 for UV, 1/8 for Y.
     //reverse motion vector sign if refer backwards
-    int mx = 0;
-    int my = 0;
+    int x, y;
     if (current_mv->pred_flag == PF_L0) {
-        const Mv *mv            = &current_mv->mv[0];
-        mx                      = -(mv->x);
-        my                      = -(mv->y);
-        if(s->poc - current_mv->poc[0]!=0) {
-            mx /= s->poc - current_mv->poc[0];
-            my /= s->poc - current_mv->poc[0];
+        for (y = 0; y < pu_block_h; y++) {
+            for (x = 0; x < pu_block_w; x++) {
+                dst_l0_mx[x] = current_mv->mv[0].x;
+                dst_l0_my[x] = current_mv->mv[0].y;
+                dst_l0_ref[x] = s->poc - current_mv->poc[0];
+            }
+            dst_l0_mx += pu_linesize;
+            dst_l0_my += pu_linesize;
+            dst_l0_ref += pu_linesize;
         }
-        mx                      +=128;
-        my                      +=128;
     }
     else if(current_mv->pred_flag == PF_L1) {
-        const Mv *mv            = &current_mv->mv[1];
-        mx                      = mv->x;
-        my                      = mv->y;
-        if(current_mv->poc[1] - s->poc!=0) {
-            mx /= current_mv->poc[1] - s->poc;
-            my /= current_mv->poc[1] - s->poc;
+        for (y = 0; y < pu_block_h; y++) {
+            for (x = 0; x < pu_block_w; x++) {
+                dst_l1_mx[x] = current_mv->mv[1].x;
+                dst_l1_my[x] = current_mv->mv[1].y;
+                dst_l1_ref[x] = current_mv->poc[1] - s->poc;
+            }
+            dst_l1_mx += pu_linesize;
+            dst_l1_my += pu_linesize;
+            dst_l1_ref += pu_linesize;
         }
-        mx                      +=128;
-        my                      +=128;
     }
     else if(current_mv->pred_flag == PF_BI) {
-        const Mv *mv0           = &current_mv->mv[0];
-        const Mv *mv1           = &current_mv->mv[1];
-        mx                      = (mv1->x - mv0->x);
-        my                      = (mv1->y - mv0->y);
-        if(current_mv->poc[1] - current_mv->poc[0]) {
-            mx /= current_mv->poc[1] - current_mv->poc[0];
-            my /= current_mv->poc[1] - current_mv->poc[0];
+        for (y = 0; y < pu_block_h; y++) {
+            for (x = 0; x < pu_block_w; x++) {
+                dst_l0_mx[x] = current_mv->mv[0].x;
+                dst_l0_my[x] = current_mv->mv[0].y;
+                dst_l0_ref[x] = s->poc - current_mv->poc[0];
+                dst_l1_mx[x] = current_mv->mv[1].x;
+                dst_l1_my[x] = current_mv->mv[1].y;
+                dst_l1_ref[x] = current_mv->poc[1] - s->poc;
+            }
+            dst_l0_mx += pu_linesize;
+            dst_l0_my += pu_linesize;
+            dst_l0_ref += pu_linesize;
+            dst_l1_mx += pu_linesize;
+            dst_l1_my += pu_linesize;
+            dst_l1_ref += pu_linesize;
         }
-        mx                      +=128;
-        my                      +=128;
-    }
-
-    int x, y;
-    //处理x*y个像素
-    for (y = 0; y < block_h; y++) {
-        for (x = 0; x < block_w; x++) {
-            dst_x[x] = mx;
-            dst_y[x] = my;
-        }
-        dst_x += dststride;
-        dst_y += dststride;
     }
 }
 
 
-/**
- * MvDecoder_write_mv_buffer_skip
- *
- * @param s HEVC decoding context
- * @param x_off horizontal position of block from origin (0, 0)
- * @param y_off vertical position of block from origin (0, 0)
- * @param log2_cb_size of block
- */
-
-static void MvDecoder_write_mv_buffer_skip(HEVCContext *s, int x0, int y0,
-                                      int log2_cb_size)
-{
-    uint8_t *dst_x = &s->frame->data[3][((y0) >> s->sps->vshift[0]) * s->frame->linesize[0] + \
-                           (((x0) >> s->sps->hshift[0]) << s->sps->pixel_shift)];
-    uint8_t *dst_y = &s->frame->data[4][((y0) >> s->sps->vshift[0]) * s->frame->linesize[0] + \
-                           (((x0) >> s->sps->hshift[0]) << s->sps->pixel_shift)];
-    ptrdiff_t dststride = s->frame->linesize[0];
-    int pb_size = (1 << log2_cb_size);
-    int x, y;
-    //处理x*y个像素
-    for (y = 0; y < pb_size; y++) {
-        for (x = 0; x < pb_size; x++) {
-            //normalization term:
-            dst_x[x] = 128;
-            dst_y[x] = 128;
-        }
-        dst_x += dststride;
-        dst_y += dststride;
-    }
-}
 
 /**
  * MvDecoder_write_size_buffer
@@ -1971,26 +1933,27 @@ static void MvDecoder_write_mv_buffer_skip(HEVCContext *s, int x0, int y0,
  * @param log2_cb_size log2 of block size
  * @param cu_byte_size number of bytes used in the bytestream of this CU block.
  */
-static void MvDecoder_write_size_buffer(HEVCContext *s, int x0, int y0,
-                                           int log2_cb_size, int cu_byte_size)
+static void MvDecoder_write_size_buffer(HEVCContext *s, int x0, int y0, int log2_cb_size, int cu_byte_size)
 {
-    uint8_t *dst = &s->frame->data[6][((y0) >> s->sps->vshift[0]) * s->frame->linesize[0] + \
-                           (((x0) >> s->sps->hshift[0]) << s->sps->pixel_shift)];
-    ptrdiff_t dststride = s->frame->linesize[0];
-    int pb_size = (1 << log2_cb_size);
+    int pic_width        = s->frame->linesize[0];
+    int pic_height       = s->frame->height;
+
+    int pu_resolution = (pic_height>>2)*(pic_width>>2);
+    //int cu_resolution = (pic_height>>3)*(pic_width>>3);
+    int cu_linesize = s->frame->linesize[0]>>3;
+    int cu_y0 = y0 >> 3;
+    int cu_x0 = x0 >> 3;
+    int cb_size = (1 << log2_cb_size) >> 3;
+    uint8_t *dst_size = &s->frame->data[3][pu_resolution*10 + cu_y0 * cu_linesize + cu_x0];
+
     int x, y;
-    // relative size
-    int pb_relative_size = pb_size / 8;
-    int bit_density = cu_byte_size * 8 / (pb_relative_size * pb_relative_size);
+    int bit_density = cu_byte_size * 8 / (cb_size * cb_size);
     //处理x*y个像素
-    for (y = 0; y < pb_size; y++) {
-        for (x = 0; x < pb_size; x++) {
-            //normalization term:
-            if (y == pb_size/2-1 & x == pb_size/2-1) {
-                dst[x] = bit_density;
-            }
+    for (y = 0; y < cb_size; y++) {
+        for (x = 0; x < cb_size; x++) {
+            dst_size[x] = bit_density;
         }
-        dst += dststride;
+        dst_size += cu_linesize;
     }
 }
 
@@ -2196,7 +2159,6 @@ static void hls_prediction_unit(HEVCContext *s, int x0, int y0,
     int merge_idx = 0;
     struct MvField current_mv;
     int min_pu_width = s->sps->min_pu_width;
-    // Motion Vector?
     MvField *tab_mvf = s->ref->tab_mvf;
     RefPicList  *refPicList = s->ref->refPicList[s->slice_idx];
     //参考帧
@@ -2205,11 +2167,8 @@ static void hls_prediction_unit(HEVCContext *s, int x0, int y0,
     uint8_t *dst0 = POS(0, x0, y0);
     uint8_t *dst1 = POS(1, x0, y0);
     uint8_t *dst2 = POS(2, x0, y0);
-    // MvDecoder: get motion vector buffer dst pointer.
-    uint8_t *MvDecoder_dst_mvx = &s->frame->data[3][((y0) >> s->sps->vshift[0]) * s->frame->linesize[0] + \
-                           (((x0) >> s->sps->hshift[0]) << s->sps->pixel_shift)];
-    uint8_t *MvDecoder_dst_mvy = &s->frame->data[4][((y0) >> s->sps->vshift[0]) * s->frame->linesize[0] + \
-                           (((x0) >> s->sps->hshift[0]) << s->sps->pixel_shift)];
+    // MvDecoder: get buffer dst pointer.
+    uint8_t *MvDecoder_dst3_base = &s->frame->data[3][0];
 
     int log2_min_cb_size = s->sps->log2_min_cb_size;
     int min_cb_width     = s->sps->min_cb_width;
@@ -2341,27 +2300,26 @@ static void hls_prediction_unit(HEVCContext *s, int x0, int y0,
         int y0_c = y0 >> s->sps->vshift[1];
         int nPbW_c = nPbW >> s->sps->hshift[1];
         int nPbH_c = nPbH >> s->sps->vshift[1];
-
+        // MvDecoder: write motion vector value into buffer.
+        MvDecoder_write_mv_buffer(s, MvDecoder_dst3_base, x0, y0, &current_mv, nPbW, nPbH);
         //亮度运动补偿-单向
         luma_mc_uni(s, dst0, s->frame->linesize[0], ref0->frame,
                     &current_mv.mv[0], x0, y0, nPbW, nPbH,
                     s->sh.luma_weight_l0[current_mv.ref_idx[0]],
                     s->sh.luma_offset_l0[current_mv.ref_idx[0]]);
-        //printf("PF_L0 x0:%d, y0:%d, mv0_x:%d, mv0_y:%d \n", x0,y0,current_mv.mv[0].x, current_mv.mv[0].y);
         chroma_mc_uni(s, dst1, s->frame->linesize[1], ref0->frame->data[1], ref0->frame->linesize[1],
                       0, x0_c, y0_c, nPbW_c, nPbH_c, &current_mv,
                       s->sh.chroma_weight_l0[current_mv.ref_idx[0]][0], s->sh.chroma_offset_l0[current_mv.ref_idx[0]][0]);
         chroma_mc_uni(s, dst2, s->frame->linesize[2], ref0->frame->data[2], ref0->frame->linesize[2],
                       0, x0_c, y0_c, nPbW_c, nPbH_c, &current_mv,
                       s->sh.chroma_weight_l0[current_mv.ref_idx[0]][1], s->sh.chroma_offset_l0[current_mv.ref_idx[0]][1]);
-        // MvDecoder: write motion vector value into buffer.
-        MvDecoder_write_mv_buffer(s, MvDecoder_dst_mvx, MvDecoder_dst_mvy, s->frame->linesize[0],ref0->frame, NULL,
-                                      &current_mv, nPbW, nPbH);
     } else if (current_mv.pred_flag == PF_L1) {
         int x0_c = x0 >> s->sps->hshift[1];
         int y0_c = y0 >> s->sps->vshift[1];
         int nPbW_c = nPbW >> s->sps->hshift[1];
         int nPbH_c = nPbH >> s->sps->vshift[1];
+        // MvDecoder: write motion vector value into buffer.
+        MvDecoder_write_mv_buffer(s, MvDecoder_dst3_base, x0, y0, &current_mv, nPbW, nPbH);
         //亮度运动补偿-单向
         luma_mc_uni(s, dst0, s->frame->linesize[0], ref1->frame,
                     &current_mv.mv[1], x0, y0, nPbW, nPbH,
@@ -2376,14 +2334,14 @@ static void hls_prediction_unit(HEVCContext *s, int x0, int y0,
         chroma_mc_uni(s, dst2, s->frame->linesize[2], ref1->frame->data[2], ref1->frame->linesize[2],
                       1, x0_c, y0_c, nPbW_c, nPbH_c, &current_mv,
                       s->sh.chroma_weight_l1[current_mv.ref_idx[1]][1], s->sh.chroma_offset_l1[current_mv.ref_idx[1]][1]);
-        // MvDecoder: write motion vector value into buffer.
-        MvDecoder_write_mv_buffer(s, MvDecoder_dst_mvx, MvDecoder_dst_mvy, s->frame->linesize[0], NULL, ref1->frame,
-                                  &current_mv, nPbW, nPbH);
     } else if (current_mv.pred_flag == PF_BI) {
         int x0_c = x0 >> s->sps->hshift[1];
         int y0_c = y0 >> s->sps->vshift[1];
         int nPbW_c = nPbW >> s->sps->hshift[1];
         int nPbH_c = nPbH >> s->sps->vshift[1];
+        // MvDecoder: write motion vector value into buffer.
+        MvDecoder_write_mv_buffer(s, MvDecoder_dst3_base, x0, y0, &current_mv, nPbW, nPbH);
+
         //亮度运动补偿-双向
         luma_mc_bi(s, dst0, s->frame->linesize[0], ref0->frame,
                    &current_mv.mv[0], x0, y0, nPbW, nPbH,
@@ -2395,9 +2353,6 @@ static void hls_prediction_unit(HEVCContext *s, int x0, int y0,
 
         chroma_mc_bi(s, dst2, s->frame->linesize[2], ref0->frame, ref1->frame,
                      x0_c, y0_c, nPbW_c, nPbH_c, &current_mv, 1);
-        // MvDecoder: write motion vector value into buffer.
-        MvDecoder_write_mv_buffer(s, MvDecoder_dst_mvx, MvDecoder_dst_mvy, s->frame->linesize[0], ref0->frame, ref1->frame,
-                                  &current_mv, nPbW, nPbH);
     }
 }
 
@@ -2710,8 +2665,6 @@ static int hls_coding_unit(HEVCContext *s, int x0, int y0, int log2_cb_size, u_i
                 //获取帧内预测模式
                 intra_prediction_unit(s, x0, y0, log2_cb_size);
             }
-            //MvDeocder: fill with 128 normalization term in places where do not have mv.
-            MvDecoder_write_mv_buffer_skip(s, x0, y0, log2_cb_size);
 
         } else {
             //帧间预测模式
@@ -3235,7 +3188,7 @@ static int hls_decode_entry(AVCodecContext *avctxt, void *isFilterThread)
         //For each quadtree, need 1+4+16+64=85 bits to save(including PU partition).
         //85 bits = 11 Bytes < 12 Bytes. Use 12 Bytes/u_int_8/u_char to hold one grid.
         //quadtree data start at 1024 bytes onwards
-        uint8_t *MvDecoder_ctu_quadtree = s->frame->data[5] + 1024 + ctb_addr_rs*12;
+        uint8_t *MvDecoder_ctu_quadtree = s->frame->data[3] + ((s->frame->linesize[0]>>1)*(s->frame->height>>1))*3 + 1024 + ctb_addr_rs*12;
         /*
          * CU
          *
@@ -3463,7 +3416,7 @@ static int hls_decode_entry_wpp(AVCodecContext *avctxt, void *input_ctb_row, int
         //For each quadtree, need 1+4+16+64=85 bits to save(including PU partition).
         //85 bits = 11 Bytes < 12 Bytes. Use 12 Bytes/u_int_8/u_char to hold one grid.
         //quadtree data start at 1024 bytes onwards
-        uint8_t *MvDecoder_ctu_quadtree = s->frame->data[5] + 1024 + ctb_addr_rs*12;
+        uint8_t *MvDecoder_ctu_quadtree = s->frame->data[3] + ((s->frame->linesize[0]>>1)*(s->frame->height>>1))*3 + 1024 + ctb_addr_rs*12;
         more_data = hls_coding_quadtree(s, x_ctb, y_ctb, s->sps->log2_ctb_size, 0, MvDecoder_ctu_quadtree, 0);
         if (more_data < 0) {
             s->tab_slice_address[ctb_addr_rs] = -1;
@@ -3552,7 +3505,7 @@ static int hls_decode_entry_wpp_in_tiles(AVCodecContext *avctxt, int *input_ctb_
         //For each quadtree, need 1+4+16+64=85 bits to save(including PU partition).
         //85 bits = 11 Bytes < 12 Bytes. Use 12 Bytes/u_int_8/u_char to hold one grid.
         //quadtree data start at 1024 bytes onwards
-        uint8_t *MvDecoder_ctu_quadtree = s->frame->data[5] + 1024 + ctb_addr_rs*12;
+        uint8_t *MvDecoder_ctu_quadtree = s->frame->data[3] + ((s->frame->linesize[0]>>1)*(s->frame->height>>1))*3 + 1024 + ctb_addr_rs*12;
         more_data = hls_coding_quadtree(s, x_ctb, y_ctb, s->sps->log2_ctb_size, 0, MvDecoder_ctu_quadtree, 0);
         if (more_data < 0) {
             s->tab_slice_address[ctb_addr_rs] = -1;
@@ -3631,7 +3584,7 @@ static int hls_decode_entry_tiles(AVCodecContext *avctxt, int *input_ctb_row, in
         //For each quadtree, need 1+4+16+64=85 bits to save(including PU partition).
         //85 bits = 11 Bytes < 12 Bytes. Use 12 Bytes/u_int_8/u_char to hold one grid.
         //quadtree data start at 1024 bytes onwards
-        uint8_t *MvDecoder_ctu_quadtree = s->frame->data[5] + 1024 + ctb_addr_rs*12;
+        uint8_t *MvDecoder_ctu_quadtree = s->frame->data[3] + ((s->frame->linesize[0]>>1)*(s->frame->height>>1))*3 + 1024 + ctb_addr_rs*12;
 
         more_data = hls_coding_quadtree(s, x_ctb, y_ctb, s->sps->log2_ctb_size, 0, MvDecoder_ctu_quadtree, 0);
         if (more_data < 0) {
@@ -3943,7 +3896,7 @@ static int hevc_frame_start(HEVCContext *s)
     cur_frame = s->sps->sao_enabled ? s->sao_frame : s->frame;
     cur_frame->pict_type = 3 - s->sh.slice_type;
 
-    uint8_t *MvDecoder_metaBuffer = s->frame->data[5];
+    uint8_t *MvDecoder_metaBuffer = s->frame->data[3] + ((s->frame->linesize[0]>>1)*(s->frame->height>>1))*3;
     //MvDecoder: Add magic number at the front of the buffer
     MvDecoder_metaBuffer[0] = 4;
     MvDecoder_metaBuffer[1] = 2;

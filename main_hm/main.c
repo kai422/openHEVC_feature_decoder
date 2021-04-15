@@ -193,10 +193,7 @@ static void video_decode_example(const char *filename)
     openHevcFrameCpy.pvU = NULL;
     openHevcFrameCpy.pvV = NULL;
     //MvDecoder
-    openHevcFrameCpy.pvMVX = NULL;
-    openHevcFrameCpy.pvMVX = NULL;
-    openHevcFrameCpy.pvMeta = NULL;
-    openHevcFrameCpy.pvSize = NULL;
+    openHevcFrameCpy.pvMV = NULL;
 
    
     libOpenHevcSetTemporalLayer_id(openHevcHandle, temporal_layer_id);
@@ -253,35 +250,23 @@ static void video_decode_example(const char *filename)
                             free(openHevcFrameCpy.pvU);
                             free(openHevcFrameCpy.pvV);
                             //MvDecoder
-                            free(openHevcFrameCpy.pvMVX);
-                            free(openHevcFrameCpy.pvMVY);
-                            free(openHevcFrameCpy.pvMeta);
-                            free(openHevcFrameCpy.pvSize);
+                            free(openHevcFrameCpy.pvMV);
                         }
                         openHevcFrameCpy.pvY = calloc (openHevcFrameCpy.frameInfo.nYPitch * openHevcFrameCpy.frameInfo.nHeight, sizeof(unsigned char));
                         openHevcFrameCpy.pvU = calloc (openHevcFrameCpy.frameInfo.nUPitch * openHevcFrameCpy.frameInfo.nHeight >> format, sizeof(unsigned char));
                         openHevcFrameCpy.pvV = calloc (openHevcFrameCpy.frameInfo.nVPitch * openHevcFrameCpy.frameInfo.nHeight >> format, sizeof(unsigned char));
                         //MvDecoder
-                        openHevcFrameCpy.pvMVX = calloc (openHevcFrameCpy.frameInfo.nYPitch * openHevcFrameCpy.frameInfo.nHeight, sizeof(unsigned char));
-                        openHevcFrameCpy.pvMVY = calloc (openHevcFrameCpy.frameInfo.nYPitch * openHevcFrameCpy.frameInfo.nHeight, sizeof(unsigned char));
-                        openHevcFrameCpy.pvMeta = calloc (8192, sizeof(unsigned char));
-                        openHevcFrameCpy.pvSize = calloc (openHevcFrameCpy.frameInfo.nYPitch * openHevcFrameCpy.frameInfo.nHeight, sizeof(unsigned char));
+                        openHevcFrameCpy.pvMV = calloc (openHevcFrameCpy.frameInfo.nYPitch * openHevcFrameCpy.frameInfo.nHeight, sizeof(unsigned char));
                     }
                 }
 
                 if (fout) {
                     int format = openHevcFrameCpy.frameInfo.chromat_format == YUV420 ? 1 : 0;
                     libOpenHevcGetOutputCpy(openHevcHandle, 1, &openHevcFrameCpy);
-                    fwrite( openHevcFrameCpy.pvMeta , sizeof(uint8_t) , 8192, fout);
-
                     fwrite( openHevcFrameCpy.pvY , sizeof(uint8_t) , openHevcFrameCpy.frameInfo.nYPitch * openHevcFrameCpy.frameInfo.nHeight, fout);
                     fwrite( openHevcFrameCpy.pvU , sizeof(uint8_t) , openHevcFrameCpy.frameInfo.nUPitch * openHevcFrameCpy.frameInfo.nHeight >> format, fout);
                     fwrite( openHevcFrameCpy.pvV , sizeof(uint8_t) , openHevcFrameCpy.frameInfo.nVPitch * openHevcFrameCpy.frameInfo.nHeight >> format, fout);
-
-                    fwrite( openHevcFrameCpy.pvMVX , sizeof(uint8_t) , openHevcFrameCpy.frameInfo.nYPitch * openHevcFrameCpy.frameInfo.nHeight, fout);
-                    fwrite( openHevcFrameCpy.pvMVY , sizeof(uint8_t) , openHevcFrameCpy.frameInfo.nYPitch * openHevcFrameCpy.frameInfo.nHeight, fout);
-                    fwrite( openHevcFrameCpy.pvSize , sizeof(uint8_t) , openHevcFrameCpy.frameInfo.nYPitch * openHevcFrameCpy.frameInfo.nHeight, fout);
-
+                    fwrite( openHevcFrameCpy.pvMV , sizeof(uint8_t) , openHevcFrameCpy.frameInfo.nYPitch * openHevcFrameCpy.frameInfo.nHeight, fout);
                 }
                 // save as yuv a single frame.
                 nbFrame++;
