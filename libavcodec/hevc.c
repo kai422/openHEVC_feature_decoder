@@ -1858,10 +1858,7 @@ static void luma_mc_uni(HEVCContext *s, uint8_t *dst, ptrdiff_t dststride,
 static void MvDecoder_write_mv_buffer(HEVCContext *s, uint8_t *dst3_base, int x0, int y0,
                         struct MvField *current_mv, int block_w, int block_h)
 {
-    int pic_width        = s->frame->linesize[0];
-    int pic_height       = s->frame->height;
-
-    int pu_resolution = (pic_height>>2)*(pic_width>>2);
+    int pu_resolution = (s->frame->coded_height>>2)*(s->frame->linesize[0]>>2);
     int pu_linesize = s->frame->linesize[0]>>2;
     int pu_y0 = y0 >> 2;
     int pu_x0 = x0 >> 2;
@@ -1890,6 +1887,7 @@ static void MvDecoder_write_mv_buffer(HEVCContext *s, uint8_t *dst3_base, int x0
             dst_l0_ref += pu_linesize;
         }
     }
+
     else if(current_mv->pred_flag == PF_L1) {
         for (y = 0; y < pu_block_h; y++) {
             for (x = 0; x < pu_block_w; x++) {
@@ -1902,6 +1900,7 @@ static void MvDecoder_write_mv_buffer(HEVCContext *s, uint8_t *dst3_base, int x0
             dst_l1_ref += pu_linesize;
         }
     }
+
     else if(current_mv->pred_flag == PF_BI) {
         for (y = 0; y < pu_block_h; y++) {
             for (x = 0; x < pu_block_w; x++) {
@@ -1920,6 +1919,7 @@ static void MvDecoder_write_mv_buffer(HEVCContext *s, uint8_t *dst3_base, int x0
             dst_l1_ref += pu_linesize;
         }
     }
+
 }
 
 
@@ -1935,11 +1935,8 @@ static void MvDecoder_write_mv_buffer(HEVCContext *s, uint8_t *dst3_base, int x0
  */
 static void MvDecoder_write_size_buffer(HEVCContext *s, int x0, int y0, int log2_cb_size, int cu_byte_size)
 {
-    int pic_width        = s->frame->linesize[0];
-    int pic_height       = s->frame->height;
 
-    int pu_resolution = (pic_height>>2)*(pic_width>>2);
-    //int cu_resolution = (pic_height>>3)*(pic_width>>3);
+    int pu_resolution = (s->frame->coded_height>>2)*(s->frame->linesize[0]>>2);
     int cu_linesize = s->frame->linesize[0]>>3;
     int cu_y0 = y0 >> 3;
     int cu_x0 = x0 >> 3;
@@ -3416,7 +3413,7 @@ static int hls_decode_entry_wpp(AVCodecContext *avctxt, void *input_ctb_row, int
         //For each quadtree, need 1+4+16+64=85 bits to save(including PU partition).
         //85 bits = 11 Bytes < 12 Bytes. Use 12 Bytes/u_int_8/u_char to hold one grid.
         //quadtree data start at 1024 bytes onwards
-        uint8_t *MvDecoder_ctu_quadtree = s->frame->data[3] + ((s->frame->linesize[0]>>1)*(s->frame->height>>1))*3 + 1024 + ctb_addr_rs*12;
+        uint8_t *MvDecoder_ctu_quadtree = s->frame->data[3] + ((s->frame->linesize[0]>>1)*(s->frame->coded_height>>1))*3 + 1024 + ctb_addr_rs*12;
         more_data = hls_coding_quadtree(s, x_ctb, y_ctb, s->sps->log2_ctb_size, 0, MvDecoder_ctu_quadtree, 0);
         if (more_data < 0) {
             s->tab_slice_address[ctb_addr_rs] = -1;
@@ -3505,7 +3502,7 @@ static int hls_decode_entry_wpp_in_tiles(AVCodecContext *avctxt, int *input_ctb_
         //For each quadtree, need 1+4+16+64=85 bits to save(including PU partition).
         //85 bits = 11 Bytes < 12 Bytes. Use 12 Bytes/u_int_8/u_char to hold one grid.
         //quadtree data start at 1024 bytes onwards
-        uint8_t *MvDecoder_ctu_quadtree = s->frame->data[3] + ((s->frame->linesize[0]>>1)*(s->frame->height>>1))*3 + 1024 + ctb_addr_rs*12;
+        uint8_t *MvDecoder_ctu_quadtree = s->frame->data[3] + ((s->frame->linesize[0]>>1)*(s->frame->coded_height>>1))*3 + 1024 + ctb_addr_rs*12;
         more_data = hls_coding_quadtree(s, x_ctb, y_ctb, s->sps->log2_ctb_size, 0, MvDecoder_ctu_quadtree, 0);
         if (more_data < 0) {
             s->tab_slice_address[ctb_addr_rs] = -1;
@@ -3584,7 +3581,7 @@ static int hls_decode_entry_tiles(AVCodecContext *avctxt, int *input_ctb_row, in
         //For each quadtree, need 1+4+16+64=85 bits to save(including PU partition).
         //85 bits = 11 Bytes < 12 Bytes. Use 12 Bytes/u_int_8/u_char to hold one grid.
         //quadtree data start at 1024 bytes onwards
-        uint8_t *MvDecoder_ctu_quadtree = s->frame->data[3] + ((s->frame->linesize[0]>>1)*(s->frame->height>>1))*3 + 1024 + ctb_addr_rs*12;
+        uint8_t *MvDecoder_ctu_quadtree = s->frame->data[3] + ((s->frame->linesize[0]>>1)*(s->frame->coded_height>>1))*3 + 1024 + ctb_addr_rs*12;
 
         more_data = hls_coding_quadtree(s, x_ctb, y_ctb, s->sps->log2_ctb_size, 0, MvDecoder_ctu_quadtree, 0);
         if (more_data < 0) {
@@ -3896,7 +3893,7 @@ static int hevc_frame_start(HEVCContext *s)
     cur_frame = s->sps->sao_enabled ? s->sao_frame : s->frame;
     cur_frame->pict_type = 3 - s->sh.slice_type;
 
-    uint8_t *MvDecoder_metaBuffer = s->frame->data[3] + ((s->frame->linesize[0]>>1)*(s->frame->height>>1))*3;
+    uint8_t *MvDecoder_metaBuffer = s->frame->data[3] + ((s->frame->linesize[0]>>1)*(s->frame->coded_height>>1))*3;
     //MvDecoder: Add magic number at the front of the buffer
     MvDecoder_metaBuffer[0] = 4;
     MvDecoder_metaBuffer[1] = 2;

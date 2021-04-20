@@ -840,3 +840,14 @@ gpac/modules/openhevc_dec/openHevcWrapper.c:406
         //MvDecoder
         memcpy(Meta, openHevcContext->picture->data[10], 8192);
         memset(openHevcContext->picture->data[10],0,8192); // clean the buffer
+
+
+
+
+
+
+
+
+
+
+residual: hevc: 1388 1394
