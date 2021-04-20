@@ -365,6 +365,9 @@ int libOpenHevcGetOutputCpy(OpenHevc_Handle openHevcHandle, int got_picture, Ope
         unsigned char *V = (unsigned char *) openHevcFrame->pvV;
         //MvDecoder
         unsigned char *MV = (unsigned char *) openHevcFrame->pvMV;
+        unsigned char *YR = (unsigned char *) openHevcFrame->pvYR;
+        unsigned char *UR = (unsigned char *) openHevcFrame->pvUR;
+        unsigned char *VR = (unsigned char *) openHevcFrame->pvVR;
 
         int height, format;
         int coded_height;
@@ -474,6 +477,25 @@ int libOpenHevcGetOutputCpy(OpenHevc_Handle openHevcHandle, int got_picture, Ope
         //quadtree
         memcpy(&MV[3 * dst_stride * height>>2], &openHevcContext->picture->data[3][3 * src_stride * coded_height>>2], dst_stride*height>>2);
         memset(&openHevcContext->picture->data[3][0],0, src_stride * coded_height); // clean the buffer
+
+
+
+        y_offset = y_offset2 = 0;
+
+        for (y = 0; y < height; y++) {
+            memcpy(&YR[y_offset2], &openHevcContext->picture->data[4][y_offset], dst_stride);
+            y_offset  += src_stride;
+            y_offset2 += dst_stride;
+        }
+
+        y_offset = y_offset2 = 0;
+
+        for (y = 0; y < height >> format; y++) {
+            memcpy(&UR[y_offset2], &openHevcContext->picture->data[5][y_offset], dst_stride_c);
+            memcpy(&VR[y_offset2], &openHevcContext->picture->data[6][y_offset], dst_stride_c);
+            y_offset  += src_stride_c;
+            y_offset2 += dst_stride_c;
+        }
     }
     return 1;
 }
