@@ -50,7 +50,8 @@ typedef struct FramePool {
      * Pools for each data plane. For audio all the planes have the same size,
      * so only pools[0] is used.
      */
-    AVBufferPool *pools[4];
+    //MvDecoder
+    AVBufferPool *pools[8];
 
     /*
      * Pool parameters

@@ -104,6 +104,10 @@ int av_image_fill_linesizes(int linesizes[8], enum AVPixelFormat pix_fmt, int wi
             return ret;
         linesizes[i] = ret;
     }
+    //MvDecoder:
+    linesizes[4]=linesizes[0];
+    linesizes[5]=linesizes[1];
+    linesizes[6]=linesizes[2];
 
     return 0;
 }
@@ -114,6 +118,7 @@ int av_image_fill_pointers(uint8_t *data[8], enum AVPixelFormat pix_fmt, int hei
     int i, total_size, size[8] = { 0 }, has_plane[8] = { 0 };
 
     const AVPixFmtDescriptor *desc = av_pix_fmt_desc_get(pix_fmt);
+
     //MvDecoder: only support yuv420
 
     memset(data     , 0, sizeof(data[0])*8);
@@ -137,6 +142,11 @@ int av_image_fill_pointers(uint8_t *data[8], enum AVPixelFormat pix_fmt, int hei
     for (i = 0; i < 4; i++)
         has_plane[desc->comp[i].plane] = 1;
 
+    //MvDecoder: Residual Buffer
+    has_plane[4] = 1;
+    has_plane[5] = 1;
+    has_plane[6] = 1;
+
     total_size = size[0];
     for (i = 1; i < 4 && has_plane[i]; i++) {
         int h, s = (i == 1 || i == 2) ? desc->log2_chroma_h : 0;
@@ -149,6 +159,19 @@ int av_image_fill_pointers(uint8_t *data[8], enum AVPixelFormat pix_fmt, int hei
             return AVERROR(EINVAL);
         total_size += size[i];
     }
+
+    //MvDecoder: Residual Buffer
+    size[4]=size[0];
+    size[5]=size[1];
+    size[6]=size[2];
+
+    data[4] = data[3] + size[3];
+    data[5] = data[4] + size[4];
+    data[6] = data[5] + size[5];
+
+    total_size += size[0];
+    total_size += size[1];
+    total_size += size[2];
 
     return total_size;
 }

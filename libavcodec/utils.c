@@ -515,7 +515,7 @@ static int update_frame_pool(AVCodecContext *avctx, AVFrame *frame)
     switch (avctx->codec_type) {
         case AVMEDIA_TYPE_VIDEO: {
             AVPicture picture;
-            int size[4] = { 0 };
+            int size[8] = { 0 };
             int w = frame->width;
             int h = frame->height;
             int tmpsize, unaligned;
@@ -549,11 +549,11 @@ static int update_frame_pool(AVCodecContext *avctx, AVFrame *frame)
                 return -1;
 
             //MvDecoder: mem pool size
-            for (i = 0; i < 3 && picture.data[i + 1]; i++)
+            for (i = 0; i < 7 && picture.data[i + 1]; i++)
                 size[i] = picture.data[i + 1] - picture.data[i];
             size[i] = tmpsize - (picture.data[i] - picture.data[0]);
 
-            for (i = 0; i < 4; i++) {
+            for (i = 0; i < 8; i++) {
                 av_buffer_pool_uninit(&pool->pools[i]);
                 pool->linesize[i] = picture.linesize[i];
                 if (size[i]) {
@@ -675,7 +675,8 @@ static int video_get_buffer(AVCodecContext *s, AVFrame *pic)
 
     av_pix_fmt_get_chroma_sub_sample(s->pix_fmt, &h_chroma_shift, &v_chroma_shift);
 
-    for (i = 0; i < 4 && pool->pools[i]; i++) {
+    //MvDecoder
+    for (i = 0; i < 8 && pool->pools[i]; i++) {
         const int h_shift = i == 0 ? 0 : h_chroma_shift;
         const int v_shift = i == 0 ? 0 : v_chroma_shift;
         int is_planar = pool->pools[2] || (i==0 && s->pix_fmt == AV_PIX_FMT_GRAY8);
@@ -696,7 +697,7 @@ static int video_get_buffer(AVCodecContext *s, AVFrame *pic)
                         (pixel_size * EDGE_WIDTH >> h_shift), pool->stride_align[i]);
         }
     }
-    // Now we have the buffer for mv to fill in at the later stage
+    // MvDecoder: Now we have the buffer for mv to fill in at the later stage
     for (; i < AV_NUM_DATA_POINTERS; i++) {
         pic->data[i] = NULL;
         pic->linesize[i] = 0;
