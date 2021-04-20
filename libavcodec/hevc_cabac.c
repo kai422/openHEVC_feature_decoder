@@ -1406,6 +1406,9 @@ void ff_hevc_hls_residual_coding(HEVCContext *s, int x0, int y0,
     int vshift = s->sps->vshift[c_idx];
     uint8_t *dst = &s->frame->data[c_idx][(y0 >> vshift) * stride +
                                           ((x0 >> hshift) << s->sps->pixel_shift)];
+    //MvDecoder:
+    uint8_t *dst_r = &s->frame->data[c_idx+4][(y0 >> vshift) * stride +
+                                          ((x0 >> hshift) << s->sps->pixel_shift)];
     int16_t *coeffs = lc->tu.coeffs[c_idx > 0];
     uint8_t significant_coeff_group_flag[8][8] = {{0}};
     int explicit_rdpcm_flag = 0;
@@ -1773,7 +1776,7 @@ void ff_hevc_hls_residual_coding(HEVCContext *s, int x0, int y0,
                             last_coeff_abs_level_remaining = coeff_abs_level_remaining_decode_enc(s, c_rice_param, trans_coeff_level);
                         else
                             last_coeff_abs_level_remaining = coeff_abs_level_remaining_decode(s, c_rice_param);
-                            
+
 
                         trans_coeff_level += last_coeff_abs_level_remaining;
                         if (trans_coeff_level > (3 << c_rice_param))
@@ -1949,6 +1952,8 @@ void ff_hevc_hls_residual_coding(HEVCContext *s, int x0, int y0,
     }
     //将IDCT的结果叠加到预测数据上
     s->hevcdsp.transform_add[log2_trafo_size-2](dst, coeffs, stride);
+    //MvDecoder:
+    s->hevcdsp.transform_add[log2_trafo_size-2](dst_r, coeffs, stride);
 }
 /* ff_hevc_hls_residual_coding()前半部分的一大段代码应该是用于解析残差数据的（目前还没有细看），后半部分的代码则用于对残差数据进行DCT变换。
  * 在DCT反变换的时候，调用了如下几种功能的汇编函数：
