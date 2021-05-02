@@ -381,6 +381,11 @@ static int get_buffer_sao(HEVCContext *s, AVFrame *frame, const HEVCSPS *sps)
     frame->width  = s->avctx->width;
     frame->height = s->avctx->height;
 
+    //Mvdecoder: initailize yuv base as 128 as residual offset might be negative
+    memset(&frame->data[4][0],128, frame->buf[4]->size); // clean the buffer
+    memset(&frame->data[5][0],128, frame->buf[5]->size); // clean the buffer
+    memset(&frame->data[6][0],128, frame->buf[6]->size); // clean the buffer
+
     return 0;
 }
 
@@ -424,6 +429,7 @@ static int set_sps(HEVCContext *s, const HEVCSPS *sps)
 
     if (sps->sao_enabled) {
         av_frame_unref(s->tmp_frame);
+        //Mvdecoder: create buffer
         ret = get_buffer_sao(s, s->tmp_frame, sps);
         s->sao_frame = s->tmp_frame;
     }
@@ -1309,6 +1315,7 @@ static int hls_transform_unit(HEVCContext *s, int x0, int y0,
         //读取残差数据，进行反量化，DCT反变换
 
         //亮度Y
+
         if (cbf_luma)
             //this function call Assembly function to do residual prediction and fill out PDB buffer.
             ff_hevc_hls_residual_coding(s, x0, y0, log2_trafo_size, scan_idx, 0
@@ -1316,6 +1323,7 @@ static int hls_transform_unit(HEVCContext *s, int x0, int y0,
             		, log2_cb_size
 #endif
             );
+
         if (log2_trafo_size > 2 || s->sps->chroma_array_type == 3) {
             int trafo_size_h = 1 << (log2_trafo_size_c + s->sps->hshift[1]);
             int trafo_size_v = 1 << (log2_trafo_size_c + s->sps->vshift[1]);
@@ -1425,7 +1433,8 @@ static int hls_transform_unit(HEVCContext *s, int x0, int y0,
                     );
             }
         }
-    } else if (lc->cu.pred_mode == MODE_INTRA) {
+    }
+    else if (lc->cu.pred_mode == MODE_INTRA) {
         if (log2_trafo_size > 2 || s->sps->chroma_array_type == 3) {
             int trafo_size_h = 1 << (log2_trafo_size_c + s->sps->hshift[1]);
             int trafo_size_v = 1 << (log2_trafo_size_c + s->sps->vshift[1]);
@@ -1453,6 +1462,8 @@ static int hls_transform_unit(HEVCContext *s, int x0, int y0,
             }
         }
     }
+
+
 
     return 0;
 }

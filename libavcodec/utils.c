@@ -752,6 +752,7 @@ FF_ENABLE_DEPRECATION_WARNINGS
 
     switch (avctx->codec_type) {
     case AVMEDIA_TYPE_VIDEO:
+        //Mvdecoder: create buffer
         return video_get_buffer(avctx, frame);
     case AVMEDIA_TYPE_AUDIO:
         return audio_get_buffer(avctx, frame);
@@ -1038,7 +1039,7 @@ fail:
     }
 FF_ENABLE_DEPRECATION_WARNINGS
 #endif
-
+    //Mvdecoder: create buffer
     ret = avctx->get_buffer2(avctx, frame, flags);
 
 end:

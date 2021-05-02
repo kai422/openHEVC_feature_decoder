@@ -1943,6 +1943,7 @@ void ff_hevc_hls_residual_coding(HEVCContext *s, int x0, int y0,
 #endif
       }
   }
+
     if (lc->tu.cross_pf) {
         int16_t *coeffs_y = lc->tu.coeffs[0];
 
