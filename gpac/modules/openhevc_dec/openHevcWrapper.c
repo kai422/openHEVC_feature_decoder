@@ -496,12 +496,7 @@ int libOpenHevcGetOutputCpy(OpenHevc_Handle openHevcHandle, int got_picture, Ope
             y_offset  += src_stride_c;
             y_offset2 += dst_stride_c;
         }
-
-        //Mvdecoder: initailize yuv base as 128 as residual offset might be negative
-        memset(&openHevcContext->picture->data[4][0],128, src_stride * height); // clean the buffer
-        memset(&openHevcContext->picture->data[5][0],128, src_stride_c * height >> format); // clean the buffer
-        memset(&openHevcContext->picture->data[6][0],128, src_stride_c * height >> format); // clean the buffer
-    }
+   }
     return 1;
 }
 

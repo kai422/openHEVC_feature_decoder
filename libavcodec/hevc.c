@@ -381,10 +381,6 @@ static int get_buffer_sao(HEVCContext *s, AVFrame *frame, const HEVCSPS *sps)
     frame->width  = s->avctx->width;
     frame->height = s->avctx->height;
 
-    //Mvdecoder: initailize yuv base as 128 as residual offset might be negative
-    memset(&frame->data[4][0],128, frame->buf[4]->size); // clean the buffer
-    memset(&frame->data[5][0],128, frame->buf[5]->size); // clean the buffer
-    memset(&frame->data[6][0],128, frame->buf[6]->size); // clean the buffer
 
     return 0;
 }
@@ -1965,6 +1961,19 @@ static void MvDecoder_write_size_buffer(HEVCContext *s, int x0, int y0, int log2
     }
 }
 
+
+static void MvDecoder_write_residual_initialization(uint8_t* dst, int block_w, int block_h, int linesize)
+{
+    int x, y;
+    //处理x*y个像素
+    for (y = 0; y < block_h; y++) {
+        for (x = 0; x < block_w; x++) {
+            dst[x] = 128;
+        }
+        dst += linesize;
+    }
+}
+
 /**
  * 8.5.3.2.2.2 Chroma sample uniprediction interpolation process
  *
@@ -2175,6 +2184,7 @@ static void hls_prediction_unit(HEVCContext *s, int x0, int y0,
     uint8_t *dst0 = POS(0, x0, y0);
     uint8_t *dst1 = POS(1, x0, y0);
     uint8_t *dst2 = POS(2, x0, y0);
+
     // MvDecoder: get buffer dst pointer.
     uint8_t *MvDecoder_dst3_base = &s->frame->data[3][0];
 
@@ -2602,6 +2612,22 @@ static int hls_coding_unit(HEVCContext *s, int x0, int y0, int log2_cb_size, u_i
     lc->cu.part_mode        = PART_2Nx2N;
     lc->cu.intra_split_flag = 0;
     lc->cu.pcm_flag         = 0;
+
+
+
+    //Mvdecoder: initailize residual yuv base as 128 as residual offset might be negative
+    uint8_t *dst4 = &s->frame->data[4][((y0) >> s->sps->vshift[0]) * s->frame->linesize[0] + \
+                           (((x0) >> s->sps->hshift[0]) << s->sps->pixel_shift)];
+    uint8_t *dst5 = &s->frame->data[5][((y0) >> s->sps->vshift[1]) * s->frame->linesize[1] + \
+                           (((x0) >> s->sps->hshift[1]) << s->sps->pixel_shift)];
+    uint8_t *dst6 = &s->frame->data[6][((y0) >> s->sps->vshift[2]) * s->frame->linesize[2] + \
+                           (((x0) >> s->sps->hshift[2]) << s->sps->pixel_shift)];
+
+    MvDecoder_write_residual_initialization(dst4, cb_size, cb_size, s->frame->linesize[0]);
+    MvDecoder_write_residual_initialization(dst5, cb_size >> s->sps->hshift[1], cb_size >> s->sps->vshift[1], s->frame->linesize[1]);
+    MvDecoder_write_residual_initialization(dst6, cb_size >> s->sps->hshift[1], cb_size >> s->sps->vshift[1], s->frame->linesize[2]);
+
+
 
     //int bytestream_pu;
     //int bytestream_tu;
