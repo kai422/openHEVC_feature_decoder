@@ -105,9 +105,9 @@ int av_image_fill_linesizes(int linesizes[8], enum AVPixelFormat pix_fmt, int wi
         linesizes[i] = ret;
     }
     //MvDecoder:
-    linesizes[4]=linesizes[0];
-    linesizes[5]=linesizes[1];
-    linesizes[6]=linesizes[2];
+    linesizes[4]=linesizes[0] * sizeof(int16_t);
+    linesizes[5]=linesizes[1] * sizeof(int16_t);
+    linesizes[6]=linesizes[2] * sizeof(int16_t);
 
     return 0;
 }
@@ -161,17 +161,17 @@ int av_image_fill_pointers(uint8_t *data[8], enum AVPixelFormat pix_fmt, int hei
     }
 
     //MvDecoder: Residual Buffer
-    size[4]=size[0];
-    size[5]=size[1];
-    size[6]=size[2];
+    size[4]=size[0] * sizeof(int16_t);
+    size[5]=size[1] * sizeof(int16_t);
+    size[6]=size[2] * sizeof(int16_t);
 
     data[4] = data[3] + size[3];
     data[5] = data[4] + size[4];
     data[6] = data[5] + size[5];
 
-    total_size += size[0];
-    total_size += size[1];
-    total_size += size[2];
+    total_size += size[4];
+    total_size += size[5];
+    total_size += size[6];
 
     return total_size;
 }

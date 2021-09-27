@@ -1407,7 +1407,7 @@ void ff_hevc_hls_residual_coding(HEVCContext *s, int x0, int y0,
     uint8_t *dst = &s->frame->data[c_idx][(y0 >> vshift) * stride +
                                           ((x0 >> hshift) << s->sps->pixel_shift)];
     //MvDecoder:
-    uint8_t *dst_r = &s->frame->data[c_idx+4][(y0 >> vshift) * stride +
+    int16_t *dst_r = &((int16_t*)s->frame->data[c_idx+4])[(y0 >> vshift) * stride +
                                               ((x0 >> hshift) << s->sps->pixel_shift)];
     int16_t *coeffs = lc->tu.coeffs[c_idx > 0];
     uint8_t significant_coeff_group_flag[8][8] = {{0}};
