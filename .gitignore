@@ -2,15 +2,15 @@
 .svn
 .DS_Store
 *.o
-
+.idea
 # Build directories
 /build*/
 /cmake-build*/
-
+cmake-build*
 # Eclipse projects files
 .project
 .cproject
-.idea
+
 # QtCreator projects files
 *.user
 *.user.*
