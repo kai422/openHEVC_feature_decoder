@@ -1923,14 +1923,14 @@ void ff_hevc_hls_residual_coding(HEVCContext *s, int x0, int y0,
 #endif
         if (lc->cu.pred_mode == MODE_INTRA && c_idx == 0 && log2_trafo_size == 2) {
             //MvDecoder: add residual before idct to dst_r for dst 4x4 luma.
-            s->hevcdsp.transform_add[log2_trafo_size-2](dst_r, coeffs, stride);
+            s->hevcdsp.transform_get_dct[log2_trafo_size-2](dst_r, coeffs, stride);
             s->hevcdsp.idct_4x4_luma(coeffs);
         } else {
             int max_xy = FFMAX(last_significant_coeff_x, last_significant_coeff_y);
             if (max_xy == 0)
             {
                 //MvDecoder: add residual before idct to dst_r for idct dc.
-                s->hevcdsp.transform_add[log2_trafo_size-2](dst_r, coeffs, stride);
+                s->hevcdsp.transform_get_dct[log2_trafo_size-2](dst_r, coeffs, stride);
                 s->hevcdsp.idct_dc[log2_trafo_size-2](coeffs);
             }
             else {
@@ -1942,7 +1942,7 @@ void ff_hevc_hls_residual_coding(HEVCContext *s, int x0, int y0,
                 else if (max_xy < 12)
                     col_limit = FFMIN(24, col_limit);
                 //MvDecoder: add residual before idct to dst_r for regular idct.
-                s->hevcdsp.transform_add[log2_trafo_size-2](dst_r, coeffs, stride);
+                s->hevcdsp.transform_get_dct[log2_trafo_size-2](dst_r, coeffs, stride);
                 s->hevcdsp.idct[log2_trafo_size-2](coeffs, col_limit);
             }
 #if COM16_C806_EMT

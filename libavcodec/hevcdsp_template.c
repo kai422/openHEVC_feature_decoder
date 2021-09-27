@@ -110,6 +110,75 @@ static void FUNC(transform_add32x32)(uint8_t *_dst, int16_t *coeffs,
     }
 }
 
+static void FUNC(transform_get_dct4x4)(int16_t *_dst, int16_t *coeffs,
+                                   ptrdiff_t stride)
+{
+    int x, y;
+    pixel *dst = (pixel *)_dst;
+
+    stride /= sizeof(pixel);
+
+    for (y = 0; y < 4; y++) {
+        for (x = 0; x < 4; x++) {
+            dst[x] = *coeffs;
+            coeffs++;
+        }
+        dst += stride;
+    }
+}
+
+static void FUNC(transform_get_dct8x8)(int16_t *_dst, int16_t *coeffs,
+                                   ptrdiff_t stride)
+{
+    int x, y;
+    pixel *dst = (pixel *)_dst;
+
+    stride /= sizeof(pixel);
+
+    for (y = 0; y < 8; y++) {
+        for (x = 0; x < 8; x++) {
+            dst[x] = *coeffs;
+            coeffs++;
+        }
+        dst += stride;
+    }
+}
+
+static void FUNC(transform_get_dct16x16)(int16_t *_dst, int16_t *coeffs,
+                                     ptrdiff_t stride)
+{
+    int x, y;
+    pixel *dst = (pixel *)_dst;
+
+    stride /= sizeof(pixel);
+
+    for (y = 0; y < 16; y++) {
+        for (x = 0; x < 16; x++) {
+            dst[x] = *coeffs;
+            coeffs++;
+        }
+        dst += stride;
+    }
+}
+
+static void FUNC(transform_get_dct32x32)(int16_t *_dst, int16_t *coeffs,
+                                     ptrdiff_t stride)
+{
+    int x, y;
+    pixel *dst = (pixel *)_dst;
+
+    stride /= sizeof(pixel);
+
+    for (y = 0; y < 32; y++) {
+        for (x = 0; x < 32; x++) {
+            dst[x] = *coeffs;
+            coeffs++;
+        }
+        dst += stride;
+    }
+}
+
+
 
 static void FUNC(transform_rdpcm)(int16_t *_coeffs, int16_t log2_size, int mode)
 {

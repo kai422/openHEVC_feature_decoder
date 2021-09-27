@@ -47,6 +47,8 @@ typedef struct HEVCDSPContext {
 
     void (*transform_add[4])(uint8_t *_dst, int16_t *coeffs, ptrdiff_t _stride);
 
+    void (*transform_get_dct[4])(int16_t *_dst, int16_t *coeffs, ptrdiff_t _stride);
+
     void (*transform_skip)(int16_t *coeffs, int16_t log2_size);
 
     void (*transform_rdpcm)(int16_t *coeffs, int16_t log2_size, int mode);
