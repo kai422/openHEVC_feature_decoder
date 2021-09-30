@@ -365,9 +365,9 @@ int libOpenHevcGetOutputCpy(OpenHevc_Handle openHevcHandle, int got_picture, Ope
         unsigned char *V = (unsigned char *) openHevcFrame->pvV;
         //MvDecoder
         unsigned char *MV = (unsigned char *) openHevcFrame->pvMV;
-        unsigned char *YR = (short *) openHevcFrame->pvYR;
-        unsigned char *UR = (short *) openHevcFrame->pvUR;
-        unsigned char *VR = (short *) openHevcFrame->pvVR;
+        unsigned char *YR = (unsigned char *) openHevcFrame->pvYR;
+        unsigned char *UR = (unsigned char *) openHevcFrame->pvUR;
+        unsigned char *VR = (unsigned char *) openHevcFrame->pvVR;
 
         int height, format;
         int coded_height;
@@ -481,20 +481,25 @@ int libOpenHevcGetOutputCpy(OpenHevc_Handle openHevcHandle, int got_picture, Ope
 
 
         y_offset = y_offset2 = 0;
+        int src_stride_int16_t = src_stride << 1;
+        int dst_stride_int16_t = dst_stride << 1;
 
         for (y = 0; y < height; y++) {
-            memcpy(&YR[y_offset2], &((int16_t*)openHevcContext->picture->data[4])[y_offset], dst_stride);
-            y_offset  += src_stride;
-            y_offset2 += dst_stride;
+            memcpy(&YR[y_offset2], &(openHevcContext->picture->data[4])[y_offset], dst_stride_int16_t);
+            y_offset  += src_stride_int16_t;
+            y_offset2 += dst_stride_int16_t;
         }
 
         y_offset = y_offset2 = 0;
 
+        int src_stride_int16_t_c = src_stride << 1;
+        int dst_stride_int16_t_c = dst_stride << 1;
+
         for (y = 0; y < height >> format; y++) {
-            memcpy(&UR[y_offset2], &((int16_t*)openHevcContext->picture->data[5])[y_offset], dst_stride_c);
-            memcpy(&VR[y_offset2], &((int16_t*)openHevcContext->picture->data[6])[y_offset], dst_stride_c);
-            y_offset  += src_stride_c;
-            y_offset2 += dst_stride_c;
+            memcpy(&UR[y_offset2], &(openHevcContext->picture->data[5])[y_offset], dst_stride_int16_t_c);
+            memcpy(&VR[y_offset2], &(openHevcContext->picture->data[6])[y_offset], dst_stride_int16_t_c);
+            y_offset  += src_stride_int16_t_c;
+            y_offset2 += dst_stride_int16_t_c;
         }
    }
     return 1;

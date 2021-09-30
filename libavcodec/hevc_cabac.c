@@ -1402,6 +1402,7 @@ void ff_hevc_hls_residual_coding(HEVCContext *s, int x0, int y0,
     const uint8_t *scan_x_cg, *scan_y_cg, *scan_x_off, *scan_y_off;
 
     ptrdiff_t stride = s->frame->linesize[c_idx];
+
     int hshift = s->sps->hshift[c_idx];
     int vshift = s->sps->vshift[c_idx];
     uint8_t *dst = &s->frame->data[c_idx][(y0 >> vshift) * stride +
