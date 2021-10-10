@@ -110,6 +110,63 @@ static void FUNC(transform_add32x32)(uint8_t *_dst, int16_t *coeffs,
     }
 }
 
+static void FUNC(transform_get_dct4x4)(int16_t *dst, int16_t *coeffs,
+                                   ptrdiff_t stride)
+{
+    int x, y;
+
+    for (y = 0; y < 4; y++) {
+        for (x = 0; x < 4; x++) {
+            dst[x] = *coeffs;
+            coeffs++;
+        }
+        dst += stride;
+    }
+}
+
+static void FUNC(transform_get_dct8x8)(int16_t *dst, int16_t *coeffs,
+                                   ptrdiff_t stride)
+{
+    int x, y;
+
+    for (y = 0; y < 8; y++) {
+        for (x = 0; x < 8; x++) {
+            dst[x] = *coeffs;
+            coeffs++;
+        }
+        dst += stride;
+    }
+}
+
+static void FUNC(transform_get_dct16x16)(int16_t *dst, int16_t *coeffs,
+                                     ptrdiff_t stride)
+{
+    int x, y;
+
+    for (y = 0; y < 16; y++) {
+        for (x = 0; x < 16; x++) {
+            dst[x] = *coeffs;
+            coeffs++;
+        }
+        dst += stride;
+    }
+}
+
+static void FUNC(transform_get_dct32x32)(int16_t *dst, int16_t *coeffs,
+                                     ptrdiff_t stride)
+{
+    int x, y;
+
+    for (y = 0; y < 32; y++) {
+        for (x = 0; x < 32; x++) {
+            dst[x] = *coeffs;
+            coeffs++;
+        }
+        dst += stride;
+    }
+}
+
+
 
 static void FUNC(transform_rdpcm)(int16_t *_coeffs, int16_t log2_size, int mode)
 {
@@ -276,6 +333,8 @@ static void FUNC(transform_4x4_luma)(int16_t *coeffs)
 #define IDCT_VAR16(H)   IDCT_VAR8(H)
 #define IDCT_VAR32(H)   IDCT_VAR8(H)
 
+
+
 #define IDCT(H)                                                              \
 static void FUNC(idct_##H ##x ##H )(                                         \
                    int16_t *coeffs, int col_limit) {                         \
@@ -299,6 +358,8 @@ static void FUNC(idct_##H ##x ##H )(                                         \
         coeffs += H;                                                         \
     }                                                                        \
 }
+
+
 
 #define IDCT_DC(H)                                                           \
 static void FUNC(idct_##H ##x ##H ##_dc)(                                    \
@@ -324,6 +385,18 @@ IDCT_DC( 4)
 IDCT_DC( 8)
 IDCT_DC(16)
 IDCT_DC(32)
+
+#define   PRINT_MACRO_HELPER(x)   #x
+#define   PRINT_MACRO(x)   #x"="PRINT_MACRO_HELPER(x)
+
+#pragma message(PRINT_MACRO((IDCT(4))))
+#pragma message(PRINT_MACRO((IDCT(8))))
+#pragma message(PRINT_MACRO((IDCT(16))))
+#pragma message(PRINT_MACRO((IDCT(32))))
+#pragma message(PRINT_MACRO((IDCT_DC(4))))
+#pragma message(PRINT_MACRO((IDCT_DC(8))))
+#pragma message(PRINT_MACRO((IDCT_DC(16))))
+#pragma message(PRINT_MACRO((IDCT_DC(32))))
 
 #undef TR_4
 #undef TR_8

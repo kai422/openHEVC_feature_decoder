@@ -481,20 +481,25 @@ int libOpenHevcGetOutputCpy(OpenHevc_Handle openHevcHandle, int got_picture, Ope
 
 
         y_offset = y_offset2 = 0;
+        int src_stride_int16_t = src_stride << 1;
+        int dst_stride_int16_t = dst_stride << 1;
 
         for (y = 0; y < height; y++) {
-            memcpy(&YR[y_offset2], &openHevcContext->picture->data[4][y_offset], dst_stride);
-            y_offset  += src_stride;
-            y_offset2 += dst_stride;
+            memcpy(&YR[y_offset2], &(openHevcContext->picture->data[4])[y_offset], dst_stride_int16_t);
+            y_offset  += src_stride_int16_t;
+            y_offset2 += dst_stride_int16_t;
         }
 
         y_offset = y_offset2 = 0;
 
+        int src_stride_int16_t_c = src_stride << 1;
+        int dst_stride_int16_t_c = dst_stride << 1;
+
         for (y = 0; y < height >> format; y++) {
-            memcpy(&UR[y_offset2], &openHevcContext->picture->data[5][y_offset], dst_stride_c);
-            memcpy(&VR[y_offset2], &openHevcContext->picture->data[6][y_offset], dst_stride_c);
-            y_offset  += src_stride_c;
-            y_offset2 += dst_stride_c;
+            memcpy(&UR[y_offset2], &(openHevcContext->picture->data[5])[y_offset], dst_stride_int16_t_c);
+            memcpy(&VR[y_offset2], &(openHevcContext->picture->data[6])[y_offset], dst_stride_int16_t_c);
+            y_offset  += src_stride_int16_t_c;
+            y_offset2 += dst_stride_int16_t_c;
         }
    }
     return 1;

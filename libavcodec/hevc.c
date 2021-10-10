@@ -420,7 +420,7 @@ static int set_sps(HEVCContext *s, const HEVCSPS *sps)
     }
 
     ff_hevc_pred_init(&s->hpc,     sps->bit_depth);
-    ff_hevc_dsp_init (&s->hevcdsp, sps->bit_depth);
+    ff_hevc_dsp_init (&s->hevcdsp, sps->bit_depth); //MvDecoder: init dsp for residual decoding.
     ff_videodsp_init (&s->vdsp,    sps->bit_depth);
 
     if (sps->sao_enabled) {
@@ -1207,7 +1207,8 @@ static int hls_transform_unit(HEVCContext *s, int x0, int y0,
                               int xBase, int yBase, int cb_xBase, int cb_yBase,
                               int log2_cb_size, int log2_trafo_size,
                               int trafo_depth, int blk_idx,
-                              int cbf_luma, int *cbf_cb, int *cbf_cr)
+                              int cbf_luma, int *cbf_cb, int *cbf_cr,
+                              uint8_t *MvDecoder_ctu_quadtree, int MvDecoder_quadtree_bit_idx, int tu_block_type_indicator_offset)
 {
     HEVCLocalContext *lc = s->HEVClc;
     const int log2_trafo_size_c = log2_trafo_size - s->sps->hshift[1];
@@ -1217,25 +1218,7 @@ static int hls_transform_unit(HEVCContext *s, int x0, int y0,
         int trafo_size = 1 << log2_trafo_size;
         ff_hevc_set_neighbour_available(s, x0, y0, trafo_size, trafo_size);
 
-
-        //注意：帧内预测也是在这里完成
-        //帧内预测
-        //log2_trafo_size为当前TU大小取log2()之后的值
-        //hls_transform_unit()会调用HEVCPredContext的intra_pred[]()汇编函数进行帧内预测；然后不论帧内预测还是帧间CU都会调用ff_hevc_hls_residual_coding()解码残差数据，并叠加在预测数据上。
         s->hpc.intra_pred[log2_trafo_size - 2](s, x0, y0, 0); //this function call Assembly function to do intra prediction and fill out PDB buffer.
-        /*hpc->intra_pred[0]   = intra_pred_2_8;
-        hpc->intra_pred[1]   = intra_pred_3_8;
-        hpc->intra_pred[2]   = intra_pred_4_8;
-        hpc->intra_pred[3]   = intra_pred_5_8;
-        hpc->pred_planar[0]  = pred_planar_0_8;
-        hpc->pred_planar[1]  = pred_planar_1_8;
-        hpc->pred_planar[2]  = pred_planar_2_8;
-        hpc->pred_planar[3]  = pred_planar_3_8;
-        hpc->pred_dc         = pred_dc_8;
-        hpc->pred_angular[0] = pred_angular_0_8;
-        hpc->pred_angular[1] = pred_angular_1_8;
-        hpc->pred_angular[2] = pred_angular_2_8;
-        hpc->pred_angular[3] = pred_angular_3_8;*/
     }
 
 
@@ -1318,8 +1301,14 @@ static int hls_transform_unit(HEVCContext *s, int x0, int y0,
 #if COM16_C806_EMT
             		, log2_cb_size
 #endif
-            );
+            , MvDecoder_ctu_quadtree + tu_block_type_indicator_offset, MvDecoder_quadtree_bit_idx, tu_block_type_indicator_offset);
+        // MvDecoder_ctu_quadtree + tu_block_type_indicator_offset: luma idct_dc block indicator
+        // MvDecoder_ctu_quadtree + tu_block_type_indicator_offset*2: luma idst_luma_4x4 block indicator
+        // MvDecoder_ctu_quadtree + tu_block_type_indicator_offset*3: cb idct_dc block indicator
+        // MvDecoder_ctu_quadtree + tu_block_type_indicator_offset*4: cr idct_dc block indicator
 
+
+        // MvDecoder_ctu_quadtree[MvDecoder_quadtree_bit_idx / 8] |= (1 << (MvDecoder_quadtree_bit_idx % 8));
         if (log2_trafo_size > 2 || s->sps->chroma_array_type == 3) {
             int trafo_size_h = 1 << (log2_trafo_size_c + s->sps->hshift[1]);
             int trafo_size_v = 1 << (log2_trafo_size_c + s->sps->vshift[1]);
@@ -1343,7 +1332,11 @@ static int hls_transform_unit(HEVCContext *s, int x0, int y0,
 #if COM16_C806_EMT
             		, log2_cb_size
 #endif
-                    );
+                    , MvDecoder_ctu_quadtree + tu_block_type_indicator_offset*3, MvDecoder_quadtree_bit_idx, tu_block_type_indicator_offset);
+                    // MvDecoder_ctu_quadtree + tu_block_type_indicator_offset: luma idct_dc block indicator
+                    // MvDecoder_ctu_quadtree + tu_block_type_indicator_offset*2: luma idst_luma_4x4 block indicator
+                    // MvDecoder_ctu_quadtree + tu_block_type_indicator_offset*3: cb idct_dc block indicator
+                    // MvDecoder_ctu_quadtree + tu_block_type_indicator_offset*4: cr idct_dc block indicator
                 else
                     if (lc->tu.cross_pf) {
                         ptrdiff_t stride = s->frame->linesize[1];
@@ -1379,7 +1372,11 @@ static int hls_transform_unit(HEVCContext *s, int x0, int y0,
 #if COM16_C806_EMT
             		, log2_cb_size
 #endif
-                    );
+                    , MvDecoder_ctu_quadtree + tu_block_type_indicator_offset*4, MvDecoder_quadtree_bit_idx, tu_block_type_indicator_offset);
+                    // MvDecoder_ctu_quadtree + tu_block_type_indicator_offset: luma idct_dc block indicator
+                    // MvDecoder_ctu_quadtree + tu_block_type_indicator_offset*2: luma idst_luma_4x4 block indicator
+                    // MvDecoder_ctu_quadtree + tu_block_type_indicator_offset*3: cb idct_dc block indicator
+                    // MvDecoder_ctu_quadtree + tu_block_type_indicator_offset*4: cr idct_dc block indicator
                 else
                     if (lc->tu.cross_pf) {
                         ptrdiff_t stride = s->frame->linesize[2];
@@ -1412,7 +1409,11 @@ static int hls_transform_unit(HEVCContext *s, int x0, int y0,
 #if COM16_C806_EMT
             		, log2_cb_size
 #endif
-            		);
+                , MvDecoder_ctu_quadtree + tu_block_type_indicator_offset*3, MvDecoder_quadtree_bit_idx, tu_block_type_indicator_offset);
+                // MvDecoder_ctu_quadtree + tu_block_type_indicator_offset: luma idct_dc block indicator
+                // MvDecoder_ctu_quadtree + tu_block_type_indicator_offset*2: luma idst_luma_4x4 block indicator
+                // MvDecoder_ctu_quadtree + tu_block_type_indicator_offset*3: cb idct_dc block indicator
+                // MvDecoder_ctu_quadtree + tu_block_type_indicator_offset*4: cr idct_dc block indicator
             }
             for (i = 0; i < (s->sps->chroma_array_type  ==  2 ? 2 : 1 ); i++ ) {
                 if (lc->cu.pred_mode == MODE_INTRA) {
@@ -1426,7 +1427,11 @@ static int hls_transform_unit(HEVCContext *s, int x0, int y0,
 #if COM16_C806_EMT
             		, log2_cb_size
 #endif
-                    );
+                , MvDecoder_ctu_quadtree + tu_block_type_indicator_offset*4, MvDecoder_quadtree_bit_idx, tu_block_type_indicator_offset);
+                // MvDecoder_ctu_quadtree + tu_block_type_indicator_offset: luma idct_dc block indicator
+                // MvDecoder_ctu_quadtree + tu_block_type_indicator_offset*2: luma idst_luma_4x4 block indicator
+                // MvDecoder_ctu_quadtree + tu_block_type_indicator_offset*3: cb idct_dc block indicator
+                // MvDecoder_ctu_quadtree + tu_block_type_indicator_offset*4: cr idct_dc block indicator
             }
         }
     }
@@ -1486,7 +1491,8 @@ static int hls_transform_tree(HEVCContext *s, int x0, int y0,
                               int xBase, int yBase, int cb_xBase, int cb_yBase,
                               int log2_cb_size, int log2_trafo_size,
                               int trafo_depth, int blk_idx,
-                              const int *base_cbf_cb, const int *base_cbf_cr)
+                              const int *base_cbf_cb, const int *base_cbf_cr,
+                              uint8_t *MvDecoder_ctu_quadtree, int MvDecoder_quadtree_bit_idx, int tu_block_type_indicator_offset)
 {
     HEVCLocalContext *lc = s->HEVClc;
     uint8_t split_transform_flag;
@@ -1561,6 +1567,8 @@ static int hls_transform_tree(HEVCContext *s, int x0, int y0,
 
     //如果当前TU要进行四叉树划分
     if (split_transform_flag) {
+        //MvDecoder set split bit of the tree
+        MvDecoder_ctu_quadtree[MvDecoder_quadtree_bit_idx / 8] |= (1 << (MvDecoder_quadtree_bit_idx % 8));
         const int trafo_size_split = 1 << (log2_trafo_size - 1);
         const int x1 = x0 + trafo_size_split;
         const int y1 = y0 + trafo_size_split;
@@ -1576,7 +1584,10 @@ static int hls_transform_tree(HEVCContext *s, int x0, int y0,
 do {                                                                            \
     ret = hls_transform_tree(s, x, y, x0, y0, cb_xBase, cb_yBase, log2_cb_size, \
                              log2_trafo_size - 1, trafo_depth + 1, idx,         \
-                             cbf_cb, cbf_cr);                                   \
+                             cbf_cb, cbf_cr,                                    \
+                             MvDecoder_ctu_quadtree,                            \
+                             4 * MvDecoder_quadtree_bit_idx + idx,              \
+                             tu_block_type_indicator_offset);             \
     if (ret < 0)                                                                \
         return ret;                                                             \
 } while (0)
@@ -1609,7 +1620,10 @@ do {                                                                            
         //处理TU-帧内预测、DCT反变换
         ret = hls_transform_unit(s, x0, y0, xBase, yBase, cb_xBase, cb_yBase,
                                  log2_cb_size, log2_trafo_size, trafo_depth,
-                                 blk_idx, cbf_luma, cbf_cb, cbf_cr);
+                                 blk_idx, cbf_luma, cbf_cb, cbf_cr,
+                                 MvDecoder_ctu_quadtree,
+                                 MvDecoder_quadtree_bit_idx,
+                                 tu_block_type_indicator_offset);
         if (ret < 0)
             return ret;
         // TODO: store cbf_luma somewhere else
@@ -1962,13 +1976,13 @@ static void MvDecoder_write_size_buffer(HEVCContext *s, int x0, int y0, int log2
 }
 
 
-static void MvDecoder_write_residual_initialization(uint8_t* dst, int block_w, int block_h, int linesize)
+static void MvDecoder_write_residual_initialization(int16_t * dst, int block_w, int block_h, int linesize)
 {
     int x, y;
     //处理x*y个像素
     for (y = 0; y < block_h; y++) {
         for (x = 0; x < block_w; x++) {
-            dst[x] = 128;
+            dst[x] = 0;
         }
         dst += linesize;
     }
@@ -2581,7 +2595,7 @@ static void intra_prediction_unit_default_value(HEVCContext *s,
 
 
 //处理CU单元-真正的解码
-static int hls_coding_unit(HEVCContext *s, int x0, int y0, int log2_cb_size, u_int8_t *MvDecoder_ctu_quadtree, int MvDecoder_quadtree_bit_idx)
+static int hls_coding_unit(HEVCContext *s, int x0, int y0, int log2_cb_size, uint8_t *MvDecoder_ctu_quadtree, int MvDecoder_quadtree_bit_idx, int tu_block_type_indicator_offset)
 {
     /* （1）调用hls_prediction_unit()处理PU。
      * （2）调用hls_transform_tree()处理TU树
@@ -2615,12 +2629,12 @@ static int hls_coding_unit(HEVCContext *s, int x0, int y0, int log2_cb_size, u_i
 
 
 
-    //Mvdecoder: initailize residual yuv base as 128 as residual offset might be negative
-    uint8_t *dst4 = &s->frame->data[4][((y0) >> s->sps->vshift[0]) * s->frame->linesize[0] + \
+    //Mvdecoder: initailize residual dct as 0
+    int16_t *dst4 = &((int16_t*)s->frame->data[4])[((y0) >> s->sps->vshift[0]) * s->frame->linesize[0] + \
                            (((x0) >> s->sps->hshift[0]) << s->sps->pixel_shift)];
-    uint8_t *dst5 = &s->frame->data[5][((y0) >> s->sps->vshift[1]) * s->frame->linesize[1] + \
+    int16_t *dst5 = &((int16_t*)s->frame->data[5])[((y0) >> s->sps->vshift[1]) * s->frame->linesize[1] + \
                            (((x0) >> s->sps->hshift[1]) << s->sps->pixel_shift)];
-    uint8_t *dst6 = &s->frame->data[6][((y0) >> s->sps->vshift[2]) * s->frame->linesize[2] + \
+    int16_t *dst6 = &((int16_t*)s->frame->data[6])[((y0) >> s->sps->vshift[2]) * s->frame->linesize[2] + \
                            (((x0) >> s->sps->hshift[2]) << s->sps->pixel_shift)];
 
     MvDecoder_write_residual_initialization(dst4, cb_size, cb_size, s->frame->linesize[0]);
@@ -2753,7 +2767,6 @@ static int hls_coding_unit(HEVCContext *s, int x0, int y0, int log2_cb_size, u_i
                 //下
                 hls_prediction_unit(s, x0, y0 + cb_size / 2, cb_size, cb_size / 2, log2_cb_size, 1, idx);
 
-                //MvDecoder_ctu_quadtree[MvDecoder_quadtree_bit_idx / 8] |= (1 << (MvDecoder_quadtree_bit_idx % 8));
                 break;
             case PART_Nx2N:
                 /*
@@ -2774,7 +2787,6 @@ static int hls_coding_unit(HEVCContext *s, int x0, int y0, int log2_cb_size, u_i
                 //右
                 hls_prediction_unit(s, x0 + cb_size / 2, y0, cb_size / 2, cb_size, log2_cb_size, 1, idx - 1);
 
-                //MvDecoder_ctu_quadtree[MvDecoder_quadtree_bit_idx / 8] |= (1 << (MvDecoder_quadtree_bit_idx % 8));
                 break;
             case PART_2NxnU:
 
@@ -2797,8 +2809,6 @@ static int hls_coding_unit(HEVCContext *s, int x0, int y0, int log2_cb_size, u_i
                 //下
                 hls_prediction_unit(s, x0, y0 + cb_size / 4, cb_size, cb_size * 3 / 4, log2_cb_size, 1, idx);
 
-
-                //MvDecoder_ctu_quadtree[MvDecoder_quadtree_bit_idx / 8] |= (1 << (MvDecoder_quadtree_bit_idx % 8));
                 break;
             case PART_2NxnD:
                 /*
@@ -2820,8 +2830,6 @@ static int hls_coding_unit(HEVCContext *s, int x0, int y0, int log2_cb_size, u_i
                 //下
                 hls_prediction_unit(s, x0, y0 + cb_size * 3 / 4, cb_size, cb_size     / 4, log2_cb_size, 1, idx);
 
-
-                //MvDecoder_ctu_quadtree[MvDecoder_quadtree_bit_idx / 8] |= (1 << (MvDecoder_quadtree_bit_idx % 8));
                 break;
             case PART_nLx2N:
                 /*
@@ -2843,7 +2851,6 @@ static int hls_coding_unit(HEVCContext *s, int x0, int y0, int log2_cb_size, u_i
                 //右
                 hls_prediction_unit(s, x0 + cb_size / 4, y0, cb_size * 3 / 4, cb_size, log2_cb_size, 1, idx - 2);
 
-                //MvDecoder_ctu_quadtree[MvDecoder_quadtree_bit_idx / 8] |= (1 << (MvDecoder_quadtree_bit_idx % 8));
                 break;
             case PART_nRx2N:
 
@@ -2865,8 +2872,6 @@ static int hls_coding_unit(HEVCContext *s, int x0, int y0, int log2_cb_size, u_i
                 hls_prediction_unit(s, x0,                   y0, cb_size * 3 / 4, cb_size, log2_cb_size, 0, idx - 2);
                 //右
                 hls_prediction_unit(s, x0 + cb_size * 3 / 4, y0, cb_size     / 4, cb_size, log2_cb_size, 1, idx - 2);
-
-                //MvDecoder_ctu_quadtree[MvDecoder_quadtree_bit_idx / 8] |= (1 << (MvDecoder_quadtree_bit_idx % 8));
 
                 break;
             case PART_NxN:
@@ -2890,7 +2895,6 @@ static int hls_coding_unit(HEVCContext *s, int x0, int y0, int log2_cb_size, u_i
                 hls_prediction_unit(s, x0 + cb_size / 2, y0,               cb_size / 2, cb_size / 2, log2_cb_size, 1, idx - 1);
                 hls_prediction_unit(s, x0,               y0 + cb_size / 2, cb_size / 2, cb_size / 2, log2_cb_size, 2, idx - 1);
                 hls_prediction_unit(s, x0 + cb_size / 2, y0 + cb_size / 2, cb_size / 2, cb_size / 2, log2_cb_size, 3, idx - 1);
-                //MvDecoder_ctu_quadtree[MvDecoder_quadtree_bit_idx / 8] |= (1 << (MvDecoder_quadtree_bit_idx % 8));
 
                 break;
             }
@@ -2908,11 +2912,9 @@ static int hls_coding_unit(HEVCContext *s, int x0, int y0, int log2_cb_size, u_i
                                          s->sps->max_transform_hierarchy_depth_intra + lc->cu.intra_split_flag :
                                          s->sps->max_transform_hierarchy_depth_inter;
                 //处理TU四叉树
-                //uint8_t* bytestream_before_tu = lc->cc.bytestream;
                 ret = hls_transform_tree(s, x0, y0, x0, y0, x0, y0,
                                          log2_cb_size,
-                                         log2_cb_size, 0, 0, cbf, cbf);
-                //bytestream_tu = lc->cc.bytestream-bytestream_before_tu;
+                                         log2_cb_size, 0, 0, cbf, cbf, MvDecoder_ctu_quadtree, MvDecoder_quadtree_bit_idx, tu_block_type_indicator_offset);
                 if (ret < 0)
                     return ret;
             } else {
@@ -2962,8 +2964,9 @@ static int hls_coding_unit(HEVCContext *s, int x0, int y0, int log2_cb_size, u_i
  */
 static int hls_coding_quadtree(HEVCContext *s, int x0, int y0,
                                int log2_cb_size, int cb_depth,
-                               u_int8_t *MvDecoder_ctu_quadtree,
-                               int MvDecoder_quadtree_bit_idx)
+                               uint8_t *MvDecoder_ctu_quadtree,
+                               int MvDecoder_quadtree_bit_idx,
+                               int tu_block_type_indicator_offset)
 {
     /*
      * hls_coding_quadtree()完成了CTU解码工作
@@ -3038,23 +3041,23 @@ static int hls_coding_quadtree(HEVCContext *s, int x0, int y0,
         //CU大小减半，log2_cb_size-1
         //深度d加1，cb_depth+1
         //MvDecoder: child bit idx = 4 * MvDecoder_quadtree_grid_idx + 1
-        more_data = hls_coding_quadtree(s, x0, y0, log2_cb_size - 1, cb_depth + 1, MvDecoder_ctu_quadtree, 4 * MvDecoder_quadtree_bit_idx + 1);
+        more_data = hls_coding_quadtree(s, x0, y0, log2_cb_size - 1, cb_depth + 1, MvDecoder_ctu_quadtree, 4 * MvDecoder_quadtree_bit_idx + 1, tu_block_type_indicator_offset);
         if (more_data < 0)
             return more_data;
 
         if (more_data && x1 < s->sps->width) {
-            more_data = hls_coding_quadtree(s, x1, y0, log2_cb_size - 1, cb_depth + 1, MvDecoder_ctu_quadtree, 4 * MvDecoder_quadtree_bit_idx + 2);
+            more_data = hls_coding_quadtree(s, x1, y0, log2_cb_size - 1, cb_depth + 1, MvDecoder_ctu_quadtree, 4 * MvDecoder_quadtree_bit_idx + 2, tu_block_type_indicator_offset);
             if (more_data < 0)
                 return more_data;
         }
         if (more_data && y1 < s->sps->height) {
-            more_data = hls_coding_quadtree(s, x0, y1, log2_cb_size - 1, cb_depth + 1, MvDecoder_ctu_quadtree, 4 * MvDecoder_quadtree_bit_idx + 3);
+            more_data = hls_coding_quadtree(s, x0, y1, log2_cb_size - 1, cb_depth + 1, MvDecoder_ctu_quadtree, 4 * MvDecoder_quadtree_bit_idx + 3, tu_block_type_indicator_offset);
             if (more_data < 0)
                 return more_data;
         }
         if (more_data && x1 < s->sps->width &&
             y1 < s->sps->height) {
-            more_data = hls_coding_quadtree(s, x1, y1, log2_cb_size - 1, cb_depth + 1, MvDecoder_ctu_quadtree, 4 * MvDecoder_quadtree_bit_idx + 4);
+            more_data = hls_coding_quadtree(s, x1, y1, log2_cb_size - 1, cb_depth + 1, MvDecoder_ctu_quadtree, 4 * MvDecoder_quadtree_bit_idx + 4, tu_block_type_indicator_offset);
             if (more_data < 0)
                 return more_data;
         }
@@ -3085,7 +3088,7 @@ static int hls_coding_quadtree(HEVCContext *s, int x0, int y0,
          */
         //注意处理的是不可划分的CU单元
         //处理CU单元-真正的解码
-        ret = hls_coding_unit(s, x0, y0, log2_cb_size, MvDecoder_ctu_quadtree, MvDecoder_quadtree_bit_idx);
+        ret = hls_coding_unit(s, x0, y0, log2_cb_size, MvDecoder_ctu_quadtree, MvDecoder_quadtree_bit_idx, tu_block_type_indicator_offset);
         if (ret < 0)
             return ret;
         if ((!((x0 + cb_size) &
@@ -3219,114 +3222,14 @@ static int hls_decode_entry(AVCodecContext *avctxt, void *isFilterThread)
         s->filter_slice_edges[ctb_addr_rs]  = s->sh.slice_loop_filter_across_slices_enabled_flag;
 
         //MvDecoder: get grid index for the CUT quadtree:
-        //For each quadtree, need 1+4+16+64=85 bits to save(including PU partition).
-        //85 bits = 11 Bytes < 12 Bytes. Use 12 Bytes/u_int_8/u_char to hold one grid.
+        //For each quadtree, need 1(64x64)+4(32x32)+16(16x16)+64(8z8)+256(4x4)=341 bits to save(including PU partition).
+        //341 bits = 43 Bytes < 64 Bytes. Use 64 Bytes/u_int_8/u_char to hold one grid.
         //quadtree data start at 1024 bytes onwards
-        uint8_t *MvDecoder_ctu_quadtree = s->frame->data[3] + ((s->frame->linesize[0]>>1)*(s->frame->height>>1))*3 + 1024 + ctb_addr_rs*12;
-        /*
-         * CU
-         *
-		 * 64x64 block
-		 * depth=0
-		 * when split_flag=1, split to 4 32x32 blocks
-		 *
-		 * +--------+--------+--------+--------+--------+--------+--------+--------+
-		 * |                                                                       |
-		 * |                                   |                                   |
-		 * |                                                                       |
-		 * +                                   |                                   +
-		 * |                                                                       |
-		 * |                                   |                                   |
-		 * |                                                                       |
-		 * +                                   |                                   +
-		 * |                                                                       |
-		 * |                                   |                                   |
-		 * |                                                                       |
-		 * +                                   |                                   +
-		 * |                                                                       |
-		 * |                                   |                                   |
-		 * |                                                                       |
-		 * + --  --  --  --  --  --  --  --  --+ --  --  --  --  --  --  --  --  --+
-		 * |                                   |                                   |
-		 * |                                                                       |
-		 * |                                   |                                   |
-		 * +                                                                       +
-		 * |                                   |                                   |
-		 * |                                                                       |
-		 * |                                   |                                   |
-		 * +                                                                       +
-		 * |                                   |                                   |
-		 * |                                                                       |
-		 * |                                   |                                   |
-		 * +                                                                       +
-		 * |                                   |                                   |
-		 * |                                                                       |
-		 * |                                   |                                   |
-		 * +--------+--------+--------+--------+--------+--------+--------+--------+
-         *
-         *
-         * 32x32 block
-		 * depth=1
-		 * when split_flag=1, split to 4 16x16 blocks
-		 *
-		 * +--------+--------+--------+--------+
-		 * |                                   |
-		 * |                 |                 |
-		 * |                                   |
-		 * +                 |                 +
-		 * |                                   |
-		 * |                 |                 |
-		 * |                                   |
-		 * + --  --  --  --  + --  --  --  --  +
-		 * |                                   |
-		 * |                 |                 |
-		 * |                                   |
-		 * +                 |                 +
-		 * |                                   |
-		 * |                 |                 |
-		 * |                                   |
-		 * +--------+--------+--------+--------+
-         *
-         *
-         *
-         * 16x16 block
-		 * depth=2
-		 * when split_flag=1, split to 4 8x8 blocks
-		 *
-		 * +--------+--------+
-		 * |                 |
-		 * |        |        |
-		 * |                 |
-		 * +  --  --+ --  -- +
-		 * |                 |
-		 * |        |        |
-		 * |                 |
-		 * +--------+--------+
-         *
-         *
-         * 8x8 block
-		 * depth=3
-		 * when split_flag=1, split to 4 4x4 blocks
-         *
-		 * +----+----+
-		 * |    |    |
-		 * + -- + -- +
-		 * |    |    |
-		 * +----+----+
-         *
-         */
-        /*
-         * decode quadtree structure
-         *
-         * in hls_coding_quadtree(HEVCContext *s, int x0, int y0, int log2_cb_size, int cb_depth)：
-         * s：HEVCContext
-         * x_ctb：CB position x
-         * y_ctb：CB position y
-         * log2_cb_size：CB size after take log2
-         * cb_depth：depth
-         */
-
-        more_data = hls_coding_quadtree(s, x_ctb, y_ctb, s->sps->log2_ctb_size, 0, MvDecoder_ctu_quadtree, 0);
+        uint8_t *MvDecoder_ctu_quadtree = s->frame->data[3] + ((s->frame->linesize[0]>>1)*(s->frame->height>>1))*3 + 1024 + ctb_addr_rs*64;
+        int total_byte_qtrees = ceil(s->frame->width / 64.0) * ceil(s->frame->height / 64.0) * 64;
+        // quadtree+total_byte_qtrees: indicator for idct_dc tu blcok
+        // quadtree+2*total_byte_qtrees: indicator for luma_dst_4x4 tu blcok
+        more_data = hls_coding_quadtree(s, x_ctb, y_ctb, s->sps->log2_ctb_size, 0, MvDecoder_ctu_quadtree, 0, total_byte_qtrees);
         if (more_data < 0) {
             s->tab_slice_address[ctb_addr_rs] = -1;
             return more_data;
@@ -3450,8 +3353,11 @@ static int hls_decode_entry_wpp(AVCodecContext *avctxt, void *input_ctb_row, int
         //For each quadtree, need 1+4+16+64=85 bits to save(including PU partition).
         //85 bits = 11 Bytes < 12 Bytes. Use 12 Bytes/u_int_8/u_char to hold one grid.
         //quadtree data start at 1024 bytes onwards
-        uint8_t *MvDecoder_ctu_quadtree = s->frame->data[3] + ((s->frame->linesize[0]>>1)*(s->frame->coded_height>>1))*3 + 1024 + ctb_addr_rs*12;
-        more_data = hls_coding_quadtree(s, x_ctb, y_ctb, s->sps->log2_ctb_size, 0, MvDecoder_ctu_quadtree, 0);
+        uint8_t *MvDecoder_ctu_quadtree = s->frame->data[3] + ((s->frame->linesize[0]>>1)*(s->frame->height>>1))*3 + 1024 + ctb_addr_rs*12;
+        int tu_block_type_indicator_offset = ceil(s->frame->width/64.0) * ceil(s->frame->height/64.0) * 12;
+        // quadtree+tu_block_type_indicator_offset: indicator for idct_dc tu blcok
+        // quadtree+2*tu_block_type_indicator_offset: indicator for luma_dst_4x4 tu blcok
+        more_data = hls_coding_quadtree(s, x_ctb, y_ctb, s->sps->log2_ctb_size, 0, MvDecoder_ctu_quadtree, 0, tu_block_type_indicator_offset);
         if (more_data < 0) {
             s->tab_slice_address[ctb_addr_rs] = -1;
             avpriv_atomic_int_set(&s1->wpp_err,  1);
@@ -3537,10 +3443,13 @@ static int hls_decode_entry_wpp_in_tiles(AVCodecContext *avctxt, int *input_ctb_
 
         //MvDecoder: get grid index for the CUT quadtree:
         //For each quadtree, need 1+4+16+64=85 bits to save(including PU partition).
-        //85 bits = 11 Bytes < 12 Bytes. Use 12 Bytes/u_int_8/u_char to hold one grid.
+        //85 bits = 11 Bytes < 12 Bytes. Use 12 Bytes/uint_8/u_char to hold one grid.
         //quadtree data start at 1024 bytes onwards
-        uint8_t *MvDecoder_ctu_quadtree = s->frame->data[3] + ((s->frame->linesize[0]>>1)*(s->frame->coded_height>>1))*3 + 1024 + ctb_addr_rs*12;
-        more_data = hls_coding_quadtree(s, x_ctb, y_ctb, s->sps->log2_ctb_size, 0, MvDecoder_ctu_quadtree, 0);
+        uint8_t *MvDecoder_ctu_quadtree = s->frame->data[3] + ((s->frame->linesize[0]>>1)*(s->frame->height>>1))*3 + 1024 + ctb_addr_rs*12;
+        int tu_block_type_indicator_offset = ceil(s->frame->width/64.0) * ceil(s->frame->height/64.0) * 12;
+        // quadtree+tu_block_type_indicator_offset: indicator for idct_dc tu blcok
+        // quadtree+2*tu_block_type_indicator_offset: indicator for luma_dst_4x4 tu blcok
+        more_data = hls_coding_quadtree(s, x_ctb, y_ctb, s->sps->log2_ctb_size, 0, MvDecoder_ctu_quadtree, 0, tu_block_type_indicator_offset);
         if (more_data < 0) {
             s->tab_slice_address[ctb_addr_rs] = -1;
             avpriv_atomic_int_set(&s1->wpp_err,  1);
@@ -3618,9 +3527,11 @@ static int hls_decode_entry_tiles(AVCodecContext *avctxt, int *input_ctb_row, in
         //For each quadtree, need 1+4+16+64=85 bits to save(including PU partition).
         //85 bits = 11 Bytes < 12 Bytes. Use 12 Bytes/u_int_8/u_char to hold one grid.
         //quadtree data start at 1024 bytes onwards
-        uint8_t *MvDecoder_ctu_quadtree = s->frame->data[3] + ((s->frame->linesize[0]>>1)*(s->frame->coded_height>>1))*3 + 1024 + ctb_addr_rs*12;
-
-        more_data = hls_coding_quadtree(s, x_ctb, y_ctb, s->sps->log2_ctb_size, 0, MvDecoder_ctu_quadtree, 0);
+        uint8_t *MvDecoder_ctu_quadtree = s->frame->data[3] + ((s->frame->linesize[0]>>1)*(s->frame->height>>1))*3 + 1024 + ctb_addr_rs*12;
+        int tu_block_type_indicator_offset = ceil(s->frame->width/64.0) * ceil(s->frame->height/64.0) * 12;
+        // quadtree+tu_block_type_indicator_offset: indicator for idct_dc tu blcok
+        // quadtree+2*tu_block_type_indicator_offset: indicator for luma_dst_4x4 tu blcok
+        more_data = hls_coding_quadtree(s, x_ctb, y_ctb, s->sps->log2_ctb_size, 0, MvDecoder_ctu_quadtree, 0, tu_block_type_indicator_offset);
         if (more_data < 0) {
             s->tab_slice_address[ctb_addr_rs] = -1;
             return more_data;

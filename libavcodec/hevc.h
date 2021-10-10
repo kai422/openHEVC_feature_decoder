@@ -1477,7 +1477,7 @@ void ff_hevc_hls_residual_coding(HEVCContext *s, int x0, int y0,
 #if COM16_C806_EMT
                                  , int log2_cb_size
 #endif
-);
+        ,u_int8_t *MvDecoder_ctu_quadtree, int MvDecoder_quadtree_bit_idx, int dst_luma4x4_offset);
 
 void ff_hevc_hls_mvd_coding(HEVCContext *s, int x0, int y0, int log2_cb_size);
 

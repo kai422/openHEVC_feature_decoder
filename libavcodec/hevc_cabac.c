@@ -1376,7 +1376,7 @@ void ff_hevc_hls_residual_coding(HEVCContext *s, int x0, int y0,
 #if COM16_C806_EMT
         , int log2_cb_size
 #endif
-)
+                                 ,uint8_t *MvDecoder_ctu_quadtree, int MvDecoder_quadtree_bit_idx, int dst_luma4x4_offset)
 {
 #define GET_COORD(offset, n)                                    \
     do {                                                        \
@@ -1402,12 +1402,13 @@ void ff_hevc_hls_residual_coding(HEVCContext *s, int x0, int y0,
     const uint8_t *scan_x_cg, *scan_y_cg, *scan_x_off, *scan_y_off;
 
     ptrdiff_t stride = s->frame->linesize[c_idx];
+
     int hshift = s->sps->hshift[c_idx];
     int vshift = s->sps->vshift[c_idx];
     uint8_t *dst = &s->frame->data[c_idx][(y0 >> vshift) * stride +
                                           ((x0 >> hshift) << s->sps->pixel_shift)];
     //MvDecoder:
-    uint8_t *dst_r = &s->frame->data[c_idx+4][(y0 >> vshift) * stride +
+    int16_t *dst_r = &((int16_t*)s->frame->data[c_idx+4])[(y0 >> vshift) * stride +
                                               ((x0 >> hshift) << s->sps->pixel_shift)];
     int16_t *coeffs = lc->tu.coeffs[c_idx > 0];
     uint8_t significant_coeff_group_flag[8][8] = {{0}};
@@ -1923,14 +1924,16 @@ void ff_hevc_hls_residual_coding(HEVCContext *s, int x0, int y0,
 #endif
         if (lc->cu.pred_mode == MODE_INTRA && c_idx == 0 && log2_trafo_size == 2) {
             //MvDecoder: add residual before idct to dst_r for dst 4x4 luma.
-            s->hevcdsp.transform_add[log2_trafo_size-2](dst_r, coeffs, stride);
+            MvDecoder_ctu_quadtree[dst_luma4x4_offset + MvDecoder_quadtree_bit_idx / 8] |= (1 << (MvDecoder_quadtree_bit_idx % 8));
+            s->hevcdsp.transform_get_dct[log2_trafo_size-2](dst_r, coeffs, stride);
             s->hevcdsp.idct_4x4_luma(coeffs);
         } else {
             int max_xy = FFMAX(last_significant_coeff_x, last_significant_coeff_y);
             if (max_xy == 0)
             {
                 //MvDecoder: add residual before idct to dst_r for idct dc.
-                s->hevcdsp.transform_add[log2_trafo_size-2](dst_r, coeffs, stride);
+                MvDecoder_ctu_quadtree[MvDecoder_quadtree_bit_idx / 8] |= (1 << (MvDecoder_quadtree_bit_idx % 8));
+                s->hevcdsp.transform_get_dct[log2_trafo_size-2](dst_r, coeffs, stride);
                 s->hevcdsp.idct_dc[log2_trafo_size-2](coeffs);
             }
             else {
@@ -1942,7 +1945,7 @@ void ff_hevc_hls_residual_coding(HEVCContext *s, int x0, int y0,
                 else if (max_xy < 12)
                     col_limit = FFMIN(24, col_limit);
                 //MvDecoder: add residual before idct to dst_r for regular idct.
-                s->hevcdsp.transform_add[log2_trafo_size-2](dst_r, coeffs, stride);
+                s->hevcdsp.transform_get_dct[log2_trafo_size-2](dst_r, coeffs, stride);
                 s->hevcdsp.idct[log2_trafo_size-2](coeffs, col_limit);
             }
 #if COM16_C806_EMT
