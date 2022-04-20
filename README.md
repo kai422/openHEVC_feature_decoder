@@ -1,4 +1,5 @@
-Motion vector and residual decoder based on openHEVC.
+Motion vector and residual decoder based on openHEVC.    
+The accompanying python decoding file is at [CoVOS](https://github.com/kai422/CoVOS/blob/main/lib/hevc_feature_decoder.py)
 
 ### Credit:
 
